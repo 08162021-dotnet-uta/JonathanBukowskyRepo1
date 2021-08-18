@@ -13,7 +13,7 @@ namespace Calculator
             var result2 = Subtract(input1, input2);
 
             // output stuff
-            Console.WriteLine(result1, result2);
+            Print();
         }
 
         static void Add(int input1, int input2)
@@ -25,6 +25,12 @@ namespace Calculator
         {
             // compute stuff
             int compute = (int)input1 - (int)input2; // type inference, casting
+        }
+
+        static void Print()
+        {
+            //output stuff
+            Console.WriteLine(input1, input2);
         }
     }
 }
