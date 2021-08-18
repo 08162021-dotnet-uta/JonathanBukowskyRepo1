@@ -11,26 +11,39 @@ namespace Calculator
             int input2 = int.Parse(Console.ReadLine());
             var result1 = Add(input1, input2);
             var result2 = Subtract(input1, input2);
+            var result3 = Multiply(input1, input2);
+            var result4 = Divide(input1, input2);
 
             // output stuff
-            Print();
+            Print(result1, result2, result3, result4);
         }
 
-        static void Add(int input1, int input2)
+        static int Add(int input1, int input2)
         {
             // compute stuff
-            int compute = (int)input1 + (int)input2; // type inference, casting
+            int compute = input1 + input2; // type inference, casting
+            return compute;
         }
-        static void Subtract(int input1, int input2)
+        static int Subtract(int input1, int input2)
         {
             // compute stuff
-            int compute = (int)input1 - (int)input2; // type inference, casting
+            int compute = input1 - input2; // type inference, casting
+            return compute;
         }
 
-        static void Print()
+        static int Multiply(int input1, int input2)
+        {
+            int compute = input1 * input2;
+            return compute;
+        }
+
+        static void Print(params int[] results)
         {
             //output stuff
-            Console.WriteLine(input1, input2);
+            foreach (int result in results)
+            {
+                Console.WriteLine(result);
+            }
         }
     }
 }
