@@ -9,11 +9,11 @@ namespace Calculator
             // input stuff
             int input1 = int.Parse(Console.ReadLine()); // type inference, parsing
             int input2 = int.Parse(Console.ReadLine());
-            Add(input1, input2);
-            Subtract(input1, input2);
+            var result1 = Add(input1, input2);
+            var result2 = Subtract(input1, input2);
 
             // output stuff
-            Console.WriteLine(compute);
+            Console.WriteLine(result1, result2);
         }
 
         static void Add(int input1, int input2)
