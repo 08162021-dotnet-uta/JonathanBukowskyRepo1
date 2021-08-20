@@ -1,6 +1,6 @@
 namespace Project0.StoreApplication.Domain.Models
 {
-    class Order
+    public class Order
     {
         public Customer Customer { get; set; }
         public Product Product { get; set; }

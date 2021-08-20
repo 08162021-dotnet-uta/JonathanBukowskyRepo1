@@ -1,6 +1,6 @@
 namespace Project0.StoreApplication.Domain.Models
 {
-    class Product
+    public class Product
     {
 
     }
