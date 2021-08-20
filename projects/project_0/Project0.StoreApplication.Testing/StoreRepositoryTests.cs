@@ -21,5 +21,27 @@ namespace Project0.StoreApplication.Testing
             // assert = condition by which test succeeds/fails
             Assert.NotNull(actual);
         }
+
+        [Theory]
+        [InlineData(0)]
+        [InlineData(1)]
+        [InlineData(2)]
+        public void Test_OneStore(int i)
+        {
+            var sut = new StoreRepository();
+            var store = sut.GetStore(i);
+            Assert.NotNull(store);
+        }
+
+        [Theory]
+        [InlineData(10)]
+        [InlineData(-1)]
+        [InlineData(4)]
+        public void Test_OneStoreInvalid(int i)
+        {
+            var sut = new StoreRepository();
+            var store = sut.GetStore(i);
+            Assert.Null(store);
+        }
     }
 }

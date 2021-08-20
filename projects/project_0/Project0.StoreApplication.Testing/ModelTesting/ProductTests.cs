@@ -3,17 +3,18 @@ using Project0.StoreApplication.Domain.Models;
 
 namespace Project0.StoreApplication.Testing
 {
-    public class CustomerTests
+    public class ProductTests
     {
         [Fact]
-        public void Test_PastPurchases()
+        public void Test_ProductCreation()
         {
+            // TODO: add more here to test memers and stuff
             // arrange = get instance of the entity to test
             // "sut" - subject under test
-            var sut = new Customer();
+            var sut = new Product();
 
             // act = execute sut for data
-            var actual = sut.Purchases;
+            var actual = sut;
 
             // assert = condition by which test succeeds/fails
             Assert.NotNull(actual);
