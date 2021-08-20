@@ -4,7 +4,12 @@ namespace Project0.StoreApplication.Domain.Models
 {
     public class Store
     {
-        public string Name { get; set; }
+
+        public Store(string name)
+        {
+            Name = name;
+        }
+        public string Name { get; private set; }
 
         public override string ToString()
         {

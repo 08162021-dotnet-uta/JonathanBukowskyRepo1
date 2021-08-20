@@ -8,12 +8,12 @@ namespace Project0.StoreApplication.Testing.ModelTesting
         [Fact]
         public void Test_OrderCreation()
         {
-            var store = new Store() { Name = "Fred's Pizza" };
+            var store = new Store("Fred's Pizza");
             var cust = new Customer();
             var prod = new Product();
 
             // TODO: create an order in a way that makes sense
-            var sut = new Order();
+            var sut = new Order(cust, prod, store);
 
             Assert.True(sut.Customer == cust);
             Assert.True(sut.Product == prod);

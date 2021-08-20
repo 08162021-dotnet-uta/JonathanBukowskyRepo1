@@ -9,9 +9,9 @@ namespace Project0.StoreApplication.Storage.Repositories
         public StoreRepository()
         {
             Stores = new List<Store> {
-                new Store() { Name = "Store001" },
-                new Store() { Name = "Store002" },
-                new Store() { Name = "Store003" }
+                new Store("Store001"),
+                new Store("Store002"),
+                new Store("Store003")
             };
         }
         public List<Store> Stores { get; set; }
