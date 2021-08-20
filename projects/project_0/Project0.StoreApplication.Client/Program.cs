@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Serilog;
 using Project0.StoreApplication.Domain.Models;
 using Project0.StoreApplication.Domain.Abstracts;
 using Project0.StoreApplication.Storage.Repositories;
@@ -8,8 +9,37 @@ using static Project0.StoreApplication.Client.StaticMenu;
 
 namespace Project0.StoreApplication.Client
 {
+    /* TODO: use action enum?
+                "1 - Select store\n" +
+                "2 - View products\n" + // remove from list if store is selected?
+                "3 - Purchase product\n" +
+                "4 - View purchase history\n" +
+                "5 - Quit program\n";
+    internal enum Action
+    {
+        SelectStore = 1,
+        ViewProducts,
+        PurchaseProduct,
+        ViewPurchaseHistory,
+        Quit
+    }
+                */
     class Program
     {
+        public Program()
+        {
+            // logging levels:
+            // verbose
+            // debug
+            // info
+            // warn
+            // error
+            // fatal
+            Log.Logger = new LoggerConfiguration()
+                                            .WriteTo.Console()
+                                            .CreateLogger();
+        }
+
         static void Main(string[] args)
         {
             Program p = new Program();
@@ -18,21 +48,25 @@ namespace Project0.StoreApplication.Client
 
         void run()
         {
+            Log.Information("Starting program");
             int loginType = SelectFromMenu(LoginMenu);
             if (loginType == 3)
             {
                 return;
             }
+            Log.Debug("Selected login type {}", loginType);
             int action;
             Store selectedStore = null;
             do
             {
                 action = SelectFromMenu(MainMenu);
+                Log.Debug("Selected main menu action {0}", action);
                 switch (action)
                 {
                     case 1:
                         //"1 - Select store\n"
                         selectedStore = SelectAStore();
+                        Log.Debug("User selected store {0}", selectedStore);
                         Console.WriteLine("Selected store " + selectedStore);
                         break;
                     case 2:
@@ -64,7 +98,7 @@ namespace Project0.StoreApplication.Client
             } while (action != 5);
             //PrintAllStoreLocations();
             //Store s = SelectAStore();
-
+            Log.Information("End of program");
         }
 
         void ViewProducts()
