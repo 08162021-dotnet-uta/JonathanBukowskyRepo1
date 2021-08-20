@@ -1,15 +1,14 @@
 using System;
 
-namespace Project0.StoreApplication.Domain.Models
+namespace Project0.StoreApplication.Domain.Abstracts
 {
-    public class Store
+    public abstract class Store
     {
-
         public Store(string name)
         {
             Name = name;
         }
-        public string Name { get; private set; }
+        public string Name { get; protected set; }
 
         public override string ToString()
         {

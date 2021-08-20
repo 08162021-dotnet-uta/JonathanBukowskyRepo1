@@ -23,7 +23,7 @@ namespace Project0.StoreApplication.Testing.ModelTesting
         public void Test_SetLocation()
         {
             var sut = new Customer();
-            var store = new Store("Fred's Pizza");
+            var store = new GroceryStore("Fred's Pizza");
 
             sut.SelectedStore = store;
             Assert.True(sut.SelectedStore == store);

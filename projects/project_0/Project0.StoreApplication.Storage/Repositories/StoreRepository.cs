@@ -1,6 +1,7 @@
 
 using System.Collections.Generic;
 using Project0.StoreApplication.Domain.Models;
+using Project0.StoreApplication.Domain.Abstracts;
 
 namespace Project0.StoreApplication.Storage.Repositories
 {
@@ -9,9 +10,9 @@ namespace Project0.StoreApplication.Storage.Repositories
         public StoreRepository()
         {
             Stores = new List<Store> {
-                new Store("Store001"),
-                new Store("Store002"),
-                new Store("Store003")
+                new GroceryStore("Store001"),
+                new GroceryStore("Store002"),
+                new GroceryStore("Store003")
             };
         }
         public List<Store> Stores { get; set; }

@@ -8,7 +8,7 @@ namespace Project0.StoreApplication.Testing.ModelTesting
         [Fact]
         public void Test_OrderCreation()
         {
-            var store = new Store("Fred's Pizza");
+            var store = new GroceryStore("Fred's Pizza");
             var cust = new Customer();
             var prod = new Product();
 
