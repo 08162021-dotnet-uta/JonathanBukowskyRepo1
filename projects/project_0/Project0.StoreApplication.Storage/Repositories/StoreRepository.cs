@@ -10,9 +10,10 @@ namespace Project0.StoreApplication.Storage.Repositories
     {
         public StoreRepository()
         {
+            LoadStores();
             try
             {
-                LoadStores();
+                //LoadStores();
             }
             catch
             {
@@ -38,14 +39,14 @@ namespace Project0.StoreApplication.Storage.Repositories
 
         public void SaveStores()
         {
-            var adapter = new FileAdapter();
-            adapter.WriteToFile(Stores);
+            Adapter adapter = new XmlFileAdapter();
+            adapter.Save(Stores);
         }
 
         public void LoadStores()
         {
-            var adapter = new FileAdapter();
-            Stores = adapter.ReadFromFile();
+            Adapter adapter = new XmlFileAdapter();
+            Stores = adapter.LoadStores();
         }
 
         public Store GetStore(int index)

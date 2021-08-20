@@ -44,6 +44,16 @@ namespace Project0.StoreApplication.Client
         {
             Program p = new Program();
             p.run();
+            //Playground();
+        }
+
+        // a little temporary function for me to test stuff in main without running app
+        static void Playground()
+        {
+            Product p1 = new Product();
+            Object p2 = new Product();
+            Console.WriteLine(p1 is Product);
+            Console.WriteLine(p2 is Product);
         }
 
         void run()
