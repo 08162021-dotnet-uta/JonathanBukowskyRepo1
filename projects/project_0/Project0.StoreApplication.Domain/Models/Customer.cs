@@ -10,5 +10,6 @@ namespace Project0.StoreApplication.Domain.Models
             Purchases = new();
         }
         public List<Order> Purchases { get; }
+        public Store SelectedStore { get; set; }
     }
 }
