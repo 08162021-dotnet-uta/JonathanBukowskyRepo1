@@ -1,5 +1,6 @@
 using Xunit;
 using Project0.StoreApplication.Domain.Models;
+using System.Collections.Generic;
 
 namespace Project0.StoreApplication.Testing.ModelTesting
 {
@@ -10,13 +11,13 @@ namespace Project0.StoreApplication.Testing.ModelTesting
         {
             var store = new GroceryStore("Fred's Pizza");
             var cust = new Customer();
-            var prod = new Product();
+            var prods = new List<Product>() { new Product() };
 
             // TODO: create an order in a way that makes sense
-            var sut = new Order(cust, prod, store);
+            var sut = new Order() { Customer = cust, Products = prods, Store = store };
 
             Assert.True(sut.Customer == cust);
-            Assert.True(sut.Product == prod);
+            Assert.True(sut.Products == prods);
             Assert.True(sut.Store == store);
         }
     }
