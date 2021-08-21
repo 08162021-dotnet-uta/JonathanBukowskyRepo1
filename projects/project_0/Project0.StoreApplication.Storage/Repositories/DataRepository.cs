@@ -1,6 +1,5 @@
 
 using System.Collections.Generic;
-using Project0.StoreApplication.Domain.Models;
 using Project0.StoreApplication.Storage.Adapters;
 
 namespace Project0.StoreApplication.Storage.Repositories
@@ -8,17 +7,13 @@ namespace Project0.StoreApplication.Storage.Repositories
     public abstract class DataRepository<T> : Repository
     {
         protected abstract string GetDataFile();
-        // this is hacky, but could provide a default data file if we want
+        // this is hacky, but could provide a default data file if we don't
+        //      want to have to keep subclassing DataRepository for each new data type
         // protected static string dataFile = dataDir + (typeof(T).Name.ToLower()) + "s.xml";
-        /*
-        {
-            if (_repo == null) { _repo = new DataRepository<T>(); }
-            return _repo;
-        }
-        */
 
         protected void Load()
         {
+            // TODO: create file if doesn't exist
             Adapter adapter = new XmlFileAdapter();
             Data = adapter.LoadAll<T>(GetDataFile());
         }

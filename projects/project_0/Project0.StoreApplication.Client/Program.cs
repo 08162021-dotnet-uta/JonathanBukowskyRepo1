@@ -114,7 +114,15 @@ namespace Project0.StoreApplication.Client
         void ViewProducts()
         {
             // TODO: Implement me
-            Console.WriteLine("no products");
+            var products = ProductRepository.Factory().Products;
+            foreach (var product in products)
+            {
+                Console.WriteLine(product);
+            }
+            if (products.Count == 0)
+            {
+                Console.WriteLine("No products found");
+            }
         }
 
         void ViewPurchaseHistory()
