@@ -14,14 +14,13 @@ namespace Project0.StoreApplication.Client.Views
     {
         SELECT_STORE = 1,
         SELECT_PRODUCT,
-
+        PURCHASE_PRODUCT,
     }
     public class CustomerView : View
     {
-        public override void run()
+        public override View run(Context context)
         {
-            Store selectedStore = null;
-            List<Product> selectedProducts = null;
+            Log.Debug("Inside CustomerView");
             do
             {
                 Action action = (Action)SelectFromMenu(MainMenu);
@@ -30,15 +29,15 @@ namespace Project0.StoreApplication.Client.Views
                 {
                     case Action.SELECT_STORE:
                         //"1 - Select store\n"
-                        selectedStore = SelectAStore();
-                        Log.Debug("User selected store {0}", selectedStore);
-                        Console.WriteLine("Selected store " + selectedStore);
+                        context.SelectedStore = SelectAStore();
+                        Log.Debug("User selected store {0}", context.SelectedStore);
+                        Console.WriteLine("Selected store " + context.SelectedStore);
                         break;
                     case Action.SELECT_PRODUCT:
                         //"2 - Select products\n"
                         SelectAProduct();
                         break;
-                    case Action.:
+                    case Action.PURCHASE_PRODUCT:
                         //"3 - Purchase product\n"
                         Product p = PurchaseAProduct();
                         if (p != null)
@@ -61,7 +60,7 @@ namespace Project0.StoreApplication.Client.Views
                         break;
                 }
             } while (action != 5);
-
+            return null;
         }
 
         Store SelectAStore()
