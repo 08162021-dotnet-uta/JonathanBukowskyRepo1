@@ -20,10 +20,11 @@ namespace Project0.StoreApplication.Client.Views
     }
     public class CustomerView : View
     {
+        internal const int NUM_ACTIONS = 5;
         public override View Run(Context context)
         {
             Log.Debug("Inside CustomerView");
-            Action action = (Action)SelectFromMenu(MainMenu);
+            Action action = (Action)SelectFromMenu(MainMenu, NUM_ACTIONS);
             Log.Debug("Selected main menu action {0}", action);
             switch (action)
             {
@@ -67,10 +68,11 @@ namespace Project0.StoreApplication.Client.Views
                 return null;
             }
             Console.WriteLine("Select a store: ");
-            var option = SelectFromMenu(PrintAllStoreLocations);
+            var option = SelectFromMenu(PrintAllStoreLocations, stores.Count);
             if (option > stores.Count || option < 1)
             {
                 // TODO: do some real handling instead of silently failing
+                Console.WriteLine("Invalid selection");
                 return null;
             }
             var store = stores[option - 1];
@@ -85,8 +87,7 @@ namespace Project0.StoreApplication.Client.Views
             string output = "";
             foreach (var store in storeRepo.Stores)
             {
-                output += (i + " - " + store + "\n");
-                i++;
+                output += (i++) + " - " + store + "\n";
             }
             return output;
         }
@@ -100,7 +101,7 @@ namespace Project0.StoreApplication.Client.Views
                 Console.WriteLine("No products found");
                 return;
             }
-            int index = SelectFromMenu(PrintAllProducts);
+            int index = SelectFromMenu(PrintAllProducts, products.Count);
         }
 
         protected string PrintAllProducts()
@@ -109,7 +110,7 @@ namespace Project0.StoreApplication.Client.Views
             int i = 1;
             foreach (var prod in ProductRepository.Factory().Products)
             {
-                output += i + " - " + prod + "\n";
+                output += (i++) + " - " + prod + "\n";
             }
             return output;
         }

@@ -16,7 +16,7 @@ namespace Project0.StoreApplication.Client.Views
         {
             Log.Debug("Inside MainView");
             //TODO: think of a better name than "login"?
-            LoginT loginType = (LoginT)SelectFromMenu(LoginMenu);
+            LoginT loginType = (LoginT)SelectFromMenu(LoginMenu, 3);
             Log.Debug("Selected login type {}", (int)loginType);
             switch (loginType)
             {

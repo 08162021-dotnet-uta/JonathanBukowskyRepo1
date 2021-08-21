@@ -16,7 +16,7 @@ namespace Project0.StoreApplication.Client.Views
         public override View Run(Context context)
         {
             Console.WriteLine(PrintAllProducts());
-            int choice = SelectFromMenu(AddMenu);
+            int choice = SelectFromMenu(AddMenu, 3);
             if (choice == 1)
             {
                 var product = SelectProduct();
@@ -29,7 +29,7 @@ namespace Project0.StoreApplication.Client.Views
             else if (choice == 2)
             {
                 context.Cart.AddRange(_selectedProducts);
-                return new CustomerView();
+                //return new CustomerView();
             }
             else if (choice == 3)
             {
@@ -41,12 +41,12 @@ namespace Project0.StoreApplication.Client.Views
         private Product SelectProduct()
         {
             var products = ProductRepository.Factory().Products;
-            int choice = SelectFromMenu(PrintAllProducts, false);
+            int choice = SelectFromMenu(PrintAllProducts, products.Count, false);
             if (choice < 1 || choice > products.Count)
             {
                 return null;
             }
-            return products[choice];
+            return products[choice - 1];
         }
 
         public static string AddMenu()

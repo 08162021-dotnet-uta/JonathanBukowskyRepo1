@@ -3,6 +3,9 @@ using System;
 
 namespace Project0.StoreApplication.Client.Views
 {
+    // TODO: it seems like there's a better way to organize this
+    //          I'm thinking I need a manager for the view to provide better control than
+    //              this "return this vs null vs new View" paradigm
     /* A View can return a new View object (or itself) to be run next.
         This will replace the current view with the returned view.
         A View can also use the RunView() method to open a "subview".
@@ -13,6 +16,12 @@ namespace Project0.StoreApplication.Client.Views
     public abstract class View
     {
         // alternative to parameter: could provide some sort of GetContext();
+        // Run() method:
+        //  -- override to implement a single cycle of the menu
+        //  -- return null to return to last menu (exit menu)
+        //  -- return this to cycle current menu again
+        //  -- return new View to replace current menu
+        //  -- use View.RunView() to open new menu "on the stack" (will return control to this menu after new menu exits)
         public abstract View Run(Context context);
 
         // Run() will iterate once. should probably be called "step" or similar
@@ -25,22 +34,23 @@ namespace Project0.StoreApplication.Client.Views
             } while (view != null);
         }
 
-        protected int SelectFromMenu(Func<string> GetMenu)
+        protected int SelectFromMenu(Func<string> GetMenu, int numOptions)
         {
-            return SelectFromMenu(GetMenu, true);
+            return SelectFromMenu(GetMenu, numOptions, true);
         }
-        protected int SelectFromMenu(Func<string> GetMenu, bool retry)
+        protected int SelectFromMenu(Func<string> GetMenu, int numOptions, bool retry)
         {
             int choice;
             var menu = GetMenu();
-            var menuLength = menu.Trim().Split().Length;
+            // TODO: this is hacky, menus could potentially have differing number of lines than number of selections
+            //var menuLength = menu.Trim().Split("\n").Length;
             bool parseSuccess = false;
             do
             {
                 Console.WriteLine("\n\n" + menu);
                 Console.Write(" Please enter a selection: ");
                 parseSuccess = int.TryParse(Console.ReadLine(), out choice);
-            } while (retry && (!parseSuccess || choice < 1 || choice > menuLength));
+            } while (retry && (!parseSuccess || choice < 1 || choice > numOptions));
             return choice;
         }
 
