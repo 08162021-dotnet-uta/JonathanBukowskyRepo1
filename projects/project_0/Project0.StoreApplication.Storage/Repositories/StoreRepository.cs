@@ -6,6 +6,41 @@ using Project0.StoreApplication.Storage.Adapters;
 
 namespace Project0.StoreApplication.Storage.Repositories
 {
+    public class GenericStoreRepo : DataRepository<Store>
+    {
+        //public List<Store> Data { get; set; }
+        protected static GenericStoreRepo _repo = null;
+        protected static string dataFile = dataDir + "stores.xml";
+        public static GenericStoreRepo Factory()
+        {
+            if (_repo == null) { _repo = new GenericStoreRepo(); }
+            return _repo;
+        }
+        internal GenericStoreRepo()
+        {
+            // TODO: error checking
+            Load();
+        }
+
+        public void SaveStores()
+        {
+            Save();
+        }
+        public void LoadStores()
+        {
+            Load();
+        }
+        public List<Store> Stores { get => Data; set => Data = value; }
+        public Store GetStore(int index)
+        {
+            return Data[index];
+        }
+
+        protected override string GetDataFile()
+        {
+            return dataFile;
+        }
+    }
     public class StoreRepository : Repository
     {
         private static StoreRepository _repo = null;
