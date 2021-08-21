@@ -133,7 +133,7 @@ namespace Project0.StoreApplication.Client
 
         string PrintAllStoreLocations()
         {
-            var storeRepo = GenericStoreRepo.Factory();
+            var storeRepo = StoreRepository.Factory();
             int i = 1;
             string output = "";
             foreach (var store in storeRepo.Stores)
@@ -153,7 +153,7 @@ namespace Project0.StoreApplication.Client
 
         Store SelectAStore()
         {
-            var stores = GenericStoreRepo.Factory().Stores;
+            var stores = StoreRepository.Factory().Stores;
             Console.WriteLine("Select a store: ");
             var option = SelectFromMenu(PrintAllStoreLocations);
             if (option > stores.Count || option < 1)

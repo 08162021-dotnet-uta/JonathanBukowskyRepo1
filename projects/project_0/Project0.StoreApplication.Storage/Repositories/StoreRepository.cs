@@ -6,17 +6,17 @@ using Project0.StoreApplication.Storage.Adapters;
 
 namespace Project0.StoreApplication.Storage.Repositories
 {
-    public class GenericStoreRepo : DataRepository<Store>
+    public class StoreRepository : DataRepository<Store>
     {
         //public List<Store> Data { get; set; }
-        protected static GenericStoreRepo _repo = null;
+        protected static StoreRepository _repo = null;
         protected static string dataFile = dataDir + "stores.xml";
-        public static GenericStoreRepo Factory()
+        public static StoreRepository Factory()
         {
-            if (_repo == null) { _repo = new GenericStoreRepo(); }
+            if (_repo == null) { _repo = new StoreRepository(); }
             return _repo;
         }
-        internal GenericStoreRepo()
+        internal StoreRepository()
         {
             // TODO: error checking
             Load();
@@ -41,6 +41,7 @@ namespace Project0.StoreApplication.Storage.Repositories
             return dataFile;
         }
     }
+    /*
     public class StoreRepository : Repository
     {
         private static StoreRepository _repo = null;
@@ -101,4 +102,5 @@ namespace Project0.StoreApplication.Storage.Repositories
             return Stores[index];
         }
     }
+    */
 }
