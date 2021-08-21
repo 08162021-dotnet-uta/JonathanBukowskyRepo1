@@ -26,6 +26,7 @@ namespace Project0.StoreApplication.Client
                 */
     class Program
     {
+        private StoreRepository _storeRepository { get; set; }
         public Program()
         {
             // logging levels:
@@ -38,6 +39,7 @@ namespace Project0.StoreApplication.Client
             Log.Logger = new LoggerConfiguration()
                                             .WriteTo.Console()
                                             .CreateLogger();
+            _storeRepository = new StoreRepository();
         }
 
         static void Main(string[] args)
@@ -52,7 +54,7 @@ namespace Project0.StoreApplication.Client
         {
             Product p1 = new Product();
             Object p2 = new Product();
-            Console.WriteLine(p1 is Product);
+            Console.WriteLine(p1.GetType().Name);
             Console.WriteLine(p2 is Product);
         }
 
@@ -133,10 +135,9 @@ namespace Project0.StoreApplication.Client
 
         string PrintAllStoreLocations()
         {
-            var storeRepository = new StoreRepository();
             int i = 1;
             string output = "";
-            foreach (var store in storeRepository.Stores)
+            foreach (var store in _storeRepository.Stores)
             {
                 output += (i + " - " + store + "\n");
                 i++;
