@@ -10,10 +10,10 @@ namespace Project0.StoreApplication.Client.Menus
             const string storeOutput = "1 - View transaction history";
             const string customerOutput =
                 "1 - Select store\n" +
-                "2 - Select products\n" + // remove from list if store is selected?
-                "3 - Purchase product\n" +
+                "2 - View products\n" + // remove from list if no store is selected?
+                "3 - Purchase products\n" +
                 "4 - View purchase history\n" +
-                "5 - Quit program\n";
+                "5 - Exit menu\n";
             // TODO: update logic here to actually work
             bool customer = true;
             if (customer)

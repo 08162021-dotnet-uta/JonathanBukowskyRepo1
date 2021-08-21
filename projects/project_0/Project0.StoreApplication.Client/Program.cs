@@ -45,7 +45,8 @@ namespace Project0.StoreApplication.Client
         {
             Log.Information("Starting program");
             View mainMenu = new MainView();
-            mainMenu.run();
+            Context context = new Context();
+            View.RunView(mainMenu, context);
             //Playground();
         }
 
@@ -56,19 +57,6 @@ namespace Project0.StoreApplication.Client
             Object p2 = new Product();
             Console.WriteLine(p1.GetType().Name);
             Console.WriteLine(p2 is Product);
-        }
-        void ViewPurchaseHistory()
-        {
-            // TODO: Implement me
-            Console.WriteLine("No purchase history");
-        }
-
-        Product PurchaseAProduct()
-        {
-            Product p = null;
-            // TODO: Implement me
-
-            return p;
         }
 
         /**************** Static vs const vs readonly *********

@@ -12,7 +12,7 @@ namespace Project0.StoreApplication.Client.Views
     }
     public class MainView : View
     {
-        public override View run(Context context)
+        public override View Run(Context context)
         {
             Log.Debug("Inside MainView");
             //TODO: think of a better name than "login"?
@@ -21,12 +21,16 @@ namespace Project0.StoreApplication.Client.Views
             switch (loginType)
             {
                 case LoginT.CUSTOMER:
-                    return new CustomerView();
+                    RunView(new CustomerView(), context);
+                    return this;
                 case LoginT.STORE:
-                    View storeMenu = null;
                     // TODO: implement
+                    //View storeMenu = null;
                     Console.WriteLine("Store menu under construction");
                     return this;
+                case LoginT.QUIT:
+                    Console.WriteLine("Exiting program. Goodbye :)");
+                    return null;
             }
             return null;
         }

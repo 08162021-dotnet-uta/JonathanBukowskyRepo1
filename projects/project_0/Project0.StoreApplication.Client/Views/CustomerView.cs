@@ -13,54 +13,49 @@ namespace Project0.StoreApplication.Client.Views
     internal enum Action
     {
         SELECT_STORE = 1,
-        SELECT_PRODUCT,
+        VIEW_PRODUCT,
         PURCHASE_PRODUCT,
+        VIEW_PURCHASE_HISTORY,
+        EXIT
     }
     public class CustomerView : View
     {
-        public override View run(Context context)
+        public override View Run(Context context)
         {
             Log.Debug("Inside CustomerView");
-            do
+            Action action = (Action)SelectFromMenu(MainMenu);
+            Log.Debug("Selected main menu action {0}", action);
+            switch (action)
             {
-                Action action = (Action)SelectFromMenu(MainMenu);
-                Log.Debug("Selected main menu action {0}", action);
-                switch (action)
-                {
-                    case Action.SELECT_STORE:
-                        //"1 - Select store\n"
-                        context.SelectedStore = SelectAStore();
-                        Log.Debug("User selected store {0}", context.SelectedStore);
-                        Console.WriteLine("Selected store " + context.SelectedStore);
-                        break;
-                    case Action.SELECT_PRODUCT:
-                        //"2 - Select products\n"
-                        SelectAProduct();
-                        break;
-                    case Action.PURCHASE_PRODUCT:
-                        //"3 - Purchase product\n"
-                        Product p = PurchaseAProduct();
-                        if (p != null)
-                        {
-                            // TODO: persist?
-                        }
-                        break;
-                    case 4:
-                        //"4 - View purchase history\n"
-                        ViewPurchaseHistory();
-                        break;
-                    case 5:
-                        //"5 - Quit program\n"
-                        // break from while, can finalize stuff here or outside loop
-                        // TODO: this would be a good place for a confirmation message
-                        Console.WriteLine("Exiting program. Goodbye :)");
-                        break;
-                    default:
-                        Console.WriteLine("Error: Invalid selection.\n\n");
-                        break;
-                }
-            } while (action != 5);
-            return null;
+                case Action.SELECT_STORE:
+                    //"1 - Select store\n"
+                    // this should be its own view
+                    context.SelectedStore = SelectAStore();
+                    Log.Debug("User selected store {0}", context.SelectedStore);
+                    Console.WriteLine("Selected store " + context.SelectedStore);
+                    return this;
+                case Action.VIEW_PRODUCT:
+                    //"2 - Select products\n"
+                    Console.WriteLine(PrintAllProducts());
+                    return this;
+                case Action.PURCHASE_PRODUCT:
+                    //"3 - Purchase product\n"
+                    //SelectAProduct();
+                    RunView(new ProductSelectView(), context);
+                    return this;
+                case Action.VIEW_PURCHASE_HISTORY:
+                    //"4 - View purchase history\n"
+                    ViewPurchaseHistory();
+                    return this;
+                case Action.EXIT:
+                    //"5 - Quit program\n"
+                    // break from while, can finalize stuff here or outside loop
+                    // TODO: this would be a good place for a confirmation message
+                    return null;
+                default:
+                    Console.WriteLine("Error: Invalid selection.\n\n");
+                    return this;
+            }
         }
 
         Store SelectAStore()
@@ -83,7 +78,7 @@ namespace Project0.StoreApplication.Client.Views
             //return (stores[int.Parse(Console.ReadLine())]);
         }
 
-        string PrintAllStoreLocations()
+        protected string PrintAllStoreLocations()
         {
             var storeRepo = StoreRepository.Factory();
             int i = 1;
@@ -108,7 +103,7 @@ namespace Project0.StoreApplication.Client.Views
             int index = SelectFromMenu(PrintAllProducts);
         }
 
-        string PrintAllProducts()
+        protected string PrintAllProducts()
         {
             string output = "";
             int i = 1;
@@ -118,5 +113,11 @@ namespace Project0.StoreApplication.Client.Views
             }
             return output;
         }
+        void ViewPurchaseHistory()
+        {
+            // TODO: Implement me
+            Console.WriteLine("No purchase history");
+        }
+
     }
 }
