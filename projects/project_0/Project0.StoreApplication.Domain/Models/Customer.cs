@@ -9,9 +9,12 @@ namespace Project0.StoreApplication.Domain.Models
         public Customer()
         {
             // TODO: load this from somewhere
+            // jk lol, populate this in customer repo
             Purchases = new();
         }
-        public List<Order> Purchases { get; }
+
+        public string Name { get; set; }
+        public List<Order> Purchases { get; set; }
         public Store SelectedStore { get; set; }
     }
 }
