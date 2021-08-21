@@ -1,16 +1,8 @@
 
-namespace Project0.StoreApplication.Client
+namespace Project0.StoreApplication.Client.Menus
 {
-    class StaticMenu
+    static class CustomerMenus
     {
-        public static string LoginMenu()
-        {
-            const string output =
-                "1 - Login as customer\n" +
-                "2 - Login as store\n" +
-                "3 - Exit program\n";
-            return output;
-        }
 
         public static string MainMenu()
         {
@@ -18,7 +10,7 @@ namespace Project0.StoreApplication.Client
             const string storeOutput = "1 - View transaction history";
             const string customerOutput =
                 "1 - Select store\n" +
-                "2 - View products\n" + // remove from list if store is selected?
+                "2 - Select products\n" + // remove from list if store is selected?
                 "3 - Purchase product\n" +
                 "4 - View purchase history\n" +
                 "5 - Quit program\n";

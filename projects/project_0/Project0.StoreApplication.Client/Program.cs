@@ -5,7 +5,8 @@ using Project0.StoreApplication.Domain.Models;
 using Project0.StoreApplication.Domain.Abstracts;
 using Project0.StoreApplication.Storage.Repositories;
 
-using static Project0.StoreApplication.Client.StaticMenu;
+using static Project0.StoreApplication.Client.Menus.CustomerMenus;
+using Project0.StoreApplication.Client.Views;
 
 namespace Project0.StoreApplication.Client
 {
@@ -42,8 +43,9 @@ namespace Project0.StoreApplication.Client
 
         static void Main(string[] args)
         {
-            Program p = new Program();
-            p.run();
+            Log.Information("Starting program");
+            View mainMenu = new MainView();
+            mainMenu.run();
             //Playground();
         }
 
@@ -55,76 +57,6 @@ namespace Project0.StoreApplication.Client
             Console.WriteLine(p1.GetType().Name);
             Console.WriteLine(p2 is Product);
         }
-
-        void run()
-        {
-            Log.Information("Starting program");
-            int loginType = SelectFromMenu(LoginMenu);
-            if (loginType == 3)
-            {
-                return;
-            }
-            Log.Debug("Selected login type {}", loginType);
-            int action;
-            Store selectedStore = null;
-            do
-            {
-                action = SelectFromMenu(MainMenu);
-                Log.Debug("Selected main menu action {0}", action);
-                switch (action)
-                {
-                    case 1:
-                        //"1 - Select store\n"
-                        selectedStore = SelectAStore();
-                        Log.Debug("User selected store {0}", selectedStore);
-                        Console.WriteLine("Selected store " + selectedStore);
-                        break;
-                    case 2:
-                        //"2 - View products\n"
-                        ViewProducts();
-                        break;
-                    case 3:
-                        //"3 - Purchase product\n"
-                        Product p = PurchaseAProduct();
-                        if (p != null)
-                        {
-                            // TODO: persist?
-                        }
-                        break;
-                    case 4:
-                        //"4 - View purchase history\n"
-                        ViewPurchaseHistory();
-                        break;
-                    case 5:
-                        //"5 - Quit program\n"
-                        // break from while, can finalize stuff here or outside loop
-                        // TODO: this would be a good place for a confirmation message
-                        Console.WriteLine("Exiting program. Goodbye :)");
-                        break;
-                    default:
-                        Console.WriteLine("Error: Invalid selection.\n\n");
-                        break;
-                }
-            } while (action != 5);
-            //PrintAllStoreLocations();
-            //Store s = SelectAStore();
-            Log.Information("End of program");
-        }
-
-        void ViewProducts()
-        {
-            // TODO: Implement me
-            var products = ProductRepository.Factory().Products;
-            foreach (var product in products)
-            {
-                Console.WriteLine(product);
-            }
-            if (products.Count == 0)
-            {
-                Console.WriteLine("No products found");
-            }
-        }
-
         void ViewPurchaseHistory()
         {
             // TODO: Implement me
@@ -135,43 +67,8 @@ namespace Project0.StoreApplication.Client
         {
             Product p = null;
             // TODO: Implement me
-            Console.WriteLine("no products available");
+
             return p;
-        }
-
-        string PrintAllStoreLocations()
-        {
-            var storeRepo = StoreRepository.Factory();
-            int i = 1;
-            string output = "";
-            foreach (var store in storeRepo.Stores)
-            {
-                output += (i + " - " + store + "\n");
-                i++;
-            }
-            return output;
-        }
-
-        int SelectFromMenu(Func<string> GetMenu)
-        {
-            Console.WriteLine("\n\n" + GetMenu());
-            Console.Write(" Please enter a selection: ");
-            return int.Parse(Console.ReadLine());
-        }
-
-        Store SelectAStore()
-        {
-            var stores = StoreRepository.Factory().Stores;
-            Console.WriteLine("Select a store: ");
-            var option = SelectFromMenu(PrintAllStoreLocations);
-            if (option > stores.Count || option < 1)
-            {
-                // TODO: do some real handling instead of silently failing
-                return null;
-            }
-            var store = stores[option - 1];
-            return store;
-            //return (stores[int.Parse(Console.ReadLine())]);
         }
 
         /**************** Static vs const vs readonly *********
