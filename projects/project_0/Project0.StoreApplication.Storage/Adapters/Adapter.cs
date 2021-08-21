@@ -7,13 +7,13 @@ namespace Project0.StoreApplication.Storage.Adapters
 {
     public abstract class Adapter
     {
-        public abstract void Save(List<Product> products);
-        public abstract void Save(List<Store> stores);
-        public abstract void Save(List<Order> orders);
-        public abstract void Save(List<Customer> customers);
+        public abstract void SaveAll<T>(List<T> products, string path);
+        public abstract List<T> LoadAll<T>(string path);
+        /*
         public abstract List<Store> LoadStores();
         public abstract List<Product> LoadProducts();
         public abstract List<Order> LoadOrders();
         public abstract List<Customer> LoadCustomers();
+        */
     }
 }

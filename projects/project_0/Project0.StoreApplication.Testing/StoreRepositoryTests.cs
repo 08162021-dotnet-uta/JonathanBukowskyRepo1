@@ -13,7 +13,7 @@ namespace Project0.StoreApplication.Testing
         {
             // arrange = get instance of the entity to test
             // "sut" - subject under test
-            var sut = new StoreRepository();
+            var sut = StoreRepository.Factory();
 
             // act = execute sut for data
             var actual = sut.Stores;
@@ -28,7 +28,7 @@ namespace Project0.StoreApplication.Testing
         [InlineData(2)]
         public void Test_OneStore(int i)
         {
-            var sut = new StoreRepository();
+            var sut = StoreRepository.Factory();
             var store = sut.GetStore(i);
             Assert.NotNull(store);
         }
@@ -39,7 +39,7 @@ namespace Project0.StoreApplication.Testing
         [InlineData(4)]
         public void Test_OneStoreInvalid(int i)
         {
-            var sut = new StoreRepository();
+            var sut = StoreRepository.Factory();
             var store = sut.GetStore(i);
             Assert.Null(store);
         }

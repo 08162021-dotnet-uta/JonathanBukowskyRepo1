@@ -6,10 +6,18 @@ using Project0.StoreApplication.Storage.Adapters;
 
 namespace Project0.StoreApplication.Storage.Repositories
 {
-    public class StoreRepository
+    public class StoreRepository : Repository
     {
-        public StoreRepository()
+        private static StoreRepository _repo = null;
+        public static StoreRepository Factory()
         {
+            if (_repo == null) { _repo = new StoreRepository(); }
+            return _repo;
+        }
+        //protected 
+        internal StoreRepository()
+        {
+            // TODO: put this back in the try
             LoadStores();
             try
             {
@@ -40,13 +48,13 @@ namespace Project0.StoreApplication.Storage.Repositories
         public void SaveStores()
         {
             Adapter adapter = new XmlFileAdapter();
-            adapter.Save(Stores);
+            adapter.SaveAll(Stores, FileLocation.Stores);
         }
 
         public void LoadStores()
         {
             Adapter adapter = new XmlFileAdapter();
-            Stores = adapter.LoadStores();
+            Stores = adapter.LoadAll<Store>(FileLocation.Stores);
         }
 
         public Store GetStore(int index)

@@ -46,17 +46,24 @@ namespace Project0.StoreApplication.Storage.Adapters
 
     public class XmlFileAdapter : Adapter
     {
+        /*
         private XmlSerializer _storeSerial;
         private XmlSerializer _productSerial;
         private XmlSerializer _customerSerial;
         private XmlSerializer _orderSerial;
+        */
         public XmlFileAdapter()
         {
-            _storeSerial = new XmlSerializer(typeof(List<Store>));
-            _productSerial = new XmlSerializer(typeof(List<Product>));
+            //_storeSerial = new XmlSerializer(typeof(List<Store>));
+            //_productSerial = new XmlSerializer(typeof(List<Product>));
             //_customerSerial = new XmlSerializer(typeof(List<Customer>));
             //_orderSerial = new XmlSerializer(typeof(List<Order>));
         }
+        public override List<T> LoadAll<T>(string path)
+        {
+            return ReadListFromFile(new XmlSerializer(typeof(List<T>)), path) as List<T>;
+        }
+        /*
         public override List<Product> LoadProducts()
         {
             return ReadListFromFile(_productSerial, FileLocation.Products) as List<Product>;
@@ -73,6 +80,7 @@ namespace Project0.StoreApplication.Storage.Adapters
         {
             return null;
         }
+        */
         private object ReadListFromFile(XmlSerializer xml, string path)
         {
             // file path
@@ -88,23 +96,11 @@ namespace Project0.StoreApplication.Storage.Adapters
             return objs;
         }
 
-        public override void Save(List<Store> stores)
+        public override void SaveAll<T>(List<T> data, string path)
         {
-            WriteToFile(stores, FileLocation.Stores);
+            WriteToFile(data, path);
         }
-        public override void Save(List<Product> products)
-        {
-            WriteToFile(products, FileLocation.Products);
-        }
-        public override void Save(List<Order> orders)
-        {
-            WriteToFile(orders, FileLocation.Orders);
-        }
-        public override void Save(List<Customer> customers)
-        {
-            WriteToFile(customers, FileLocation.Customers);
-        }
-        public void WriteToFile(object objs, string path)
+        private void WriteToFile(object objs, string path)
         {
             // file path
             //string path = "/home/jon/revature/my_code/data/project_0/stores.xml";
