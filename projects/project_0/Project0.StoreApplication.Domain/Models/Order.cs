@@ -7,7 +7,7 @@ namespace Project0.StoreApplication.Domain.Models
         public Order(Customer customer, Store store, List<Product> products)
         {
             Customer = customer;
-            Products = products;
+            Products = new(products);
             Store = store;
         }
         public Customer Customer { get; }
@@ -16,7 +16,7 @@ namespace Project0.StoreApplication.Domain.Models
 
         public override string ToString()
         {
-            string output = "Order:\n\tStore: " + Store + "\n\tItems:\n";
+            string output = "Order:\n\tCustomer: " + Customer + "\n\tStore: " + Store + "\n\tItems:\n";
             foreach (var product in Products)
             {
                 output += "\t\t" + product + "\n";

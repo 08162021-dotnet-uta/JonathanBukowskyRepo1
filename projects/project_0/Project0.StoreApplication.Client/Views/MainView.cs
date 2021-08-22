@@ -4,44 +4,24 @@ using Serilog;
 
 namespace Project0.StoreApplication.Client.Views
 {
-    internal enum LoginT
+    public class MainView : StaticMenuView
     {
-        CUSTOMER = 1,
-        STORE,
-        QUIT
-    }
-    public class MainView : View
-    {
-        public override View Run(Context context)
+        public MainView() : base()
         {
-            Log.Debug("Inside MainView");
-            //TODO: think of a better name than "login"?
-            LoginT loginType = (LoginT)SelectFromMenu(LoginMenu, 3);
-            Log.Debug("Selected login type {}", (int)loginType);
-            switch (loginType)
-            {
-                case LoginT.CUSTOMER:
-                    RunView(new CustomerSelectView(), context);
-                    return this;
-                case LoginT.STORE:
-                    // TODO: implement
-                    //View storeMenu = null;
-                    Console.WriteLine("Store menu under construction");
-                    return this;
-                case LoginT.QUIT:
-                    Console.WriteLine("Exiting program. Goodbye :)");
-                    return null;
-            }
-            return null;
+            RegisterAction(new MenuAction() { Description = "Login as customer", DoAction = LoginCustomer });
+            RegisterAction(new MenuAction() { Description = "Login as store", DoAction = LoginStore });
+            RegisterAction(new MenuAction() { Description = "Exit", DoAction = (Context context) => null });
         }
-
-        public static string LoginMenu()
+        public View LoginCustomer(Context context)
         {
-            const string output =
-                "1 - Login as customer\n" +
-                "2 - Login as store\n" +
-                "3 - Exit program\n";
-            return output;
+            RunView(new CustomerSelectView(), context);
+            return this;
+        }
+        public View LoginStore(Context context)
+        {
+            RunView(new StoreSelectView(), context);
+            RunView(new StoreView(), context);
+            return this;
         }
     }
 }

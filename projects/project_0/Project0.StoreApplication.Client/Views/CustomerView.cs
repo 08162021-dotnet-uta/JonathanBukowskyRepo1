@@ -10,125 +10,45 @@ using static Project0.StoreApplication.Client.Menus.CustomerMenus;
 
 namespace Project0.StoreApplication.Client.Views
 {
-    internal enum Action
+    public class CustomerView : StaticMenuView
     {
-        SELECT_STORE = 1,
-        VIEW_PRODUCT,
-        PURCHASE_PRODUCT,
-        VIEW_PURCHASE_HISTORY,
-        CHECKOUT,
-        EXIT
-    }
-    public class CustomerView : View
-    {
-        internal const int NUM_ACTIONS = 6;
-        public override View Run(Context context)
+
+        public CustomerView() : base()
         {
-            Log.Debug("Inside CustomerView");
-            Action action = (Action)SelectFromMenu(MainMenu, NUM_ACTIONS);
-            Log.Debug("Selected main menu action {0}", action);
-            switch (action)
-            {
-                case Action.SELECT_STORE:
-                    //"1 - Select store\n"
-                    // this should be its own view
-                    context.SelectedStore = SelectAStore();
-                    Log.Debug("User selected store {0}", context.SelectedStore);
-                    Console.WriteLine("Selected store " + context.SelectedStore);
-                    return this;
-                case Action.VIEW_PRODUCT:
-                    //"2 - Select products\n"
-                    Console.WriteLine(PrintAllProducts());
-                    return this;
-                case Action.PURCHASE_PRODUCT:
-                    //"3 - Purchase product\n"
-                    //SelectAProduct();
-                    RunView(new ProductSelectView(), context);
-                    return this;
-                case Action.VIEW_PURCHASE_HISTORY:
-                    //"4 - View purchase history\n"
-                    ViewPurchaseHistory(context);
-                    return this;
-                case Action.CHECKOUT:
-                    Checkout(context);
-                    return this;
-                case Action.EXIT:
-                    //"5 - Quit program\n"
-                    // break from while, can finalize stuff here or outside loop
-                    // TODO: this would be a good place for a confirmation message
-                    return null;
-                default:
-                    Console.WriteLine("Error: Invalid selection.\n\n");
-                    return this;
-            }
+            RegisterAction(new MenuAction() { Description = "Select a store", DoAction = SelectStore });
+            RegisterAction(new MenuAction() { Description = "View products", DoAction = PrintProducts });
+            RegisterAction(new MenuAction() { Description = "Purchase a product", DoAction = PurchaseProducts });
+            RegisterAction(new MenuAction() { Description = "View purchases", DoAction = ViewPurchases });
+            RegisterAction(new MenuAction() { Description = "Checkout", DoAction = Checkout });
+            RegisterAction(new MenuAction() { Description = "Logout", DoAction = (Context context) => null });
         }
 
-        void Checkout(Context context)
+        public View SelectStore(Context context)
         {
-            Order o = new Order(context.Customer, context.SelectedStore, context.Cart);
-            var repo = OrderRepository.Factory();
-            repo.Orders.Add(o);
-            repo.SaveOrders();
-            // TODO: actually check on whether save succeeded
-            Console.WriteLine("Order saved successfully");
+            RunView(new StoreSelectView(), context);
+            return this;
         }
 
-        Store SelectAStore()
+        public View PrintProducts(Context context)
         {
-            var stores = StoreRepository.Factory().Stores;
-            if (stores.Count == 0)
-            {
-                Console.WriteLine("No stores available.");
-                return null;
-            }
-            Console.WriteLine("Select a store: ");
-            var option = SelectFromMenu(PrintAllStoreLocations, stores.Count);
-            if (option > stores.Count || option < 1)
-            {
-                // TODO: do some real handling instead of silently failing
-                Console.WriteLine("Invalid selection");
-                return null;
-            }
-            var store = stores[option - 1];
-            return store;
-            //return (stores[int.Parse(Console.ReadLine())]);
+            Console.Write(PrintAllProducts());
+            return this;
         }
 
-        protected string PrintAllStoreLocations()
+        public View PurchaseProducts(Context context)
         {
-            var storeRepo = StoreRepository.Factory();
-            int i = 1;
-            string output = "";
-            foreach (var store in storeRepo.Stores)
+            if (context.SelectedStore == null)
             {
-                output += (i++) + " - " + store + "\n";
+                Console.WriteLine("Select a store first!");
             }
-            return output;
+            else
+            {
+                RunView(new CustomerPurchaseView(), context);
+            }
+            return this;
         }
 
-        void SelectAProduct()
-        {
-            // TODO: Implement me
-            var products = ProductRepository.Factory().Products;
-            if (products.Count == 0)
-            {
-                Console.WriteLine("No products found");
-                return;
-            }
-            int index = SelectFromMenu(PrintAllProducts, products.Count);
-        }
-
-        protected string PrintAllProducts()
-        {
-            string output = "";
-            int i = 1;
-            foreach (var prod in ProductRepository.Factory().Products)
-            {
-                output += (i++) + " - " + prod + "\n";
-            }
-            return output;
-        }
-        void ViewPurchaseHistory(Context context)
+        public View ViewPurchases(Context context)
         {
             var orders = OrderRepository.Factory().Orders.FindAll((Order o) => o.Customer == context.Customer);
             if (orders.Count == 0)
@@ -142,7 +62,44 @@ namespace Project0.StoreApplication.Client.Views
                     Console.WriteLine(order);
                 }
             }
+            return this;
         }
 
+        public View Checkout(Context context)
+        {
+            if (context.Customer == null)
+            {
+                Console.WriteLine("You must select a customer");
+                return this;
+            }
+            else if (context.SelectedStore == null)
+            {
+                Console.WriteLine("You must select a store");
+                return this;
+            }
+            else if (context.Cart.Count == 0)
+            {
+                Console.WriteLine("Your cart is empty");
+                return this;
+            }
+            Order o = new Order(context.Customer, context.SelectedStore, context.Cart);
+            var repo = OrderRepository.Factory();
+            repo.Orders.Add(o);
+            repo.SaveOrders();
+            // TODO: actually check on whether save succeeded
+            context.Cart.Clear();
+            Console.WriteLine("Order saved successfully");
+            return this;
+        }
+        protected string PrintAllProducts()
+        {
+            string output = "";
+            int i = 1;
+            foreach (var prod in ProductRepository.Factory().Products)
+            {
+                output += (i++) + " - " + prod + "\n";
+            }
+            return output;
+        }
     }
 }

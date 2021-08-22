@@ -1,29 +1,24 @@
 
+using System;
+using System.Collections.Generic;
+using Project0.StoreApplication.Domain.Models;
 using Project0.StoreApplication.Storage.Repositories;
 
 namespace Project0.StoreApplication.Client.Views
 {
-    public class CustomerSelectView : View
+    public class CustomerSelectView : ItemSelectView<Customer>
     {
-        public override View Run(Context context)
+        protected override List<Customer> GetItems()
         {
-            var customers = CustomerRepository.Factory().Customers;
-            int customerId = SelectFromMenu(PrintCustomers, customers.Count);
-            context.Customer = customers[customerId - 1];
-            System.Console.WriteLine("Hello, " + context.Customer.Name);
+            return CustomerRepository.Factory().Customers;
+        }
+
+        protected override View HandleSelectedItem(Context context, int choice)
+        {
+            context.Customer = GetItems()[choice - 1];
+            Console.WriteLine("Hello, " + context.Customer);
             return new CustomerView();
         }
 
-        public string PrintCustomers()
-        {
-            var customers = CustomerRepository.Factory().Customers;
-            string output = "";
-            int i = 1;
-            foreach (var customer in customers)
-            {
-                output += (i++) + " - " + customer.Name + "\n";
-            }
-            return output;
-        }
     }
 }

@@ -6,56 +6,25 @@ using Project0.StoreApplication.Storage.Repositories;
 
 namespace Project0.StoreApplication.Client.Views
 {
-    public class ProductSelectView : CustomerView
+    public class ProductSelectView : ItemSelectView<Product>
     {
-        public ProductSelectView() : base()
+        protected override List<Product> GetItems()
         {
-            _selectedProducts = new();
+            return ProductRepository.Factory().Products;
         }
-        private List<Product> _selectedProducts;
-        public override View Run(Context context)
-        {
-            Console.WriteLine(PrintAllProducts());
-            int choice = SelectFromMenu(AddMenu, 3);
-            if (choice == 1)
-            {
-                var product = SelectProduct();
-                if (product != null)
-                {
-                    _selectedProducts.Add(product);
-                }
-                return this;
-            }
-            else if (choice == 2)
-            {
-                context.Cart.AddRange(_selectedProducts);
-                //return new CustomerView();
-            }
-            else if (choice == 3)
-            {
 
-            }
+        protected override View HandleSelectedItem(Context context, int choice)
+        {
+            _selectedProducts.Add(ProductRepository.Factory().Products[choice - 1]);
             return null;
         }
 
-        private Product SelectProduct()
+        private List<Product> _selectedProducts;
+        public ProductSelectView(List<Product> tempCart) : base()
         {
-            var products = ProductRepository.Factory().Products;
-            int choice = SelectFromMenu(PrintAllProducts, products.Count, false);
-            if (choice < 1 || choice > products.Count)
-            {
-                return null;
-            }
-            return products[choice - 1];
+            _selectedProducts = tempCart;
         }
 
-        public static string AddMenu()
-        {
-            var menu =
-                " 1 - Select product to add to cart\n" +
-                " 2 - Save changes to cart\n" +
-                " 3 - Discard changes\n";
-            return menu;
-        }
+
     }
 }
