@@ -13,7 +13,9 @@ namespace Project0.StoreApplication.Testing.ModelTesting
             var sut = new Customer();
 
             // act = execute sut for data
-            var actual = sut.Purchases;
+            // TODO: purchases will now come from Repo.getpurchases -- idk if this is good
+            //var actual = sut.Purchases;
+            object actual = null;
 
             // assert = condition by which test succeeds/fails
             Assert.NotNull(actual);
@@ -25,8 +27,12 @@ namespace Project0.StoreApplication.Testing.ModelTesting
             var sut = new Customer();
             var store = new GroceryStore("Fred's Pizza");
 
+            /*
+            TODO: fix this too
             sut.SelectedStore = store;
             Assert.True(sut.SelectedStore == store);
+            */
+            Assert.True(false);
         }
     }
 }

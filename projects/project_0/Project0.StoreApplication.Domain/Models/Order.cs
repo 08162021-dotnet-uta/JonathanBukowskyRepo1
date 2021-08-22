@@ -4,8 +4,14 @@ namespace Project0.StoreApplication.Domain.Models
 {
     public class Order
     {
-        public Customer Customer { get; set; }
-        public List<Product> Products { get; set; }
-        public Store Store { get; set; }
+        public Order(Customer customer, Store store, List<Product> products)
+        {
+            Customer = customer;
+            Products = products;
+            Store = store;
+        }
+        public Customer Customer { get; }
+        public List<Product> Products { get; }
+        public Store Store { get; }
     }
 }

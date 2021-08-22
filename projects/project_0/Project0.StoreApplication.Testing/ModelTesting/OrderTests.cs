@@ -14,7 +14,7 @@ namespace Project0.StoreApplication.Testing.ModelTesting
             var prods = new List<Product>() { new Product() };
 
             // TODO: create an order in a way that makes sense
-            var sut = new Order() { Customer = cust, Products = prods, Store = store };
+            var sut = new Order(cust, store, prods);
 
             Assert.True(sut.Customer == cust);
             Assert.True(sut.Products == prods);

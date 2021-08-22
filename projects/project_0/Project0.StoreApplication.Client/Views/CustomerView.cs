@@ -65,7 +65,7 @@ namespace Project0.StoreApplication.Client.Views
 
         void Checkout(Context context)
         {
-            Order o = new Order() { Customer = context.Customer, Products = context.Cart, Store = context.SelectedStore };
+            Order o = new Order(context.Customer, context.SelectedStore, context.Cart);
             var repo = OrderRepository.Factory();
             repo.Orders.Add(o);
             repo.SaveOrders();

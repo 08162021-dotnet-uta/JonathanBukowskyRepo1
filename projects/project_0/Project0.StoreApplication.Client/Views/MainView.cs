@@ -21,7 +21,7 @@ namespace Project0.StoreApplication.Client.Views
             switch (loginType)
             {
                 case LoginT.CUSTOMER:
-                    RunView(new CustomerView(), context);
+                    RunView(new CustomerSelectView(), context);
                     return this;
                 case LoginT.STORE:
                     // TODO: implement

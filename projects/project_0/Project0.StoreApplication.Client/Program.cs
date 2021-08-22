@@ -53,10 +53,13 @@ namespace Project0.StoreApplication.Client
         // a little temporary function for me to test stuff in main without running app
         static void Playground()
         {
+            var cr = CustomerRepository.Factory();
+            /*
             Product p1 = new Product();
             Object p2 = new Product();
             Console.WriteLine(p1.GetType().Name);
             Console.WriteLine(p2 is Product);
+            */
         }
 
         /**************** Static vs const vs readonly *********

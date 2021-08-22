@@ -4,7 +4,7 @@ using Project0.StoreApplication.Domain.Models;
 
 namespace Project0.StoreApplication.Storage.Repositories
 {
-    class CustomerRepository : DataRepository<Customer>
+    public class CustomerRepository : DataRepository<Customer>
     {
 
         protected static string dataFile = dataDir + "customers.xml";
