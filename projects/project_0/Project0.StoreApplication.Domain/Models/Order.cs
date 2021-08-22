@@ -13,5 +13,15 @@ namespace Project0.StoreApplication.Domain.Models
         public Customer Customer { get; }
         public List<Product> Products { get; }
         public Store Store { get; }
+
+        public override string ToString()
+        {
+            string output = "Order:\n\tStore: " + Store + "\n\tItems:\n";
+            foreach (var product in Products)
+            {
+                output += "\t\t" + product + "\n";
+            }
+            return output;
+        }
     }
 }

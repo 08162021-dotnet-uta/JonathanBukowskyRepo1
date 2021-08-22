@@ -47,7 +47,7 @@ namespace Project0.StoreApplication.Client.Views
                     return this;
                 case Action.VIEW_PURCHASE_HISTORY:
                     //"4 - View purchase history\n"
-                    ViewPurchaseHistory();
+                    ViewPurchaseHistory(context);
                     return this;
                 case Action.CHECKOUT:
                     Checkout(context);
@@ -128,10 +128,20 @@ namespace Project0.StoreApplication.Client.Views
             }
             return output;
         }
-        void ViewPurchaseHistory()
+        void ViewPurchaseHistory(Context context)
         {
-            // TODO: Implement me
-            Console.WriteLine("No purchase history");
+            var orders = OrderRepository.Factory().Orders.FindAll((Order o) => o.Customer == context.Customer);
+            if (orders.Count == 0)
+            {
+                Console.WriteLine("No purchase history");
+            }
+            else
+            {
+                foreach (var order in orders)
+                {
+                    Console.WriteLine(order);
+                }
+            }
         }
 
     }

@@ -24,7 +24,7 @@ namespace Project0.StoreApplication.Storage.Repositories
         internal OrderRepository()
         {
             // Load()
-            Orders = new();
+            LoadOrders();
         }
 
         public void SaveOrders()
@@ -76,7 +76,7 @@ namespace Project0.StoreApplication.Storage.Repositories
             {
                 prods.Add(products[prodIdx]);
             }
-            return new Order(customers[Customer], stores[Store], products);
+            return new Order(customers[Customer], stores[Store], prods);
         }
     }
 }
