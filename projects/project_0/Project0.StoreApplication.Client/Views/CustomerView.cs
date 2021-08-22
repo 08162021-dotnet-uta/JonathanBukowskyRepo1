@@ -16,11 +16,12 @@ namespace Project0.StoreApplication.Client.Views
         VIEW_PRODUCT,
         PURCHASE_PRODUCT,
         VIEW_PURCHASE_HISTORY,
+        CHECKOUT,
         EXIT
     }
     public class CustomerView : View
     {
-        internal const int NUM_ACTIONS = 5;
+        internal const int NUM_ACTIONS = 6;
         public override View Run(Context context)
         {
             Log.Debug("Inside CustomerView");
@@ -48,6 +49,9 @@ namespace Project0.StoreApplication.Client.Views
                     //"4 - View purchase history\n"
                     ViewPurchaseHistory();
                     return this;
+                case Action.CHECKOUT:
+                    Checkout(context);
+                    return this;
                 case Action.EXIT:
                     //"5 - Quit program\n"
                     // break from while, can finalize stuff here or outside loop
@@ -57,6 +61,16 @@ namespace Project0.StoreApplication.Client.Views
                     Console.WriteLine("Error: Invalid selection.\n\n");
                     return this;
             }
+        }
+
+        void Checkout(Context context)
+        {
+            Order o = new Order() { Customer = context.Customer, Products = context.Cart, Store = context.SelectedStore };
+            var repo = OrderRepository.Factory();
+            repo.Orders.Add(o);
+            repo.SaveOrders();
+            // TODO: actually check on whether save succeeded
+            Console.WriteLine("Order saved successfully");
         }
 
         Store SelectAStore()

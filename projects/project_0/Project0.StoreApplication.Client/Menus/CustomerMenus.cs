@@ -13,7 +13,8 @@ namespace Project0.StoreApplication.Client.Menus
                 "2 - View products\n" + // remove from list if no store is selected?
                 "3 - Purchase products\n" +
                 "4 - View purchase history\n" +
-                "5 - Exit menu\n";
+                "5 - Checkout\n" +
+                "6 - Exit menu\n";
             // TODO: update logic here to actually work
             bool customer = true;
             if (customer)
