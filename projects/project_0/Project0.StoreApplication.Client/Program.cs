@@ -32,6 +32,8 @@ namespace Project0.StoreApplication.Client
     /// </summary>
     class Program
     {
+        private const string logFile = "/home/jon/revature/my_code/data/project_0_logs/log.txt";
+        private bool SaveLogToFile { get; set; }
         public Program()
         {
             // logging levels:
@@ -41,9 +43,23 @@ namespace Project0.StoreApplication.Client
             // warn
             // error
             // fatal
-            Log.Logger = new LoggerConfiguration()
+
+            // send log output to console by default
+            SaveLogToFile = false;
+        }
+
+        public void CreateLogger()
+        {
+            if (SaveLogToFile)
+            {
+                Log.Logger = new LoggerConfiguration().WriteTo.File(logFile).CreateLogger();
+            }
+            else
+            {
+                Log.Logger = new LoggerConfiguration()
                                             .WriteTo.Console()
                                             .CreateLogger();
+            }
         }
 
         /// <summary>
@@ -62,6 +78,9 @@ namespace Project0.StoreApplication.Client
         {
             Log.Information("Creating program instance");
             Program p = new Program();
+            // TODO: get this from ENV?
+            // if (ENV.save_to_file) p.SaveLogToFile = true;
+            p.CreateLogger();
             Log.Information("Starting program");
             p.Run();
             //Playground();
