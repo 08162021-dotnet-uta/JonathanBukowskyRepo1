@@ -26,8 +26,8 @@ namespace Project0.StoreApplication.Client.Views
         public abstract View Run(Context context);
 
         // DAO access -- injection into submenus
-        protected static StorageDAO Storage;
-        public static void SetStorage(StorageDAO storageDAO)
+        protected static IStorageDAO Storage;
+        public static void SetStorage(IStorageDAO storageDAO)
         {
             Storage = storageDAO;
         }

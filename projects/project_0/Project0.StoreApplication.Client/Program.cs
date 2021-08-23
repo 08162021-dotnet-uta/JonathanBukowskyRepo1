@@ -70,7 +70,7 @@ namespace Project0.StoreApplication.Client
         {
             View mainMenu = new MainView();
             Context context = new Context();
-            StorageDAO dataStore = new XmlFileStorage();
+            IStorageDAO dataStore = new XmlFileStorage();
             View.SetStorage(dataStore);
             View.RunView(mainMenu, context);
         }

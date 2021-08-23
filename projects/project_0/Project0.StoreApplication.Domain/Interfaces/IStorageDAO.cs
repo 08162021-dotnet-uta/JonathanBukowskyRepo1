@@ -6,7 +6,7 @@ using Project0.StoreApplication.Domain.Models;
 namespace Project0.StoreApplication.Domain.Interfaces
 {
     // This interface would serve as the API for accessing program data -- I'm not sure if I want to use it
-    public interface StorageDAO
+    public interface IStorageDAO
     {
         List<Product> GetProducts();
         //bool AddProduct(Product product);

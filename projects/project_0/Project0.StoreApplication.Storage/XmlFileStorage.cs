@@ -7,7 +7,7 @@ using Project0.StoreApplication.Storage.Repositories;
 
 namespace Project0.StoreApplication.Storage
 {
-    public class XmlFileStorage : StorageDAO
+    public class XmlFileStorage : IStorageDAO
     {
         public bool CreateOrder(Customer customer, Store store, List<Product> products)
         {
