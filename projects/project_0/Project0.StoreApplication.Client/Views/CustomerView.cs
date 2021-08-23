@@ -50,7 +50,8 @@ namespace Project0.StoreApplication.Client.Views
 
         public View ViewPurchases(Context context)
         {
-            var orders = OrderRepository.Factory().Orders.FindAll((Order o) => o.Customer == context.Customer);
+            //var orders = OrderRepository.Factory().Orders.FindAll((Order o) => o.Customer == context.Customer);
+            var orders = Storage.GetOrders(context.Customer);
             if (orders.Count == 0)
             {
                 Console.WriteLine("No purchase history");
@@ -82,20 +83,28 @@ namespace Project0.StoreApplication.Client.Views
                 Console.WriteLine("Your cart is empty");
                 return this;
             }
-            Order o = new Order(context.Customer, context.SelectedStore, context.Cart);
-            var repo = OrderRepository.Factory();
-            repo.Orders.Add(o);
-            repo.SaveOrders();
-            // TODO: actually check on whether save succeeded
-            context.Cart.Clear();
-            Console.WriteLine("Order saved successfully");
+            //Order o = new Order(context.Customer, context.SelectedStore, context.Cart);
+            if (Storage.CreateOrder(context.Customer, context.SelectedStore, context.Cart))
+            {
+                // TODO: actually check on whether save succeeded -- make sure this still works
+                context.Cart.Clear();
+                Console.WriteLine("Order saved successfully");
+            }
+            else
+            {
+                Console.WriteLine("Error saving order. Please try again. ");
+            }
+            //var repo = OrderRepository.Factory();
+            //repo.Orders.Add(o);
+            //repo.SaveOrders();
             return this;
         }
         protected string PrintAllProducts()
         {
             string output = "";
             int i = 1;
-            foreach (var prod in ProductRepository.Factory().Products)
+            //foreach (var prod in ProductRepository.Factory().Products)
+            foreach (var prod in Storage.GetProducts())
             {
                 output += (i++) + " - " + prod + "\n";
             }

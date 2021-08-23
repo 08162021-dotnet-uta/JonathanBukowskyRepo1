@@ -1,5 +1,6 @@
 
 using System;
+using Project0.StoreApplication.Storage;
 
 namespace Project0.StoreApplication.Client.Views
 {
@@ -23,6 +24,13 @@ namespace Project0.StoreApplication.Client.Views
         //  -- return new View to replace current menu
         //  -- use View.RunView() to open new menu "on the stack" (will return control to this menu after new menu exits)
         public abstract View Run(Context context);
+
+        // DAO access -- injection into submenus
+        protected static StorageDAO Storage;
+        public static void SetStorage(StorageDAO storageDAO)
+        {
+            Storage = storageDAO;
+        }
 
         // Run() will iterate once. should probably be called "step" or similar
         // RunView() will continue until view returns null

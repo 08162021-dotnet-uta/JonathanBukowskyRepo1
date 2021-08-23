@@ -15,7 +15,8 @@ namespace Project0.StoreApplication.Client.Views
 
         public View ShowOrders(Context context)
         {
-            var orders = OrderRepository.Factory().Orders.FindAll((Order o) => o.Store == context.SelectedStore);
+            //var orders = OrderRepository.Factory().Orders.FindAll((Order o) => o.Store == context.SelectedStore);
+            var orders = Storage.GetOrders(context.SelectedStore);
             foreach (var order in orders)
             {
                 Console.WriteLine(order);

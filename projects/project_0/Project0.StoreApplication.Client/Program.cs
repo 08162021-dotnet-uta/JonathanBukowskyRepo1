@@ -7,6 +7,7 @@ using Project0.StoreApplication.Storage.Repositories;
 
 using static Project0.StoreApplication.Client.Menus.CustomerMenus;
 using Project0.StoreApplication.Client.Views;
+using Project0.StoreApplication.Storage;
 
 namespace Project0.StoreApplication.Client
 {
@@ -46,6 +47,8 @@ namespace Project0.StoreApplication.Client
             Log.Information("Starting program");
             View mainMenu = new MainView();
             Context context = new Context();
+            StorageDAO dataStore = new XmlFileStorage();
+            View.SetStorage(dataStore);
             View.RunView(mainMenu, context);
             //Playground();
         }

@@ -10,12 +10,13 @@ namespace Project0.StoreApplication.Client.Views
     {
         protected override List<Customer> GetItems()
         {
-            return CustomerRepository.Factory().Customers;
+            //return CustomerRepository.Factory().Customers;
+            return Storage.GetCustomers();
         }
 
         protected override View HandleSelectedItem(Context context, int choice)
         {
-            context.Customer = GetItems()[choice - 1];
+            context.Customer = Storage.GetCustomers()[choice - 1];
             Console.WriteLine("Hello, " + context.Customer);
             return new CustomerView();
         }

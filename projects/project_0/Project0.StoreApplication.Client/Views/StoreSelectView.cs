@@ -9,7 +9,8 @@ namespace Project0.StoreApplication.Client.Views
     {
         protected override List<Store> GetItems()
         {
-            return StoreRepository.Factory().Stores;
+            //return StoreRepository.Factory().Stores;
+            return Storage.GetStores();
         }
 
         protected override View HandleSelectedItem(Context context, int choice)
