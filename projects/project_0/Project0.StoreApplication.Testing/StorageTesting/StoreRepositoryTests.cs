@@ -11,6 +11,7 @@ namespace Project0.StoreApplication.Testing.StorageTesting
         [Fact]
         public void Test_StoreCollection()
         {
+            RepositorySetup.InitializeSettings();
             // arrange = get instance of the entity to test
             // "sut" - subject under test
             var sut = StoreRepository.Factory();
@@ -28,6 +29,7 @@ namespace Project0.StoreApplication.Testing.StorageTesting
         [InlineData(2)]
         public void Test_OneStore(int i)
         {
+            RepositorySetup.InitializeSettings();
             var sut = StoreRepository.Factory();
             var store = sut.GetStore(i);
             Assert.NotNull(store);
@@ -37,8 +39,10 @@ namespace Project0.StoreApplication.Testing.StorageTesting
         [InlineData(10)]
         [InlineData(-1)]
         [InlineData(4)]
+        [InlineData(3)]
         public void Test_OneStoreInvalid(int i)
         {
+            RepositorySetup.InitializeSettings();
             var sut = StoreRepository.Factory();
             var success = true;
             try

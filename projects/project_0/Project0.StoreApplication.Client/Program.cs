@@ -9,6 +9,7 @@ using static Project0.StoreApplication.Client.Menus.CustomerMenus;
 using Project0.StoreApplication.Client.Views;
 using Project0.StoreApplication.Storage;
 using Project0.StoreApplication.Domain.Interfaces;
+using Project0.StoreApplication.Domain.Settings;
 
 namespace Project0.StoreApplication.Client
 {
@@ -68,10 +69,16 @@ namespace Project0.StoreApplication.Client
         /// </summary>
         public void Run()
         {
+            // use default settings object -- could populate settings based on environment/saved user settings/etc.
+            CurrentSettings.Settings = new ApplicationSettings();
+            // create an interface to the persistent data
+            IStorageDAO dataStore = new XmlFileStorage();
+            // set up frontend needs
             View mainMenu = new MainView();
             Context context = new Context();
-            IStorageDAO dataStore = new XmlFileStorage();
+            // give frontend access to persistent storage
             View.SetStorage(dataStore);
+            // start main menu
             View.RunView(mainMenu, context);
         }
 

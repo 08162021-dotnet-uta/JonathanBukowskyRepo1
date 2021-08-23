@@ -42,7 +42,7 @@ namespace Project0.StoreApplication.Storage.Repositories
 
         protected override string GetDataFile()
         {
-            return AppSettings.Settings.GetOrdersFile();
+            return CurrentSettings.Settings.GetOrdersFile();
         }
     }
 

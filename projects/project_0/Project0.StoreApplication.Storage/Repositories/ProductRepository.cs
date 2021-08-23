@@ -15,7 +15,7 @@ namespace Project0.StoreApplication.Storage.Repositories
 
         protected override string GetDataFile()
         {
-            return AppSettings.Settings.GetProductsFile();
+            return CurrentSettings.Settings.GetProductsFile();
         }
         internal ProductRepository()
         {

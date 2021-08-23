@@ -35,7 +35,7 @@ namespace Project0.StoreApplication.Storage.Repositories
 
         protected override string GetDataFile()
         {
-            return AppSettings.Settings.GetStoresFile();
+            return CurrentSettings.Settings.GetStoresFile();
         }
     }
 }

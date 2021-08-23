@@ -10,7 +10,7 @@ namespace Project0.StoreApplication.Storage.Repositories
 
         protected override string GetDataFile()
         {
-            return AppSettings.Settings.GetCustomersFile();
+            return CurrentSettings.Settings.GetCustomersFile();
         }
         protected static CustomerRepository _repo = null;
         public static CustomerRepository Factory()
