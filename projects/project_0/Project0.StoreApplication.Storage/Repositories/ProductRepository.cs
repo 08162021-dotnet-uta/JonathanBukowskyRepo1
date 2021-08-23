@@ -1,6 +1,7 @@
 
 using System.Collections.Generic;
 using Project0.StoreApplication.Domain.Models;
+using Project0.StoreApplication.Domain.Settings;
 
 namespace Project0.StoreApplication.Storage.Repositories
 {
@@ -9,14 +10,12 @@ namespace Project0.StoreApplication.Storage.Repositories
         private static ProductRepository _repo = null;
         public static ProductRepository Factory()
         {
-            if (_repo == null) { _repo = new ProductRepository(); }
-            return _repo;
+            return (_repo ??= new ProductRepository());
         }
 
-        protected static string dataFile = dataDir + "products.xml";
         protected override string GetDataFile()
         {
-            return dataFile;
+            return AppSettings.Settings.GetProductsFile();
         }
         internal ProductRepository()
         {

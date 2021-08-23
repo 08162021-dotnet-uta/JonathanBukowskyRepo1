@@ -1,6 +1,7 @@
 
 using System.Collections.Generic;
 using Project0.StoreApplication.Domain.Abstracts;
+using Project0.StoreApplication.Domain.Settings;
 
 namespace Project0.StoreApplication.Storage.Repositories
 {
@@ -8,11 +9,9 @@ namespace Project0.StoreApplication.Storage.Repositories
     {
         //public List<Store> Data { get; set; }
         protected static StoreRepository _repo = null;
-        protected static string dataFile = dataDir + "stores.xml";
         public static StoreRepository Factory()
         {
-            if (_repo == null) { _repo = new StoreRepository(); }
-            return _repo;
+            return (_repo ??= new StoreRepository());
         }
         internal StoreRepository()
         {
@@ -36,7 +35,7 @@ namespace Project0.StoreApplication.Storage.Repositories
 
         protected override string GetDataFile()
         {
-            return dataFile;
+            return AppSettings.Settings.GetStoresFile();
         }
     }
 }

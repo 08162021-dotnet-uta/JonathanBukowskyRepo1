@@ -48,6 +48,16 @@ namespace Project0.StoreApplication.Storage
 
         public List<Order> GetOrders(Store store)
         {
+            // NOTE: in this operation (and in the other filtered GetOrders()), I am taking advantage of the current design that there will only ever be one
+            //      object per saved customer, and so any reference to that customer will have the same value. (The repos basically assign "de-facto" unique ids
+            //      based on the location of the object in the repo data List<>, i.e. the index is the "id". This currently relies on the idea that the ordering
+            //      of the List<> and/or Xml arrays will not change during runtime. I have not verified this assumption)
+            //      this is a fragile design, as a bug or design change could introduce "duplicate" customers, or instances of
+            //      what *should* be the same customer, but are stored in different locations (with differing reference values).
+            //      It would be better to either:
+            //          -- formalize this design constraint in code. This could essentially require making a factory for Customer/Store, or something like that
+            //          -- change this comparison to use a by-value equality (memberwise value comparison). This would be problematic when customers/stores
+            //                  have the same name, unless I add a unique identifier like IDs
             return OrderRepository.Factory().Orders.FindAll((Order o) => o.Store == store);
         }
 

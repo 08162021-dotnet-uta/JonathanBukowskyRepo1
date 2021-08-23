@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Project0.StoreApplication.Domain.Abstracts;
 using Project0.StoreApplication.Domain.Models;
+using Project0.StoreApplication.Domain.Settings;
 
 namespace Project0.StoreApplication.Storage.Repositories
 {
@@ -20,7 +21,7 @@ namespace Project0.StoreApplication.Storage.Repositories
 
 
         protected static OrderRepository _repo = null;
-        public static OrderRepository Factory() { return (_repo = _repo ?? new OrderRepository()); }
+        public static OrderRepository Factory() { return (_repo ??= new OrderRepository()); }
         internal OrderRepository()
         {
             // Load()
@@ -39,10 +40,9 @@ namespace Project0.StoreApplication.Storage.Repositories
             Orders = _GetOrders();
         }
 
-        protected static string dataFile = dataDir + "orders.xml";
         protected override string GetDataFile()
         {
-            return dataFile;
+            return AppSettings.Settings.GetOrdersFile();
         }
     }
 

@@ -13,6 +13,9 @@ namespace Project0.StoreApplication.Client.Views
         }
         private List<MenuAction> _actions = null;
         public StaticMenuView() : base() { _actions = new(); }
+        // TODO: This RegisterAction function works as intended, but I would like to replace this with a better/more robust solution
+        // that adheres better to SOLID principles. I'm thinking to create an interface for client code that requires GetActions() or
+        // something similar
         protected void RegisterAction(MenuAction action)
         {
             _actions.Add(action);

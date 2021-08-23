@@ -1,23 +1,21 @@
 
 using System.Collections.Generic;
 using Project0.StoreApplication.Domain.Models;
+using Project0.StoreApplication.Domain.Settings;
 
 namespace Project0.StoreApplication.Storage.Repositories
 {
     public class CustomerRepository : DataRepository<Customer>
     {
 
-        protected static string dataFile = dataDir + "customers.xml";
         protected override string GetDataFile()
         {
-            return dataFile;
+            return AppSettings.Settings.GetCustomersFile();
         }
         protected static CustomerRepository _repo = null;
-        //public static CustomerRepository Factory() { return (_repo = _repo ?? new CustomerRepository()); }
         public static CustomerRepository Factory()
         {
-            if (_repo == null) { _repo = new CustomerRepository(); }
-            return _repo;
+            return (_repo ??= new CustomerRepository());
         }
 
         internal CustomerRepository()
