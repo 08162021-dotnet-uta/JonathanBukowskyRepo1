@@ -8,7 +8,7 @@ namespace Project0.StoreApplication.Testing
         [Fact]
         public void Test_ProductCreation()
         {
-            // TODO: add more here to test memers and stuff
+            // TODO: add more here to test members and stuff
             // arrange = get instance of the entity to test
             // "sut" - subject under test
             var sut = new Product();
@@ -18,6 +18,17 @@ namespace Project0.StoreApplication.Testing
 
             // assert = condition by which test succeeds/fails
             Assert.NotNull(actual);
+        }
+
+        [Fact]
+        public void Test_ProductToString()
+        {
+            var sut = new Product();
+            var testName = "Bounty soap";
+            sut.Name = testName;
+            var actual = sut.ToString();
+
+            Assert.True(actual.Contains(testName));
         }
     }
 }

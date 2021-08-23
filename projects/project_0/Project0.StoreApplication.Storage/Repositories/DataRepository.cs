@@ -4,6 +4,7 @@ using Project0.StoreApplication.Storage.Adapters;
 
 namespace Project0.StoreApplication.Storage.Repositories
 {
+    // TODO: the DataRepository type does not need to be generic, consider making only the methods generic
     public abstract class DataRepository<T> : Repository
     {
         protected abstract string GetDataFile();
