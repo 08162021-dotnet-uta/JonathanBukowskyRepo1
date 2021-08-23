@@ -9,7 +9,7 @@ namespace Project0.StoreApplication.Testing.StorageTesting
 {
     public class XmlFileAdapterTests
     {
-        private const string dataDir = "/home/jon/revature/my_code/data/project_0_testing/";
+        private const string dataDir = "/home/jon/revature/my_code/data/project_0/test_data/";
 
         [Fact]
         public void Test_SaveData()
