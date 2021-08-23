@@ -26,6 +26,10 @@ namespace Project0.StoreApplication.Client
         Quit
     }
                 */
+
+    /// <summary>
+    /// Defines the Program Class, which is the entry point into our application
+    /// </summary>
     class Program
     {
         public Program()
@@ -42,14 +46,24 @@ namespace Project0.StoreApplication.Client
                                             .CreateLogger();
         }
 
-        static void Main(string[] args)
+        /// <summary>
+        /// Start the storefront application
+        /// </summary>
+        public void Run()
         {
-            Log.Information("Starting program");
             View mainMenu = new MainView();
             Context context = new Context();
             StorageDAO dataStore = new XmlFileStorage();
             View.SetStorage(dataStore);
             View.RunView(mainMenu, context);
+        }
+
+        static void Main(string[] args)
+        {
+            Log.Information("Creating program instance");
+            Program p = new Program();
+            Log.Information("Starting program");
+            p.Run();
             //Playground();
         }
 
