@@ -40,8 +40,16 @@ namespace Project0.StoreApplication.Testing
         public void Test_OneStoreInvalid(int i)
         {
             var sut = StoreRepository.Factory();
-            var store = sut.GetStore(i);
-            Assert.Null(store);
+            var success = true;
+            try
+            {
+                var store = sut.GetStore(i);
+            }
+            catch (System.ArgumentOutOfRangeException e)
+            {
+                success = false;
+            }
+            Assert.False(success);
         }
     }
 }
