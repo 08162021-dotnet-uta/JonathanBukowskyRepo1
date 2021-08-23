@@ -46,6 +46,7 @@ namespace Project0.StoreApplication.Storage.Repositories
         }
     }
 
+
     // I had to make this public because of the inheritance? TODO: Look into this, re-evaluate structure
     public class OrderXML
     {

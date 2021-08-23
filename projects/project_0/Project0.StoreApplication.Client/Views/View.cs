@@ -1,6 +1,6 @@
 
 using System;
-using Project0.StoreApplication.Storage;
+using Project0.StoreApplication.Domain.Interfaces;
 
 namespace Project0.StoreApplication.Client.Views
 {

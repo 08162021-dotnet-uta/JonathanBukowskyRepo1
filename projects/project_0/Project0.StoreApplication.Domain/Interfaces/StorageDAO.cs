@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Project0.StoreApplication.Domain.Abstracts;
 using Project0.StoreApplication.Domain.Models;
 
-namespace Project0.StoreApplication.Storage
+namespace Project0.StoreApplication.Domain.Interfaces
 {
     // This interface would serve as the API for accessing program data -- I'm not sure if I want to use it
     public interface StorageDAO
