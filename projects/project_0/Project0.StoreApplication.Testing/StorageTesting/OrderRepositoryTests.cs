@@ -48,7 +48,7 @@ namespace Project0.StoreApplication.Testing.StorageTesting
             {
                 var product = sut.Orders[i];
             }
-            catch (System.ArgumentOutOfRangeException e)
+            catch (System.ArgumentOutOfRangeException)
             {
                 success = false;
             }
