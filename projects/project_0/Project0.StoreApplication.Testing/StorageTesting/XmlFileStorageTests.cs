@@ -82,21 +82,49 @@ namespace Project0.StoreApplication.Testing.StorageTesting
         public void Test_ReloadOrders()
         {
             RepositoryTesting.RepositorySetup.InitializeSettings();
+            IStorageDAO sut = new XmlFileStorage();
+            var repo = OrderRepository.Factory();
+            var expected = sut.GetOrders()[2];
+            repo.LoadOrders();
+            var acutal = sut.GetOrders();
+            var found = acutal.Find((Order order) => order == expected);
+            Assert.NotNull(found);
         }
         [Fact]
         public void Test_ReloadCustomers()
         {
             RepositoryTesting.RepositorySetup.InitializeSettings();
+            IStorageDAO sut = new XmlFileStorage();
+            var repo = CustomerRepository.Factory();
+            var expected = sut.GetCustomers()[2];
+            repo.LoadCustomers();
+            var acutal = sut.GetCustomers();
+            var found = acutal.Find((Customer customer) => customer == expected);
+            Assert.NotNull(found);
         }
         [Fact]
         public void Test_ReloadProducts()
         {
             RepositoryTesting.RepositorySetup.InitializeSettings();
+            IStorageDAO sut = new XmlFileStorage();
+            var repo = ProductRepository.Factory();
+            var expected = sut.GetProducts()[2];
+            repo.LoadProducts();
+            var acutal = sut.GetProducts();
+            var found = acutal.Find((Product product) => product == expected);
+            Assert.NotNull(found);
         }
         [Fact]
         public void Test_ReloadStores()
         {
             RepositoryTesting.RepositorySetup.InitializeSettings();
+            IStorageDAO sut = new XmlFileStorage();
+            var repo = StoreRepository.Factory();
+            var expected = sut.GetStores()[2];
+            repo.LoadStores();
+            var acutal = sut.GetStores();
+            var found = acutal.Find((Store store) => store == expected);
+            Assert.NotNull(found);
         }
     }
 }
