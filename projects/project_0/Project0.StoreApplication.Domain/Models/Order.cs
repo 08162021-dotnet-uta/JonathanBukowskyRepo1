@@ -10,9 +10,33 @@ namespace Project0.StoreApplication.Domain.Models
             Products = new(products);
             Store = store;
         }
+
+        public int OrderID { get; set; }
         public Customer Customer { get; }
         public List<Product> Products { get; }
         public Store Store { get; }
+
+        public override int GetHashCode()
+        {
+            return OrderID;
+        }
+        public override bool Equals(object o)
+        {
+            if (o is Order)
+            {
+                return (this == (o as Order));
+            }
+            return false;
+        }
+
+        public static bool operator !=(Order a, Order b)
+        {
+            return a.OrderID != b.OrderID;
+        }
+        public static bool operator ==(Order a, Order b)
+        {
+            return a.OrderID == b.OrderID;
+        }
 
         public override string ToString()
         {

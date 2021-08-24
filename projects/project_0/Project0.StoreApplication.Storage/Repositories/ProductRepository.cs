@@ -34,6 +34,11 @@ namespace Project0.StoreApplication.Storage.Repositories
         }
 
         public List<Product> Products { get => Data; set => Data = value; }
+        public Product GetProduct(int productID)
+        {
+            var product = Products.Find((Product p) => p.ProductID == productID);
+            return product;
+        }
 
         private List<Product> _createDefaultProducts()
         {

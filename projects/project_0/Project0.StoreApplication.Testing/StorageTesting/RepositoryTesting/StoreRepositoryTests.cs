@@ -24,9 +24,9 @@ namespace Project0.StoreApplication.Testing.StorageTesting.RepositoryTesting
         }
 
         [Theory]
-        [InlineData(0)]
         [InlineData(1)]
         [InlineData(2)]
+        [InlineData(3)]
         public void Test_OneStore(int i)
         {
             RepositorySetup.InitializeSettings();
@@ -39,7 +39,7 @@ namespace Project0.StoreApplication.Testing.StorageTesting.RepositoryTesting
         [InlineData(10)]
         [InlineData(-1)]
         [InlineData(4)]
-        [InlineData(3)]
+        [InlineData(0)]
         public void Test_OneStoreInvalid(int i)
         {
             RepositorySetup.InitializeSettings();

@@ -24,6 +24,12 @@ namespace Project0.StoreApplication.Storage.Repositories
         }
 
         public List<Customer> Customers { get => Data; set => Data = value; }
+        public Customer GetCustomer(int customerID)
+        {
+            var customer = Customers.Find((Customer c) => c.CustomerID == customerID);
+            // could do some checking, but returning null is currently correct if customer doesn't exist
+            return customer;
+        }
         public void LoadCustomers()
         {
             Load();
@@ -38,9 +44,9 @@ namespace Project0.StoreApplication.Storage.Repositories
         {
             return new()
             {
-                new Customer() { Name = "Joe" },
-                new Customer() { Name = "Bob" },
-                new Customer() { Name = "Ruby" }
+                new Customer() { Name = "Joe", CustomerID = 1 },
+                new Customer() { Name = "Bob", CustomerID = 2 },
+                new Customer() { Name = "Ruby", CustomerID = 3 }
             };
         }
     }

@@ -28,9 +28,10 @@ namespace Project0.StoreApplication.Storage.Repositories
             Load();
         }
         public List<Store> Stores { get => Data; set => Data = value; }
-        public Store GetStore(int index)
+        public Store GetStore(int storeID)
         {
-            return Data[index];
+            var store = Stores.Find((Store s) => s.StoreID == storeID);
+            return store;
         }
 
         protected override string GetDataFile()

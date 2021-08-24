@@ -56,28 +56,29 @@ namespace Project0.StoreApplication.Storage.Repositories
         public OrderXML() : base() { }
         public OrderXML(Order order)
         {
-            var customers = CustomerRepository.Factory().Customers;
-            var stores = StoreRepository.Factory().Stores;
-            var products = ProductRepository.Factory().Products;
-            Customer = customers.IndexOf(order.Customer);
-            Store = stores.IndexOf(order.Store);
+            Customer = order.Customer.CustomerID;
+            Store = order.Store.StoreID;
             Products = new();
             foreach (var prod in order.Products)
             {
-                Products.Add(products.IndexOf(prod));
+                Products.Add(prod.ProductID);
             }
         }
         public Order GetOrder()
         {
-            var customers = CustomerRepository.Factory().Customers;
-            var stores = StoreRepository.Factory().Stores;
-            var products = ProductRepository.Factory().Products;
+            var customerRepo = CustomerRepository.Factory();
+            var storeRepo = StoreRepository.Factory();
+            var productRepo = ProductRepository.Factory();
+
+            var customer = customerRepo.GetCustomer(Customer);
+            var store = storeRepo.GetStore(Store);
             List<Product> prods = new();
-            foreach (var prodIdx in Products)
+            foreach (var prodID in Products)
             {
-                prods.Add(products[prodIdx]);
+                var product = productRepo.GetProduct(prodID);
+                prods.Add(product);
             }
-            return new Order(customers[Customer], stores[Store], prods);
+            return new Order(customer, store, prods);
         }
     }
 }

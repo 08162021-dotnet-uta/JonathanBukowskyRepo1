@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ArrayOfOrderXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <OrderXML>
+    <OrderID>1</OrderID>
     <Customer>1</Customer>
     <Store>2</Store>
     <Products>
@@ -10,6 +11,7 @@
     </Products>
   </OrderXML>
   <OrderXML>
+    <OrderID>2</OrderID>
     <Customer>2</Customer>
     <Store>0</Store>
     <Products>
@@ -19,6 +21,7 @@
     </Products>
   </OrderXML>
   <OrderXML>
+    <OrderID>3</OrderID>
     <Customer>2</Customer>
     <Store>0</Store>
     <Products>
@@ -27,6 +30,7 @@
     </Products>
   </OrderXML>
   <OrderXML>
+    <OrderID>4</OrderID>
     <Customer>0</Customer>
     <Store>1</Store>
     <Products>
@@ -35,6 +39,7 @@
     </Products>
   </OrderXML>
   <OrderXML>
+    <OrderID>5</OrderID>
     <Customer>0</Customer>
     <Store>1</Store>
     <Products>
@@ -43,6 +48,7 @@
     </Products>
   </OrderXML>
   <OrderXML>
+    <OrderID>6</OrderID>
     <Customer>0</Customer>
     <Store>0</Store>
     <Products>
@@ -52,6 +58,7 @@
     </Products>
   </OrderXML>
   <OrderXML>
+    <OrderID>7</OrderID>
     <Customer>0</Customer>
     <Store>0</Store>
     <Products>
@@ -61,6 +68,7 @@
     </Products>
   </OrderXML>
   <OrderXML>
+    <OrderID>8</OrderID>
     <Customer>0</Customer>
     <Store>2</Store>
     <Products>
@@ -70,6 +78,7 @@
     </Products>
   </OrderXML>
   <OrderXML>
+    <OrderID>9</OrderID>
     <Customer>0</Customer>
     <Store>2</Store>
     <Products>

@@ -17,6 +17,29 @@ namespace Project0.StoreApplication.Domain.Abstracts
         }
         public string Name { get; set; }
 
+        public int StoreID { get; set; }
+
+        public override int GetHashCode()
+        {
+            return StoreID;
+        }
+        public override bool Equals(object o)
+        {
+            if (o is Store)
+            {
+                return (this == (o as Store));
+            }
+            return false;
+        }
+        public static bool operator !=(Store a, Store b)
+        {
+            return a.StoreID != b.StoreID;
+        }
+        public static bool operator ==(Store a, Store b)
+        {
+            return a.StoreID == b.StoreID;
+        }
+
         public override string ToString()
         {
             return Name ?? DateTime.Now.ToLongDateString();
