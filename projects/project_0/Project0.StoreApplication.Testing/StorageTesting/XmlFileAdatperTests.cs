@@ -8,6 +8,8 @@ using Xunit;
 
 namespace Project0.StoreApplication.Testing.StorageTesting
 {
+    // Put file IO tests into same collection to turn off parallel tests because of file IO
+    [Collection("File IO Tests")]
     public class XmlFileAdapterTests
     {
         private const string dataDir = "/home/jon/revature/my_code/data/project_0/test_data/";
@@ -26,7 +28,7 @@ namespace Project0.StoreApplication.Testing.StorageTesting
             Adapter sut = new XmlFileAdapter();
             sut.SaveAll(testStores, dataFile);
             var actual = sut.LoadAll<Store>(dataFile);
-            Assert.Equal(actual.Count, 2);
+            Assert.Equal(actual.Count, 3);
             Assert.True(actual[0].Name == "Meijer");
             Assert.True(actual[0].StoreID == 1);
             Assert.True(actual[1].Name == "Kroger");

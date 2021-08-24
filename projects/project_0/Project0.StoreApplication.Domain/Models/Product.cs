@@ -22,11 +22,11 @@ namespace Project0.StoreApplication.Domain.Models
         }
         public static bool operator ==(Product a, Product b)
         {
-            return a.ProductID == b.ProductID;
+            return a?.ProductID == b?.ProductID;
         }
         public static bool operator !=(Product a, Product b)
         {
-            return a.ProductID != b.ProductID;
+            return a?.ProductID != b?.ProductID;
         }
         public override string ToString()
         {

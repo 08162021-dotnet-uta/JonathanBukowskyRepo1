@@ -33,11 +33,11 @@ namespace Project0.StoreApplication.Domain.Abstracts
         }
         public static bool operator !=(Store a, Store b)
         {
-            return a.StoreID != b.StoreID;
+            return a?.StoreID != b?.StoreID;
         }
         public static bool operator ==(Store a, Store b)
         {
-            return a.StoreID == b.StoreID;
+            return a?.StoreID == b?.StoreID;
         }
 
         public override string ToString()

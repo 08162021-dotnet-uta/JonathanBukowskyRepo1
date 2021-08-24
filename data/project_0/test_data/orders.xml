@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ArrayOfOrderXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <OrderXML>
+    <Customer>2</Customer>
+    <Store>3</Store>
     <OrderID>1</OrderID>
-    <Customer>1</Customer>
-    <Store>2</Store>
     <Products>
       <int>4</int>
       <int>3</int>
@@ -11,9 +11,9 @@
     </Products>
   </OrderXML>
   <OrderXML>
+    <Customer>3</Customer>
+    <Store>1</Store>
     <OrderID>2</OrderID>
-    <Customer>2</Customer>
-    <Store>0</Store>
     <Products>
       <int>1</int>
       <int>4</int>
@@ -21,36 +21,36 @@
     </Products>
   </OrderXML>
   <OrderXML>
+    <Customer>3</Customer>
+    <Store>1</Store>
     <OrderID>3</OrderID>
-    <Customer>2</Customer>
-    <Store>0</Store>
     <Products>
       <int>7</int>
       <int>9</int>
     </Products>
   </OrderXML>
   <OrderXML>
+    <Customer>1</Customer>
+    <Store>2</Store>
     <OrderID>4</OrderID>
-    <Customer>0</Customer>
-    <Store>1</Store>
     <Products>
       <int>0</int>
       <int>7</int>
     </Products>
   </OrderXML>
   <OrderXML>
+    <Customer>1</Customer>
+    <Store>2</Store>
     <OrderID>5</OrderID>
-    <Customer>0</Customer>
-    <Store>1</Store>
     <Products>
       <int>6</int>
       <int>4</int>
     </Products>
   </OrderXML>
   <OrderXML>
+    <Customer>1</Customer>
+    <Store>1</Store>
     <OrderID>6</OrderID>
-    <Customer>0</Customer>
-    <Store>0</Store>
     <Products>
       <int>1</int>
       <int>2</int>
@@ -58,9 +58,9 @@
     </Products>
   </OrderXML>
   <OrderXML>
+    <Customer>1</Customer>
+    <Store>1</Store>
     <OrderID>7</OrderID>
-    <Customer>0</Customer>
-    <Store>0</Store>
     <Products>
       <int>8</int>
       <int>7</int>
@@ -68,9 +68,9 @@
     </Products>
   </OrderXML>
   <OrderXML>
+    <Customer>1</Customer>
+    <Store>3</Store>
     <OrderID>8</OrderID>
-    <Customer>0</Customer>
-    <Store>2</Store>
     <Products>
       <int>3</int>
       <int>4</int>
@@ -78,9 +78,9 @@
     </Products>
   </OrderXML>
   <OrderXML>
+    <Customer>1</Customer>
+    <Store>3</Store>
     <OrderID>9</OrderID>
-    <Customer>0</Customer>
-    <Store>2</Store>
     <Products>
       <int>8</int>
       <int>7</int>

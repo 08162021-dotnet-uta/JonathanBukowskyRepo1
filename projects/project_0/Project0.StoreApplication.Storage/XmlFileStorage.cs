@@ -30,7 +30,10 @@ namespace Project0.StoreApplication.Storage
             // TODO: Need to check to make sure customer, store, products are all valid and "in the database" (saved to disk already)
             Order o = new Order(customer, store, products);
             var repo = OrderRepository.Factory();
+            // TODO: this won't work if orderIDs become inconsistent (can happen if orders can ever be removed, for example)
+            o.OrderID = repo.Orders.Count + 1;
             repo.Orders.Add(o);
+            // TODO: Repo should really handle this
             repo.SaveOrders();
             // TODO: actually check on whether save succeeded
             //Console.WriteLine("Order saved successfully");

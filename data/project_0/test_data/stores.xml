@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ArrayOfStore xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Store xsi:type="GroceryStore">
-    <StoreID>1</StoreID>
     <Name>Meijer</Name>
+    <StoreID>1</StoreID>
   </Store>
   <Store xsi:type="GroceryStore">
-    <StoreID>2</StoreID>
     <Name>Kroger</Name>
+    <StoreID>2</StoreID>
   </Store>
   <Store xsi:type="GroceryStore">
-    <StoreID>3</StoreID>
     <Name>Target</Name>
+    <StoreID>3</StoreID>
   </Store>
 </ArrayOfStore>

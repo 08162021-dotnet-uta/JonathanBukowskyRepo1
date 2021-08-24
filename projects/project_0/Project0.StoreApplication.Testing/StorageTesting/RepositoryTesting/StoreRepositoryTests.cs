@@ -1,10 +1,14 @@
 using Xunit;
 using Project0.StoreApplication.Storage.Repositories;
+using Project0.StoreApplication.Domain.Abstracts;
 
 namespace Project0.StoreApplication.Testing.StorageTesting.RepositoryTesting
 {
     // TDD -- test driven development
     // red green refactor -- term for tdd, means 1 (red - create tests, all will fail), 2 (green - code until tests pass), 3 (refactor your code, tests should stay green)
+    // NOTE: By default, xUnit tests run in parallel. This is not appropriate for reading/writing to file. Perhaps I should add tests for that, but as of now,
+    //          the system is not intended to work in a parallelized environment, so I won't. Putting file IO tests into same collection to avoid parallelization
+    [Collection("File IO Tests")]
     public class StoreRepositoryTests
     {
         // need annotations ("attributes" in c#) for testing to work successfully
@@ -31,8 +35,18 @@ namespace Project0.StoreApplication.Testing.StorageTesting.RepositoryTesting
         {
             RepositorySetup.InitializeSettings();
             var sut = StoreRepository.Factory();
-            var store = sut.GetStore(i);
+            var success = true;
+            Store store = null;
+            try
+            {
+                store = sut.GetStore(i);
+            }
+            catch
+            {
+                success = false;
+            }
             Assert.NotNull(store);
+            Assert.True(success);
         }
 
         [Theory]
@@ -44,16 +58,9 @@ namespace Project0.StoreApplication.Testing.StorageTesting.RepositoryTesting
         {
             RepositorySetup.InitializeSettings();
             var sut = StoreRepository.Factory();
-            var success = true;
-            try
-            {
-                var store = sut.GetStore(i);
-            }
-            catch (System.ArgumentOutOfRangeException)
-            {
-                success = false;
-            }
-            Assert.False(success);
+            Store store = null;
+            store = sut.GetStore(i);
+            Assert.Null(store);
         }
     }
 }

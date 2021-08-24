@@ -35,7 +35,7 @@ namespace Project0.StoreApplication.Domain.Models
 
         public static bool operator !=(Customer a, Customer b)
         {
-            return a.CustomerID != b.CustomerID;
+            return a?.CustomerID != b?.CustomerID;
         }
 
         public static bool operator ==(Customer a, Customer b)
@@ -43,7 +43,7 @@ namespace Project0.StoreApplication.Domain.Models
             // NOTE: if the code is written correctly, this *should* be sufficient comparison
             //      it would be a great idea to compare other fields and such, but I'm not sure
             //  currently whether that would be either A) desired or B) necessary
-            return a.CustomerID == b.CustomerID;
+            return a?.CustomerID == b?.CustomerID;
         }
     }
 }

@@ -52,12 +52,18 @@ namespace Project0.StoreApplication.Storage.Repositories
     {
         public int Customer { get; set; }
         public int Store { get; set; }
+        public int OrderID { get; set; }
         public List<int> Products { get; set; }
         public OrderXML() : base() { }
         public OrderXML(Order order)
         {
             Customer = order.Customer.CustomerID;
+            if (order.Store == null)
+            {
+                System.Console.WriteLine($"Order: {order}");
+            }
             Store = order.Store.StoreID;
+            OrderID = order.OrderID;
             Products = new();
             foreach (var prod in order.Products)
             {
@@ -78,7 +84,9 @@ namespace Project0.StoreApplication.Storage.Repositories
                 var product = productRepo.GetProduct(prodID);
                 prods.Add(product);
             }
-            return new Order(customer, store, prods);
+            var order = new Order(customer, store, prods);
+            order.OrderID = OrderID;
+            return order;
         }
     }
 }

@@ -1,10 +1,13 @@
 using Xunit;
 using Project0.StoreApplication.Storage.Repositories;
+using Project0.StoreApplication.Domain.Models;
 
 namespace Project0.StoreApplication.Testing.StorageTesting.RepositoryTesting
 {
     // TDD -- test driven development
     // red green refactor -- term for tdd, means 1 (red - create tests, all will fail), 2 (green - code until tests pass), 3 (refactor your code, tests should stay green)
+    // Put file IO tests into same collection to turn off parallel tests because of file IO
+    [Collection("File IO Tests")]
     public class OrderRepositoryTests
     {
         [Fact]
@@ -30,8 +33,18 @@ namespace Project0.StoreApplication.Testing.StorageTesting.RepositoryTesting
         {
             RepositorySetup.InitializeSettings();
             var sut = OrderRepository.Factory();
-            var order = sut.Orders[i];
+            var success = true;
+            Order order = null;
+            try
+            {
+                order = sut.Orders[i];
+            }
+            catch
+            {
+                success = false;
+            }
             Assert.NotNull(order);
+            Assert.True(success);
         }
 
         [Theory]
@@ -44,15 +57,17 @@ namespace Project0.StoreApplication.Testing.StorageTesting.RepositoryTesting
             RepositorySetup.InitializeSettings();
             var sut = OrderRepository.Factory();
             var success = true;
+            Order order = null;
             try
             {
-                var product = sut.Orders[i];
+                order = sut.Orders[i];
             }
             catch (System.ArgumentOutOfRangeException)
             {
                 success = false;
             }
             Assert.False(success);
+            Assert.Null(order);
         }
     }
 }

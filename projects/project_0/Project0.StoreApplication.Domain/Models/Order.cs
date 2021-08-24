@@ -11,10 +11,11 @@ namespace Project0.StoreApplication.Domain.Models
             Store = store;
         }
 
+        // TODO: update OrderID to be set appropriately
         public int OrderID { get; set; }
-        public Customer Customer { get; }
-        public List<Product> Products { get; }
-        public Store Store { get; }
+        public Customer Customer { get; private set; }
+        public List<Product> Products { get; private set; }
+        public Store Store { get; private set; }
 
         public override int GetHashCode()
         {
@@ -31,11 +32,11 @@ namespace Project0.StoreApplication.Domain.Models
 
         public static bool operator !=(Order a, Order b)
         {
-            return a.OrderID != b.OrderID;
+            return a?.OrderID != b?.OrderID;
         }
         public static bool operator ==(Order a, Order b)
         {
-            return a.OrderID == b.OrderID;
+            return a?.OrderID == b?.OrderID;
         }
 
         public override string ToString()
