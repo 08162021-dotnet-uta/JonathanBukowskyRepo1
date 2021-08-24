@@ -3,13 +3,16 @@
   <Store xsi:type="GroceryStore">
     <Name>Meijer</Name>
     <StoreID>1</StoreID>
+    <Orders />
   </Store>
   <Store xsi:type="GroceryStore">
     <Name>Kroger</Name>
     <StoreID>2</StoreID>
+    <Orders />
   </Store>
   <Store xsi:type="GroceryStore">
     <Name>Target</Name>
     <StoreID>3</StoreID>
+    <Orders />
   </Store>
 </ArrayOfStore>

@@ -84,20 +84,63 @@ namespace Project0.StoreApplication.Client
 
         static void Main(string[] args)
         {
+            const bool testRun = false;
             Log.Information("Creating program instance");
             Program p = new Program();
             // TODO: get this from ENV?
             // if (ENV.save_to_file) p.SaveLogToFile = true;
             p.CreateLogger();
             Log.Information("Starting program");
-            p.Run();
-            //Playground();
+
+
+            if (testRun)
+            {
+                //Playground();
+            }
+            else
+            {
+                p.Run();
+            }
         }
 
         // a little temporary function for me to test stuff in main without running app
         static void Playground()
         {
-            var cr = CustomerRepository.Factory();
+            // This is gonna get a little messy... trying to fix some saved data so that it fits the new code
+            /*
+            CurrentSettings.Settings = new ApplicationSettings();
+            var oRepo = OrderRepository.Factory();
+            var objs = oRepo.GetOrderXMLs();
+
+            var cRepo = CustomerRepository.Factory();
+            var sRepo = StoreRepository.Factory();
+            var pRepo = ProductRepository.Factory();
+            int i = 1;
+            Console.WriteLine(cRepo.Customers.Count);
+            Console.WriteLine(sRepo.Stores.Count);
+            foreach (OrderXML o in objs)
+            {
+                var c = cRepo.GetCustomer(o.Customer);
+                var s = sRepo.GetStore(o.Store);
+                if (c == null || s == null)
+                {
+                    Console.WriteLine($"Order info: Customer {o.Customer}, Store {o.Store}, Prods: {o.Products}");
+                    Console.WriteLine($"c: {c}, s: {s}");
+                }
+                List<Product> prods = new();
+                o.Products.ForEach((int prodID) =>
+                {
+                    prods.Add(pRepo.GetProduct(prodID));
+                });
+                Order ord = new Order(c, s, prods);
+                ord.OrderID = i++;
+                c.Orders.Add(ord);
+                s.Orders.Add(ord);
+            }
+            cRepo.SaveCustomers();
+            sRepo.SaveStores();
+
+            //var cr = CustomerRepository.Factory();
             /*
             Product p1 = new Product();
             Object p2 = new Product();

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Xml.Serialization;
 using Project0.StoreApplication.Domain.Models;
 
@@ -10,6 +11,7 @@ namespace Project0.StoreApplication.Domain.Abstracts
         public Store()
         {
             Name = "Generic store";
+            Orders = new();
         }
         public Store(string name)
         {
@@ -18,6 +20,8 @@ namespace Project0.StoreApplication.Domain.Abstracts
         public string Name { get; set; }
 
         public int StoreID { get; set; }
+
+        public List<Order> Orders { get; set; }
 
         public override int GetHashCode()
         {

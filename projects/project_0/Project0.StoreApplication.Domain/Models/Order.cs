@@ -1,10 +1,15 @@
 using System.Collections.Generic;
+using System.Xml.Serialization;
 using Project0.StoreApplication.Domain.Abstracts;
 namespace Project0.StoreApplication.Domain.Models
 {
     public class Order
     {
-        public Order(Customer customer, Store store, List<Product> products)
+        public Order() : base()
+        {
+
+        }
+        public Order(Customer customer, Store store, List<Product> products) : base()
         {
             Customer = customer;
             Products = new(products);
@@ -13,9 +18,11 @@ namespace Project0.StoreApplication.Domain.Models
 
         // TODO: update OrderID to be set appropriately
         public int OrderID { get; set; }
-        public Customer Customer { get; private set; }
-        public List<Product> Products { get; private set; }
-        public Store Store { get; private set; }
+        [XmlIgnoreAttribute]
+        public Customer Customer { get; set; }
+        public List<Product> Products { get; set; }
+        [XmlIgnoreAttribute]
+        public Store Store { get; set; }
 
         public override int GetHashCode()
         {

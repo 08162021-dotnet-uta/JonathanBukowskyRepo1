@@ -1,13 +1,16 @@
 using System.Collections.Generic;
-
+using System.Xml.Serialization;
 using Project0.StoreApplication.Domain.Abstracts;
 
 namespace Project0.StoreApplication.Domain.Models
 {
+    // TODO: I want to update my object model to have Customer.Orders and Store.Orders (and maybe additional stuff like Store.Products, idk).
+    //  (I hope) I've finally got my saving to a point where I can consistently save/load objects and correctly identify them.
     public class Customer
     {
         public Customer()
         {
+            Orders = new();
         }
 
         public int CustomerID { get; set; }
@@ -18,6 +21,8 @@ namespace Project0.StoreApplication.Domain.Models
         {
             return Name;
         }
+
+        public List<Order> Orders { get; set; }
 
         public override int GetHashCode()
         {

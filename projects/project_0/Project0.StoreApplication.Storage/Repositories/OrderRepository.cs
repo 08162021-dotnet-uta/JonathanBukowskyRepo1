@@ -19,6 +19,19 @@ namespace Project0.StoreApplication.Storage.Repositories
             Data = orders.ConvertAll((Order o) => new OrderXML(o));
         }
 
+        // temp func to fix save data
+        public List<OrderXML> GetOrderXMLs()
+        {
+            Load();
+            return Data;
+        }
+
+        public void SetOrderXMLs(List<OrderXML> newVal)
+        {
+            Data = newVal;
+            Save();
+        }
+
 
         protected static OrderRepository _repo = null;
         public static OrderRepository Factory() { return (_repo ??= new OrderRepository()); }
