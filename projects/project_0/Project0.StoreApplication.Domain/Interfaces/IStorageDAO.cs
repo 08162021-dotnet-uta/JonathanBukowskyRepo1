@@ -19,6 +19,6 @@ namespace Project0.StoreApplication.Domain.Interfaces
         List<Order> GetOrders(Customer customer);
         // TODO: consider throwing errors instead of bool return value to provide better feedback on why failure occurred?
         //      perhaps return an int or something else like that?
-        bool CreateOrder(Customer customer, Store store, List<Product> products);
+        Order CreateOrder(Customer customer, Store store, List<Product> products);
     }
 }

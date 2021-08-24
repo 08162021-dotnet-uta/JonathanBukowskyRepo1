@@ -9,31 +9,32 @@ namespace Project0.StoreApplication.Storage
 {
     public class XmlFileStorage : IStorageDAO
     {
-        public bool CreateOrder(Customer customer, Store store, List<Product> products)
+        public Order CreateOrder(Customer customer, Store store, List<Product> products)
         {
-            // TODO: Better error checking for caller? assume caller validated data?
+            // TODO: Better error output for caller? assume caller validated data?
             if (customer == null)
             {
                 //Console.WriteLine("You must select a customer");
-                return false;
+                return null;
             }
             else if (store == null)
             {
                 //Console.WriteLine("You must select a store");
-                return false;
+                return null;
             }
             else if (products == null || products.Count == 0)
             {
                 //Console.WriteLine("Your cart is empty");
-                return false;
+                return null;
             }
+            // TODO: Need to check to make sure customer, store, products are all valid and "in the database" (saved to disk already)
             Order o = new Order(customer, store, products);
             var repo = OrderRepository.Factory();
             repo.Orders.Add(o);
             repo.SaveOrders();
             // TODO: actually check on whether save succeeded
             //Console.WriteLine("Order saved successfully");
-            return true;
+            return o;
         }
 
         public List<Customer> GetCustomers()

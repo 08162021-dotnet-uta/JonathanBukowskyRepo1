@@ -1,18 +1,21 @@
 using Xunit;
 using Project0.StoreApplication.Storage.Repositories;
 
-namespace Project0.StoreApplication.Testing.StorageTesting
+namespace Project0.StoreApplication.Testing.StorageTesting.RepositoryTesting
 {
     // TDD -- test driven development
     // red green refactor -- term for tdd, means 1 (red - create tests, all will fail), 2 (green - code until tests pass), 3 (refactor your code, tests should stay green)
-    public class OrderRepositoryTests
+    public class CustomerRepositoryTests
     {
+        // need annotations ("attributes" in c#) for testing to work successfully
         [Fact]
-        public void Test_OrderCollection()
+        public void Test_CustomerCollectionNull()
         {
             RepositorySetup.InitializeSettings();
-            var sut = OrderRepository.Factory();
-            var actual = sut.Orders;
+            var sut = CustomerRepository.Factory();
+            var actual = sut.Customers;
+
+            // assert = condition by which test succeeds/fails
             Assert.NotNull(actual);
         }
 
@@ -20,33 +23,27 @@ namespace Project0.StoreApplication.Testing.StorageTesting
         [InlineData(0)]
         [InlineData(1)]
         [InlineData(2)]
-        [InlineData(3)]
-        [InlineData(4)]
-        [InlineData(5)]
-        [InlineData(6)]
-        [InlineData(7)]
-        [InlineData(8)]
-        public void Test_OneOrder(int i)
+        public void Test_OneCustomer(int i)
         {
             RepositorySetup.InitializeSettings();
-            var sut = OrderRepository.Factory();
-            var order = sut.Orders[i];
-            Assert.NotNull(order);
+            var sut = CustomerRepository.Factory();
+            var store = sut.Customers[i];
+            Assert.NotNull(store);
         }
 
         [Theory]
         [InlineData(10)]
         [InlineData(-1)]
-        [InlineData(15)]
-        [InlineData(9)]
-        public void Test_OneOrderInvalid(int i)
+        [InlineData(4)]
+        [InlineData(3)]
+        public void Test_OneCustomerInvalid(int i)
         {
             RepositorySetup.InitializeSettings();
-            var sut = OrderRepository.Factory();
+            var sut = CustomerRepository.Factory();
             var success = true;
             try
             {
-                var product = sut.Orders[i];
+                var store = sut.Customers[i];
             }
             catch (System.ArgumentOutOfRangeException)
             {
