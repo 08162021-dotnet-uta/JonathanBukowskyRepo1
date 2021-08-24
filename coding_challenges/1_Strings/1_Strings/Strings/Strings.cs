@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace StringManipulationChallenge
 {
@@ -20,6 +21,39 @@ namespace StringManipulationChallenge
             * implement the required code here and within the methods below.
             *
             */
+            string upperCaseString;
+            string noWhiteSpaceString;
+            string subString;
+            int charIndex;
+            Console.WriteLine("Please enter your message and press enter:");
+            userInputString = Console.ReadLine();
+            Console.WriteLine("Please enter a number LESS THAN the length of your string and press enter");
+            numberLessThanStringLength = int.Parse(Console.ReadLine());
+
+            upperCaseString = StringToUpper(userInputString);
+            Console.WriteLine($"upperCaseString: {upperCaseString}");
+
+            lowerCaseString = StringToLower(userInputString);
+            Console.WriteLine($"lowerCaseString: {lowerCaseString}");
+
+            noWhiteSpaceString = StringTrim(userInputString);
+            Console.Write($"noWhiteSpaceString: {noWhiteSpaceString}");
+
+            subString = StringSubstring(userInputString, 0, numberLessThanStringLength);
+            Console.WriteLine($"subString 0-4: {subString}");
+
+            Console.Write("Please enter a character to search for: ");
+            char1 = StringTrim(Console.ReadLine())[0];
+            charIndex = SearchChar(userInputString, char1);
+            Console.WriteLine($"charIndex: {charIndex}");
+
+            Console.Write("Please enter your first name: ");
+            fName = Console.ReadLine();
+            Console.Write("Please enter your last name: ");
+            lName = Console.ReadLine();
+
+            userFullName = ConcatNames(fName, lName);
+            Console.WriteLine($"userFullName: {userFullName}");
         }
 
         /// <summary>
@@ -31,7 +65,7 @@ namespace StringManipulationChallenge
         /// <returns></returns>
         public static string StringToUpper(string usersString)
         {
-            throw new NotImplementedException("StringToUpper method not implemented.");
+            return usersString.ToUpper();
         }
 
         /// <summary>
@@ -43,7 +77,7 @@ namespace StringManipulationChallenge
         /// <returns></returns>       
         public static string StringToLower(string usersString)
         {
-            throw new NotImplementedException("StringToUpper method not implemented.");
+            return usersString.ToLower();
         }
 
         /// <summary>
@@ -56,7 +90,7 @@ namespace StringManipulationChallenge
         /// <returns></returns>
         public static string StringTrim(string usersStringWithWhiteSpace)
         {
-            throw new NotImplementedException("StringTrim method not implemented.");
+            return usersStringWithWhiteSpace.Trim();
         }
 
         /// <summary>
@@ -67,11 +101,11 @@ namespace StringManipulationChallenge
         /// </summary>
         /// <param name="x"></param>
         /// <param name="firstElement"></param>
-        /// <param name="lastElement"></param>
+        /// <param name="lengthOfSubstring"></param>
         /// <returns></returns>
         public static string StringSubstring(string x, int firstElement, int lengthOfSubsring)
         {
-            throw new NotImplementedException("StringSubstring method not implemented.");
+            return x.Substring(firstElement, lengthOfSubsring);
         }
 
         /// <summary>
@@ -86,7 +120,7 @@ namespace StringManipulationChallenge
         /// <returns></returns>
         public static int SearchChar(string userInputString, char charUserWants)
         {
-            throw new NotImplementedException("SearchChar method not implemented.");
+            return userInputString.IndexOf(charUserWants);
         }
 
         /// <summary>
@@ -101,7 +135,9 @@ namespace StringManipulationChallenge
         /// <returns></returns>
         public static string ConcatNames(string fName, string lName)
         {
-            throw new NotImplementedException("ConcatNames method not implemented.");
+            List<string> toConcat = new() { fName, " " };
+            toConcat.Add(lName);
+            return string.Concat(toConcat);
         }
     }//end of program
 }
