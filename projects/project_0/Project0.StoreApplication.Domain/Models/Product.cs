@@ -1,5 +1,8 @@
 namespace Project0.StoreApplication.Domain.Models
 {
+    /// <summary>
+    /// A product sold at a Store that can be ordered by a Customer
+    /// </summary>
     public class Product
     {
         public int ProductID { get; set; }

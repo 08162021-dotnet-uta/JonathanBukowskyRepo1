@@ -3,6 +3,9 @@ using System.Xml.Serialization;
 using Project0.StoreApplication.Domain.Abstracts;
 namespace Project0.StoreApplication.Domain.Models
 {
+    /// <summary>
+    /// An Order created in StoreApplication will be an already confirmed, non-modifiable order placed by a Customer at a Store
+    /// </summary>
     public class Order
     {
         public Order() : base()
@@ -18,9 +21,24 @@ namespace Project0.StoreApplication.Domain.Models
 
         // TODO: update OrderID to be set appropriately
         public int OrderID { get; set; }
+
+        /// <summary>
+        /// Customer placing the order
+        /// </summary>
+        /// <value></value>
         [XmlIgnoreAttribute]
         public Customer Customer { get; set; }
+
+        /// <summary>
+        /// Products being ordered
+        /// </summary>
+        /// <value></value>
         public List<Product> Products { get; set; }
+
+        /// <summary>
+        /// Store through which order is being made
+        /// </summary>
+        /// <value></value>
         [XmlIgnoreAttribute]
         public Store Store { get; set; }
 

@@ -1,6 +1,9 @@
 
 namespace Project0.StoreApplication.Domain.Interfaces
 {
+    /// <summary>
+    /// Interface for accessing program settings
+    /// </summary>
     public interface IApplicationSettings
     {
         string GetDataDir();

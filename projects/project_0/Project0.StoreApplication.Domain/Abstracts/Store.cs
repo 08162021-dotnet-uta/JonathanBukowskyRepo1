@@ -5,9 +5,13 @@ using Project0.StoreApplication.Domain.Models;
 
 namespace Project0.StoreApplication.Domain.Abstracts
 {
+    /// <summary>
+    /// Store class - objects to represent a single store in our application
+    /// </summary>
     [XmlInclude(typeof(GroceryStore))]
     public abstract class Store
     {
+        // TODO: Reconsider which constructors are appropriate
         public Store()
         {
             Name = "Generic store";
@@ -21,6 +25,10 @@ namespace Project0.StoreApplication.Domain.Abstracts
 
         public int StoreID { get; set; }
 
+        /// <summary>
+        /// The list of orders that are associated with this store
+        /// </summary>
+        /// <value></value>
         public List<Order> Orders { get; set; }
 
         public override int GetHashCode()
