@@ -4,6 +4,9 @@ using System.Collections.Generic;
 
 namespace Project0.StoreApplication.Testing.ModelTesting
 {
+    /// <summary>
+    /// Tests for the Order class
+    /// </summary>
     public class OrderTests
     {
         [Fact]

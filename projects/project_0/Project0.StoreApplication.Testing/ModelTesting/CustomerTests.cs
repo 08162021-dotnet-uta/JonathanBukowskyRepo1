@@ -3,6 +3,9 @@ using Project0.StoreApplication.Domain.Models;
 
 namespace Project0.StoreApplication.Testing.ModelTesting
 {
+    /// <summary>
+    /// Tests for the Customer class
+    /// </summary>
     public class CustomerTests
     {
         [Fact]

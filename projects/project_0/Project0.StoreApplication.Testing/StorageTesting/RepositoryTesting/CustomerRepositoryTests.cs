@@ -1,13 +1,20 @@
 using Xunit;
 using Project0.StoreApplication.Storage.Repositories;
-using Project0.StoreApplication.Domain.Abstracts;
 using Project0.StoreApplication.Domain.Models;
 
+/// <summary>
+/// Contains tests specific to Repository singletons
+/// </summary>
 namespace Project0.StoreApplication.Testing.StorageTesting.RepositoryTesting
 {
+    // TODO: Add tests for storage/repositories that test loading an empty list/file not found/ etc.
+
     // TDD -- test driven development
     // red green refactor -- term for tdd, means 1 (red - create tests, all will fail), 2 (green - code until tests pass), 3 (refactor your code, tests should stay green)
     // Put file IO tests into same collection to turn off parallel tests because of file IO
+    /// <summary>
+    /// Tests for Customer Repository singleton
+    /// </summary>
     [Collection("File IO Tests")]
     public class CustomerRepositoryTests
     {

@@ -7,6 +7,9 @@ namespace Project0.StoreApplication.Testing.StorageTesting.RepositoryTesting
     // TDD -- test driven development
     // red green refactor -- term for tdd, means 1 (red - create tests, all will fail), 2 (green - code until tests pass), 3 (refactor your code, tests should stay green)
     // Put file IO tests into same collection to turn off parallel tests because of file IO
+    /// <summary>
+    /// Tests for Order Repository singleton
+    /// </summary>
     [Collection("File IO Tests")]
     public class OrderRepositoryTests
     {

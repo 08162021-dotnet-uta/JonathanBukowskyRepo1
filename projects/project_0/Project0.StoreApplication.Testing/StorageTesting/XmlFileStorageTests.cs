@@ -10,6 +10,9 @@ using Xunit;
 namespace Project0.StoreApplication.Testing.StorageTesting
 {
     // Put file IO tests into same collection to turn off parallel tests because of file IO
+    /// <summary>
+    /// Tests for the XmlFileStorage class
+    /// </summary>
     [Collection("File IO Tests")]
     public class XmlFileStorageTests
     {

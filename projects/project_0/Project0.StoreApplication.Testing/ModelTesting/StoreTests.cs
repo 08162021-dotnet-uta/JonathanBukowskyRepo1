@@ -1,9 +1,11 @@
 using Xunit;
 using Project0.StoreApplication.Domain.Models;
-using System.Collections.Generic;
 
 namespace Project0.StoreApplication.Testing.ModelTesting
 {
+    /// <summary>
+    /// Tests for the Store class
+    /// </summary>
     public class StoreTests
     {
         [Fact]

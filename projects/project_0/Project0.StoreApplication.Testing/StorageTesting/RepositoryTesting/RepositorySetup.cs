@@ -1,4 +1,3 @@
-using Project0.StoreApplication.Client;
 using Project0.StoreApplication.Domain.Settings;
 
 namespace Project0.StoreApplication.Testing.StorageTesting.RepositoryTesting

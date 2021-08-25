@@ -8,6 +8,9 @@ namespace Project0.StoreApplication.Testing.StorageTesting.RepositoryTesting
     // red green refactor -- term for tdd, means 1 (red - create tests, all will fail), 2 (green - code until tests pass), 3 (refactor your code, tests should stay green)
     // NOTE: By default, xUnit tests run in parallel. This is not appropriate for reading/writing to file. Perhaps I should add tests for that, but as of now,
     //          the system is not intended to work in a parallelized environment, so I won't. Putting file IO tests into same collection to avoid parallelization
+    /// <summary>
+    /// Tests for Store Repository singleton
+    /// </summary>
     [Collection("File IO Tests")]
     public class StoreRepositoryTests
     {

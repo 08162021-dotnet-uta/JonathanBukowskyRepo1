@@ -7,6 +7,9 @@ using Xunit;
 
 namespace Project0.StoreApplication.Testing.ModelTesting
 {
+    /// <summary>
+    /// Test the Settings objects and the CurrentSettings singleton
+    /// </summary>
     public class SettingsTest
     {
         [Fact]
