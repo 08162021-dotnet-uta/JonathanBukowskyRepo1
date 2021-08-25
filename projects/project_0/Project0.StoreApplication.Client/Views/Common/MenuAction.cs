@@ -1,7 +1,7 @@
 
 using System;
 
-namespace Project0.StoreApplication.Client.Views
+namespace Project0.StoreApplication.Client.Views.Common
 {
     /// <summary>
     /// Encapsulates a handler for a menu item

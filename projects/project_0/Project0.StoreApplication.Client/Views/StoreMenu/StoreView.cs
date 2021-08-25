@@ -1,7 +1,9 @@
 
 using System;
 
-namespace Project0.StoreApplication.Client.Views
+using Project0.StoreApplication.Client.Views.Common;
+
+namespace Project0.StoreApplication.Client.Views.StoreMenu
 {
     /// <summary>
     /// Provides the main menu for Stores

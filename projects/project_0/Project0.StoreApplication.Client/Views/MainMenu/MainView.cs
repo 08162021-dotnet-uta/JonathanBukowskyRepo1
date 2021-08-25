@@ -1,8 +1,8 @@
 
-using System;
-using Serilog;
+using Project0.StoreApplication.Client.Views.Common;
+using Project0.StoreApplication.Client.Views.StoreMenu;
 
-namespace Project0.StoreApplication.Client.Views
+namespace Project0.StoreApplication.Client.Views.MainMenu
 {
     /// <summary>
     /// View to provide Main login menu

@@ -2,7 +2,7 @@
 using System;
 using Project0.StoreApplication.Domain.Interfaces;
 
-namespace Project0.StoreApplication.Client.Views
+namespace Project0.StoreApplication.Client.Views.Common
 {
     // TODO: it seems like there's a better way to organize this
     //          I'm thinking I need a manager for the view to provide better control than

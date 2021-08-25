@@ -1,6 +1,7 @@
 ﻿using Serilog;
 
-using Project0.StoreApplication.Client.Views;
+using Project0.StoreApplication.Client.Views.Common;
+using Project0.StoreApplication.Client.Views.MainMenu;
 using Project0.StoreApplication.Storage;
 using Project0.StoreApplication.Domain.Interfaces;
 using Project0.StoreApplication.Domain.Settings;

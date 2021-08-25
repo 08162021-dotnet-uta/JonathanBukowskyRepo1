@@ -1,11 +1,12 @@
 
 using System.Collections.Generic;
 using Project0.StoreApplication.Domain.Models;
+using Project0.StoreApplication.Client.Views.Common;
 
 /// <summary>
 /// The Views namespace contains classes to control command line menu interactions
 /// </summary>
-namespace Project0.StoreApplication.Client.Views
+namespace Project0.StoreApplication.Client.Views.CustomerMenu
 {
     /// <summary>
     /// A view to provide the menu for customers to interact with their cart

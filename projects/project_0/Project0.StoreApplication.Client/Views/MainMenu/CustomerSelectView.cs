@@ -2,9 +2,10 @@
 using System;
 using System.Collections.Generic;
 using Project0.StoreApplication.Domain.Models;
-using Project0.StoreApplication.Storage.Repositories;
+using Project0.StoreApplication.Client.Views.Common;
+using Project0.StoreApplication.Client.Views.CustomerMenu;
 
-namespace Project0.StoreApplication.Client.Views
+namespace Project0.StoreApplication.Client.Views.MainMenu
 {
     /// <summary>
     /// A View to display customers and allow user to select one

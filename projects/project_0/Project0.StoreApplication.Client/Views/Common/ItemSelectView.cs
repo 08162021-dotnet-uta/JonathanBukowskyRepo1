@@ -1,7 +1,10 @@
 
 using System.Collections.Generic;
 
-namespace Project0.StoreApplication.Client.Views
+/// <summary>
+/// Core/Common View constructs
+/// </summary>
+namespace Project0.StoreApplication.Client.Views.Common
 {
     /// <summary>
     /// A base class to provide View functionality for selecting from a collection

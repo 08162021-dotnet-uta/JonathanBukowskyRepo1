@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Project0.StoreApplication.Domain.Abstracts;
 
-namespace Project0.StoreApplication.Client.Views
+namespace Project0.StoreApplication.Client.Views.Common
 {
     /// <summary>
     /// Provides a menu for users to select a store from a list

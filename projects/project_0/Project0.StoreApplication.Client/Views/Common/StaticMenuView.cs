@@ -1,7 +1,7 @@
 
 using System.Collections.Generic;
 
-namespace Project0.StoreApplication.Client.Views
+namespace Project0.StoreApplication.Client.Views.Common
 {
     /// <summary>
     /// A View base class to provide basic functionality for menus that don't change

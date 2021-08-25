@@ -1,9 +1,9 @@
 
-using System;
 using System.Collections.Generic;
 using Project0.StoreApplication.Domain.Models;
+using Project0.StoreApplication.Client.Views.Common;
 
-namespace Project0.StoreApplication.Client.Views
+namespace Project0.StoreApplication.Client.Views.CustomerMenu
 {
     /// <summary>
     /// View to allow user to select a product
