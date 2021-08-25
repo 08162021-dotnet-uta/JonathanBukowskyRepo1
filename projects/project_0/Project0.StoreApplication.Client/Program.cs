@@ -32,8 +32,9 @@ namespace Project0.StoreApplication.Client
     /// </summary>
     class Program
     {
+        // TODO: move this to settings
         private const string logFile = "/home/jon/revature/my_code/data/project_0_logs/log.txt";
-        private bool SaveLogToFile { get => SaveLogToFile; set { SaveLogToFile = value; CreateLogger(); } }
+        private bool _saveToLogFile = false;
         public Program()
         {
             // logging levels:
@@ -43,14 +44,11 @@ namespace Project0.StoreApplication.Client
             // warn
             // error
             // fatal
-
-            // send log output to console by default
-            SaveLogToFile = false;
         }
 
-        public void CreateLogger()
+        public void MakeLogger()
         {
-            if (SaveLogToFile)
+            if (_saveToLogFile)
             {
                 Log.Logger = new LoggerConfiguration().WriteTo.File(logFile).CreateLogger();
             }
@@ -72,12 +70,13 @@ namespace Project0.StoreApplication.Client
             // create an interface to the persistent data
             IStorageDAO dataStore = new XmlFileStorage();
             // set up frontend needs
-            View mainMenu = new MainView();
+            IView mainMenu = new MainView();
             Context context = new Context();
             // give frontend access to persistent storage
-            View.SetStorage(dataStore);
+            // TODO: maybe this should be in the context?
+            BaseView.SetStorage(dataStore);
             // start main menu
-            View.RunView(mainMenu, context);
+            BaseView.RunView(mainMenu, context);
         }
 
         static void Main(string[] args)
@@ -88,7 +87,7 @@ namespace Project0.StoreApplication.Client
             Program p = new Program();
             // TODO: get this from ENV?
             // if (ENV.save_to_file) p.SaveLogToFile = true;
-            p.CreateLogger();
+            p.MakeLogger();
             Log.Information("Starting program");
 
 

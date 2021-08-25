@@ -10,20 +10,29 @@ namespace Project0.StoreApplication.Client.Views.MainMenu
     /// <summary>
     /// A View to display customers and allow user to select one
     /// </summary>
-    public class CustomerSelectView : ItemSelectView<Customer>
+    public class CustomerSelectView : BaseView, IView
     {
-        protected override List<Customer> GetItems()
+        public List<string> GetMenuOptions()
         {
-            //return CustomerRepository.Factory().Customers;
-            return Storage.GetCustomers();
+            return Storage.GetCustomers().ConvertAll((Customer c) => c.ToString());
         }
 
-        protected override View HandleSelectedItem(Context context, int choice)
+        public bool HandleUserInput(string input)
         {
-            context.Customer = Storage.GetCustomers()[choice - 1];
-            Console.WriteLine("Hello, " + context.Customer);
-            return new CustomerView();
+            int selection;
+            if (!int.TryParse(input, out selection))
+            {
+                return false;
+            }
+            // NOTE: not thread safe
+            var customers = Storage.GetCustomers();
+            if (selection < 1 || selection > customers.Count)
+            {
+                return false;
+            }
+            CurrentContext.Customer = customers[selection - 1];
+            NextView = new CustomerView();
+            return true;
         }
-
     }
 }
