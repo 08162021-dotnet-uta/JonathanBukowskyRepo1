@@ -1,10 +1,14 @@
 
 using System.Collections.Generic;
-using Project0.StoreApplication.Domain.Abstracts;
-using Project0.StoreApplication.Domain.Models;
 
+/// <summary>
+/// Contains interfaces for interacting with persistent storage
+/// </summary>
 namespace Project0.StoreApplication.Storage.Adapters
 {
+    /// <summary>
+    /// Base class to provide interface for saving/loading data from persistent storage
+    /// </summary>
     public abstract class Adapter
     {
         public abstract void SaveAll<T>(List<T> products, string path);

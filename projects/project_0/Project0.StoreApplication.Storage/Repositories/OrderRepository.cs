@@ -1,11 +1,13 @@
 
 using System.Collections.Generic;
-using Project0.StoreApplication.Domain.Abstracts;
 using Project0.StoreApplication.Domain.Models;
 using Project0.StoreApplication.Domain.Settings;
 
 namespace Project0.StoreApplication.Storage.Repositories
 {
+    /// <summary>
+    /// Singleton access to all orders saved in persistent storage
+    /// </summary>
     public class OrderRepository : DataRepository<OrderXML>
     {
         public List<Order> Orders { get; set; }
@@ -19,18 +21,20 @@ namespace Project0.StoreApplication.Storage.Repositories
             Data = orders.ConvertAll((Order o) => new OrderXML(o));
         }
 
-        // temp func to fix save data
-        public List<OrderXML> GetOrderXMLs()
-        {
-            Load();
-            return Data;
-        }
+        /*
+                // temp func to fix save data
+                public List<OrderXML> GetOrderXMLs()
+                {
+                    Load();
+                    return Data;
+                }
 
-        public void SetOrderXMLs(List<OrderXML> newVal)
-        {
-            Data = newVal;
-            Save();
-        }
+                public void SetOrderXMLs(List<OrderXML> newVal)
+                {
+                    Data = newVal;
+                    Save();
+                }
+        */
 
 
         protected static OrderRepository _repo = null;

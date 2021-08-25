@@ -5,6 +5,10 @@ using Project0.StoreApplication.Storage.Adapters;
 namespace Project0.StoreApplication.Storage.Repositories
 {
     // TODO: the DataRepository type does not need to be generic, consider making only the methods generic
+    /// <summary>
+    /// Generic class to provide functionality to save/load a list of any type of object
+    /// </summary>
+    /// <typeparam name="T">type of object to save/load</typeparam>
     public abstract class DataRepository<T>
     {
         protected abstract string GetDataFile();

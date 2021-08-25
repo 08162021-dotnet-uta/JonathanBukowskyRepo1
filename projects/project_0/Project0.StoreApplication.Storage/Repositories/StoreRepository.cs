@@ -5,6 +5,9 @@ using Project0.StoreApplication.Domain.Settings;
 
 namespace Project0.StoreApplication.Storage.Repositories
 {
+    /// <summary>
+    /// Singleton access to Store objects in persistent storage
+    /// </summary>
     public class StoreRepository : DataRepository<Store>
     {
         //public List<Store> Data { get; set; }

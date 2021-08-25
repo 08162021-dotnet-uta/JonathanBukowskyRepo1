@@ -5,8 +5,14 @@ using Project0.StoreApplication.Domain.Models;
 using Project0.StoreApplication.Domain.Interfaces;
 using Project0.StoreApplication.Storage.Repositories;
 
+/// <summary>
+/// Namespace containing classes to interact with persistent storage
+/// </summary>
 namespace Project0.StoreApplication.Storage
 {
+    /// <summary>
+    /// Implementation of storage interface to save persistent data to files in serialized XML format
+    /// </summary>
     public class XmlFileStorage : IStorageDAO
     {
         public Order CreateOrder(Customer customer, Store store, List<Product> products)

@@ -5,6 +5,9 @@ using Project0.StoreApplication.Domain.Settings;
 
 namespace Project0.StoreApplication.Storage.Repositories
 {
+    /// <summary>
+    /// Singleton access to all Products saved in persistent storage
+    /// </summary>
     public class ProductRepository : DataRepository<Product>
     {
         private static ProductRepository _repo = null;
