@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using Serilog;
-using Project0.StoreApplication.Domain.Models;
-using Project0.StoreApplication.Domain.Abstracts;
-using Project0.StoreApplication.Storage.Repositories;
+﻿using Serilog;
 
-using static Project0.StoreApplication.Client.Menus.CustomerMenus;
 using Project0.StoreApplication.Client.Views;
 using Project0.StoreApplication.Storage;
 using Project0.StoreApplication.Domain.Interfaces;
 using Project0.StoreApplication.Domain.Settings;
 
+/// <summary>
+/// The entry point into the frontend of StoreApplication
+/// </summary>
 namespace Project0.StoreApplication.Client
 {
     /* TODO: use action enum?
@@ -35,7 +32,7 @@ namespace Project0.StoreApplication.Client
     class Program
     {
         private const string logFile = "/home/jon/revature/my_code/data/project_0_logs/log.txt";
-        private bool SaveLogToFile { get; set; }
+        private bool SaveLogToFile { get => SaveLogToFile; set { SaveLogToFile = value; CreateLogger(); } }
         public Program()
         {
             // logging levels:
@@ -84,6 +81,7 @@ namespace Project0.StoreApplication.Client
 
         static void Main(string[] args)
         {
+            // TODO: get this from ENV?
             const bool testRun = false;
             Log.Information("Creating program instance");
             Program p = new Program();

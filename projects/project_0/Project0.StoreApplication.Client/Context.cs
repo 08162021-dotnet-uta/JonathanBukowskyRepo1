@@ -5,6 +5,9 @@ using System.Collections.Generic;
 
 namespace Project0.StoreApplication.Client
 {
+    /// <summary>
+    /// Encapsulates data relative to user's menu navigation/operations into a single object
+    /// </summary>
     public class Context
     {
         public Context()

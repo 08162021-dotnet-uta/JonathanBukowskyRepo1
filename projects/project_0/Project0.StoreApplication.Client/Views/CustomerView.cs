@@ -4,6 +4,9 @@ using Project0.StoreApplication.Domain.Models;
 
 namespace Project0.StoreApplication.Client.Views
 {
+    /// <summary>
+    /// View to provide Customer main menu 
+    /// </summary>
     public class CustomerView : StaticMenuView
     {
 
@@ -59,6 +62,11 @@ namespace Project0.StoreApplication.Client.Views
             return this;
         }
 
+        /// <summary>
+        /// Save current cart into a new order
+        /// </summary>
+        /// <param name="context"></param>
+        /// <returns></returns>
         public View Checkout(Context context)
         {
             if (context.Customer == null)

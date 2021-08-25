@@ -1,9 +1,16 @@
 
 namespace Project0.StoreApplication.Client.Menus
 {
+    /// <summary>
+    /// (Deprecated) Menu creation functions
+    /// </summary>
     static class CustomerMenus
     {
 
+        /// <summary>
+        /// (Deprecated) Create main menu
+        /// </summary>
+        /// <returns>string containing main menu</returns>
         public static string MainMenu()
         {
             // TODO: I don't know whether this is appropriate

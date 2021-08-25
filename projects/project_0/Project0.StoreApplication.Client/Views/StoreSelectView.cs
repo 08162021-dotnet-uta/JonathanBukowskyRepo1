@@ -1,10 +1,12 @@
 
 using System.Collections.Generic;
 using Project0.StoreApplication.Domain.Abstracts;
-using Project0.StoreApplication.Storage.Repositories;
 
 namespace Project0.StoreApplication.Client.Views
 {
+    /// <summary>
+    /// Provides a menu for users to select a store from a list
+    /// </summary>
     public class StoreSelectView : ItemSelectView<Store>
     {
         protected override List<Store> GetItems()

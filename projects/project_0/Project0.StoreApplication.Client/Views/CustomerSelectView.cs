@@ -6,6 +6,9 @@ using Project0.StoreApplication.Storage.Repositories;
 
 namespace Project0.StoreApplication.Client.Views
 {
+    /// <summary>
+    /// A View to display customers and allow user to select one
+    /// </summary>
     public class CustomerSelectView : ItemSelectView<Customer>
     {
         protected override List<Customer> GetItems()

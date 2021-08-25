@@ -4,6 +4,9 @@ using Serilog;
 
 namespace Project0.StoreApplication.Client.Views
 {
+    /// <summary>
+    /// View to provide Main login menu
+    /// </summary>
     public class MainView : StaticMenuView
     {
         public MainView() : base()

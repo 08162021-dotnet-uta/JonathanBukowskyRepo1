@@ -1,10 +1,11 @@
 
 using System;
-using Project0.StoreApplication.Domain.Models;
-using Project0.StoreApplication.Storage.Repositories;
 
 namespace Project0.StoreApplication.Client.Views
 {
+    /// <summary>
+    /// Provides the main menu for Stores
+    /// </summary>
     public class StoreView : StaticMenuView
     {
         public StoreView() : base()

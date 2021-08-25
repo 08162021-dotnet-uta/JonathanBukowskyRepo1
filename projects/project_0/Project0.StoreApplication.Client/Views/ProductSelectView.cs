@@ -2,10 +2,12 @@
 using System;
 using System.Collections.Generic;
 using Project0.StoreApplication.Domain.Models;
-using Project0.StoreApplication.Storage.Repositories;
 
 namespace Project0.StoreApplication.Client.Views
 {
+    /// <summary>
+    /// View to allow user to select a product
+    /// </summary>
     public class ProductSelectView : ItemSelectView<Product>
     {
         protected override List<Product> GetItems()

@@ -14,6 +14,9 @@ namespace Project0.StoreApplication.Client.Views
         no more View objects left to be run. Execution will then return to the
         current View.
     */
+    /// <summary>
+    /// Base View class. Provides basic functionality for displaying output and gathering user input
+    /// </summary>
     public abstract class View
     {
         // alternative to parameter: could provide some sort of GetContext();

@@ -3,6 +3,9 @@ using System.Collections.Generic;
 
 namespace Project0.StoreApplication.Client.Views
 {
+    /// <summary>
+    /// A View base class to provide basic functionality for menus that don't change
+    /// </summary>
     public abstract class StaticMenuView : View
     {
 
@@ -16,6 +19,10 @@ namespace Project0.StoreApplication.Client.Views
         // TODO: This RegisterAction function works as intended, but I would like to replace this with a better/more robust solution
         // that adheres better to SOLID principles. I'm thinking to create an interface for client code that requires GetActions() or
         // something similar
+        /// <summary>
+        /// Adds a MenuAction to the current View, which will use all registered MenuActions to create menu output
+        /// </summary>
+        /// <param name="action"></param>
         protected void RegisterAction(MenuAction action)
         {
             _actions.Add(action);
