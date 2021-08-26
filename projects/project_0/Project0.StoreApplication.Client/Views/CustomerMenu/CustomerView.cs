@@ -26,52 +26,55 @@ namespace Project0.StoreApplication.Client.Views.CustomerMenu
             return _menu;
         }
 
-        public bool HandleUserInput(string input)
+        public Actions HandleUserInput(string input, out IView nextView)
         {
             int selection;
+            nextView = null;
             if (!int.TryParse(input, out selection))
             {
-                return false;
+                return Actions.REPEAT_PROMPT;
             }
-            NextView = this;
+            nextView = this;
             switch (selection)
             {
                 case 1:
-                    RunView(new StoreSelectView(), CurrentContext);
-                    break;
+                    //RunView(new StoreSelectView(), CurrentContext);
+                    nextView = new StoreSelectView();
+                    return Actions.OPEN_SUBMENU;
                 case 2:
                     Console.WriteLine("\n");
                     foreach (var prod in Storage.GetProducts())
                     {
                         Console.WriteLine(prod);
                     }
-                    break;
+                    return Actions.RERUN_MENU;
                 case 3:
-                    PurchaseProducts();
-                    break;
+                    return PurchaseProducts(out nextView);
                 case 4:
-                    Checkout();
-                    break;
+                    return Checkout(out nextView);
                 case 5:
                     ShowOrders();
-                    break;
+                    return Actions.RERUN_MENU;
                 case 6:
-                    NextView = null;
-                    break;
-
+                    return Actions.CLOSE_MENU;
+                default:
+                    throw new NotImplementedException("Actions not fully implemented");
             }
-            return true;
         }
 
-        public void PurchaseProducts()
+        public Actions PurchaseProducts(out IView nextView)
         {
+            nextView = null;
             if (CurrentContext.SelectedStore == null)
             {
                 Console.WriteLine("Select a store first!");
+                return Actions.RERUN_MENU;
             }
             else
             {
-                RunView(new CustomerPurchaseView(), CurrentContext);
+                //RunView(new CustomerPurchaseView(), CurrentContext);
+                nextView = new CustomerPurchaseView();
+                return Actions.OPEN_SUBMENU;
             }
         }
         public void ShowOrders()
@@ -93,22 +96,23 @@ namespace Project0.StoreApplication.Client.Views.CustomerMenu
         /// Save current cart into a new order
         /// </summary>
         /// <returns></returns>
-        public void Checkout()
+        public Actions Checkout(out IView nextView)
         {
+            nextView = null;
             if (CurrentContext.Customer == null)
             {
                 Console.WriteLine("You must select a customer");
-                return;
+                return Actions.RERUN_MENU;
             }
             else if (CurrentContext.SelectedStore == null)
             {
                 Console.WriteLine("You must select a store");
-                return;
+                return Actions.RERUN_MENU;
             }
             else if (CurrentContext.Cart.Count == 0)
             {
                 Console.WriteLine("Your cart is empty");
-                return;
+                return Actions.RERUN_MENU;
             }
             Order o = Storage.CreateOrder(CurrentContext.Customer, CurrentContext.SelectedStore, CurrentContext.Cart);
             if (o != null)
@@ -122,6 +126,7 @@ namespace Project0.StoreApplication.Client.Views.CustomerMenu
             {
                 Console.WriteLine("Error saving order. Please try again. ");
             }
+            return Actions.RERUN_MENU;
         }
 
     }

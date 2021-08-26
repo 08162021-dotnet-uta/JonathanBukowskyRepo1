@@ -18,19 +18,20 @@ namespace Project0.StoreApplication.Client.Views.CustomerMenu
             return Products.ConvertAll((Product p) => p.ToString());
         }
 
-        public bool HandleUserInput(string input)
+        public Actions HandleUserInput(string input, out IView nextView)
         {
             int selection;
+            nextView = null;
             if (!int.TryParse(input, out selection))
             {
-                return false;
+                return Actions.REPEAT_PROMPT;
             }
             if (selection < 1 || selection > Products.Count)
             {
-                return false;
+                return Actions.REPEAT_PROMPT;
             }
             HandleProductSelected(Products[selection - 1]);
-            return true;
+            return Actions.CLOSE_MENU;
         }
 
     }

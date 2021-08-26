@@ -20,24 +20,24 @@ namespace Project0.StoreApplication.Client.Views.StoreMenu
             return _menu;
         }
 
-        public bool HandleUserInput(string input)
+        public Actions HandleUserInput(string input, out IView nextView)
         {
             int selection;
+            nextView = null;
             if (!int.TryParse(input, out selection))
             {
-                return false;
+                return Actions.REPEAT_PROMPT;
             }
-            NextView = this;
             switch (selection)
             {
                 case 1:
                     ShowOrders();
-                    break;
+                    return Actions.RERUN_MENU;
                 case 2:
-                    NextView = null;
-                    break;
+                    return Actions.CLOSE_MENU;
+                default:
+                    throw new NotImplementedException("Selections not fully implemented");
             }
-            return true;
         }
         public void ShowOrders()
         {

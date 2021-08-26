@@ -21,32 +21,35 @@ namespace Project0.StoreApplication.Client.Views.MainMenu
             return _menu;
         }
 
-        public bool HandleUserInput(string input)
+        public Actions HandleUserInput(string input, out IView nextView)
         {
             int selection;
+            nextView = null;
             if (!int.TryParse(input, out selection))
             {
-                return false;
+                return Actions.REPEAT_PROMPT;
             }
             var customers = Storage.GetCustomers();
             if (selection < 1 || selection > customers.Count)
             {
-                return false;
+                return Actions.REPEAT_PROMPT;
             }
-            NextView = this;
+            nextView = this;
             switch (selection)
             {
                 case 1:
-                    RunView(new CustomerSelectView(), CurrentContext);
-                    break;
+                    //RunView(new CustomerSelectView(), CurrentContext);
+                    nextView = new CustomerSelectView();
+                    return Actions.OPEN_SUBMENU;
                 case 2:
-                    RunView(new StoreSelectView(), CurrentContext);
-                    break;
+                    //RunView(new StoreSelectView(), CurrentContext);
+                    nextView = new CustomerSelectView();
+                    return Actions.OPEN_SUBMENU;
                 case 3:
-                    NextView = null;
-                    break;
+                    return Actions.CLOSE_MENU;
+                default:
+                    throw new System.NotImplementedException("Not all selections implemented");
             }
-            return true;
         }
     }
 }

@@ -3,6 +3,14 @@ using System.Collections.Generic;
 
 namespace Project0.StoreApplication.Client.Views.Common
 {
+    public enum Actions
+    {
+        REPEAT_PROMPT = 0,
+        CLOSE_MENU,
+        OPEN_SUBMENU,
+        CHANGE_MENU,
+        RERUN_MENU
+    }
     public interface IView
     {
         /// <summary>
@@ -19,17 +27,11 @@ namespace Project0.StoreApplication.Client.Views.Common
 
         /// <summary>
         /// Perform action based on user input.
-        /// Return false to repeat prompt and gather new input.
+        /// Return enum value to indicate next action
         /// </summary>
         /// <param name="input">User's input</param>
-        /// <returns>True if input successfully passes validation</returns>
-        bool HandleUserInput(string input);
-
-        /// <summary>
-        /// Get the next view to be run. Return `this` to re-run current menu.
-        /// </summary>
-        /// <value>Next IView object to be executed</value>
-        IView NextView { get; }
+        /// <returns>Next action to perform</returns>
+        Actions HandleUserInput(string input, out IView nextView);
 
         /// <summary>
         /// Return a string that will prompt the user for input.

@@ -40,14 +40,32 @@ namespace Project0.StoreApplication.Client.Views.Common
 
                 var prompt = view.GetPrompt();
                 string userInput;
+                Actions nextAction;
                 do
                 {
                     Console.Write(prompt);
                     userInput = Console.ReadLine();
-                } while (!view.HandleUserInput(userInput));
+                    nextAction = view.HandleUserInput(userInput, out nextView);
+                } while (nextAction == Actions.REPEAT_PROMPT);
 
-                // TODO: it would probably be better for views to not select the next one...
-                nextView = view.NextView;
+                switch (nextAction)
+                {
+                    case Actions.OPEN_SUBMENU:
+                        RunView(nextView, context);
+                        nextView = view;
+                        break;
+                    case Actions.CLOSE_MENU:
+                        nextView = null;
+                        break;
+                    case Actions.CHANGE_MENU:
+                        //nextView = view.NextView;
+                        break;
+                    case Actions.RERUN_MENU:
+                        nextView = view;
+                        break;
+                    default:
+                        throw new NotImplementedException("Not all actions implemented");
+                }
             } while ((view = nextView) != null);
         }
 

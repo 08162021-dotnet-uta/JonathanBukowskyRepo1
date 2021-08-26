@@ -33,34 +33,34 @@ namespace Project0.StoreApplication.Client.Views.CustomerMenu
             return _menu;
         }
 
-        public bool HandleUserInput(string input)
+        public Actions HandleUserInput(string input, out IView nextView)
         {
             int selection;
+            nextView = null;
             if (!int.TryParse(input, out selection))
             {
-                return false;
+                return Actions.REPEAT_PROMPT;
             }
             if (selection < 1 || selection > 4)
             {
-                return false;
+                return Actions.REPEAT_PROMPT;
             }
-            NextView = this;
             switch (selection)
             {
                 case 1:
                     PrintCart();
-                    break;
+                    return Actions.RERUN_MENU;
                 case 2:
-                    AddProduct();
-                    break;
+                    nextView = AddProductView();
+                    return Actions.OPEN_SUBMENU;
                 case 3:
-                    RemoveProduct();
-                    break;
+                    nextView = RemoveProductView();
+                    return Actions.OPEN_SUBMENU;
                 case 4:
-                    NextView = null;
-                    break;
+                    return Actions.CLOSE_MENU;
+                default:
+                    throw new NotImplementedException("Not all actions implemented");
             }
-            return true;
         }
 
         private void PrintCart()
@@ -81,12 +81,13 @@ namespace Project0.StoreApplication.Client.Views.CustomerMenu
             CurrentContext.Cart.Add(product);
         }
 
-        private void AddProduct()
+        private IView AddProductView()
         {
             var selector = new ProductSelectView();
             selector.HandleProductSelected = AddProductToCart;
             selector.Products = Storage.GetProducts();
-            RunView(selector, CurrentContext);
+            return selector;
+            //RunView(selector, CurrentContext);
         }
 
         private void RemoveProductFromCart(Product product)
@@ -101,12 +102,13 @@ namespace Project0.StoreApplication.Client.Views.CustomerMenu
             }
         }
 
-        private void RemoveProduct()
+        private IView RemoveProductView()
         {
             var selector = new ProductSelectView();
             selector.HandleProductSelected = RemoveProductFromCart;
             selector.Products = CurrentContext.Cart;
-            RunView(selector, CurrentContext);
+            return selector;
+            //RunView(selector, CurrentContext);
         }
     }
 }
