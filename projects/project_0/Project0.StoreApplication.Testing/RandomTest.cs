@@ -31,8 +31,6 @@ namespace Project0.StoreApplication.Testing
 
         public class FakeView : IView
         {
-            public IView NextView => null;
-
             public List<string> GetMenuOptions()
             {
                 return new()
@@ -47,10 +45,11 @@ namespace Project0.StoreApplication.Testing
                 return "Test Prompt:";
             }
 
-            public bool HandleUserInput(string input)
+            public Actions HandleUserInput(string input, out IView nextView)
             {
                 Assert.Equal("1", input);
-                return true;
+                nextView = null;
+                return Actions.CLOSE_MENU;
             }
 
             public void SetContext(Context context)
@@ -78,7 +77,7 @@ namespace Project0.StoreApplication.Testing
 
         // ********************** This is just an example below ******************************************** //
 
-        [Fact]
+        [Fact(Skip = "Skip example test")]
         public void Output_TestOne()
         {
             var _out = Console.Out;

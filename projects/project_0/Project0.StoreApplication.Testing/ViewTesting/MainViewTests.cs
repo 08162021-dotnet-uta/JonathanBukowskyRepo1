@@ -1,42 +1,22 @@
 
-using System;
 using System.Collections.Generic;
-using Project0.StoreApplication.Client;
 using Project0.StoreApplication.Client.Views.Common;
 using Project0.StoreApplication.Client.Views.MainMenu;
-using Project0.StoreApplication.Domain.Models;
 using Xunit;
 
 namespace Project0.StoreApplication.Testing.ViewTesting
 {
-    public class MainViewTests : IDisposable
+    public class MainViewTests : BaseViewTest
     {
-        private IView sut;
-        private Context context;
-        public MainViewTests()
+        public MainViewTests() : base()
         {
-            context = new Context();
-            sut = new MainView();
-            // TODO: might want to interact with mockStorage somehow here
-            var mockStorage = new FakeStorage(this);
-            BaseView.SetStorage(new FakeStorage(this));
-            sut.SetContext(context);
-        }
-
-        public void Notify(string msg)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Dispose()
-        {
-
+            _Sut = GetView<MainView>();
         }
 
         [Fact]
         public void Test_MainView_Menu()
         {
-            var actual = sut.GetMenuOptions();
+            var actual = _Sut.GetMenuOptions();
 
             Assert.Equal(new List<string>() {
                 "Login as customer",
@@ -47,9 +27,34 @@ namespace Project0.StoreApplication.Testing.ViewTesting
 
         [Theory]
         [InlineData("1")]
-        public void Test_MainView_HandleUserInput(string input)
+        [InlineData("2")]
+        [InlineData("3")]
+        [InlineData("4")]
+        [InlineData("0")]
+        [InlineData("hi")]
+        public void Test_MainView_HandleUserInput(string mockInput)
         {
-            var actual = sut.HandleUserInput(input);
+            IView actualView;
+            var actual = _Sut.HandleUserInput(mockInput, out actualView);
+
+            switch (mockInput)
+            {
+                case "1":
+                    Assert.Equal(Actions.OPEN_SUBMENU, actual);
+                    Assert.IsType<CustomerSelectView>(actualView);
+                    break;
+                case "2":
+                    Assert.Equal(Actions.OPEN_SUBMENU, actual);
+                    Assert.IsType<StoreSelectView>(actualView);
+                    break;
+                case "3":
+                    Assert.Equal(Actions.CLOSE_MENU, actual);
+                    Assert.Null(actualView);
+                    break;
+                default:
+                    Assert.Equal(Actions.REPEAT_PROMPT, actual);
+                    break;
+            }
         }
     }
 }
