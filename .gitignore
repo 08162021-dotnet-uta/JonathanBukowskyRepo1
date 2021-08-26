@@ -444,7 +444,7 @@ $RECYCLE.BIN/
 .idea/
 *.sln.iml
 
-projects/project0/Project0.StoreApplication.Testing/coveragereport/
+**/coveragereport/
 
 ##
 ## Visual Studio Code
