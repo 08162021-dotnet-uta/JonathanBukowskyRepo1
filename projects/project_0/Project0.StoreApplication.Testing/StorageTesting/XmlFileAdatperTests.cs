@@ -47,7 +47,7 @@ namespace Project0.StoreApplication.Testing.StorageTesting
             {
                 var prod = actual[i];
                 Assert.Contains($"PS{i + 1}", prod.Name);
-                Assert.Equal(i + 1, prod.ProductID);
+                Assert.Equal(i, prod.ProductID);
             }
         }
     }
