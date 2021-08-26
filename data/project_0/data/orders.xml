@@ -96,4 +96,13 @@
       <int>7</int>
     </Products>
   </OrderXML>
+  <OrderXML>
+    <Customer>3</Customer>
+    <Store>1</Store>
+    <OrderID>11</OrderID>
+    <Products>
+      <int>3</int>
+      <int>4</int>
+    </Products>
+  </OrderXML>
 </ArrayOfOrderXML>

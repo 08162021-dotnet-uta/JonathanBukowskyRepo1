@@ -108,36 +108,5 @@ namespace Project0.StoreApplication.Client.Views.CustomerMenu
             selector.Products = CurrentContext.Cart;
             RunView(selector, CurrentContext);
         }
-        /*
-public CustomerPurchaseView() : base()
-{
-   _selectedProducts = new();
-   RegisterAction(new MenuAction() { Description = "Add product to cart", DoAction = AddProduct });
-   RegisterAction(new MenuAction() { Description = "Save to cart", DoAction = SaveCart });
-   RegisterAction(new MenuAction() { Description = "Discard changes", DoAction = (Context context) => null });
-}
-
-/// <summary>
-/// Show the product selection view
-/// </summary>
-/// <param name="context"></param>
-/// <returns></returns>
-public View AddProduct(Context context)
-{
-   RunView(new ProductSelectView(_selectedProducts), context);
-   return this;
-}
-
-/// <summary>
-/// Save cart and exit customer purchase view
-/// </summary>
-/// <param name="context"></param>
-/// <returns></returns>
-public View SaveCart(Context context)
-{
-   context.Cart.AddRange(_selectedProducts);
-   return null;
-}
-*/
     }
 }
