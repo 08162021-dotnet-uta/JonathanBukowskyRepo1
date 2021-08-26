@@ -21,7 +21,7 @@ namespace Project0.StoreApplication.Testing.ModelTesting
             var sut = new Customer() { Name = testName };
             var actual = sut?.Name;
             Assert.NotNull(sut);
-            Assert.Equal(actual, testName);
+            Assert.Equal(testName, actual);
         }
         [Fact]
         public void Test_CustomerToString()
@@ -37,7 +37,7 @@ namespace Project0.StoreApplication.Testing.ModelTesting
             var actual = sut.ToString();
 
             // assert = condition by which test succeeds/fails
-            Assert.True(actual.Contains(testName));
+            Assert.Contains(testName, actual);
         }
     }
 }

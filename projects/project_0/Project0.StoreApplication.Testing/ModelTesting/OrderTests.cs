@@ -19,18 +19,17 @@ namespace Project0.StoreApplication.Testing.ModelTesting
             // TODO: create an order in a way that makes sense
             var sut = new Order(cust, store, prods);
 
-            Assert.True(prods.Count == sut.Products.Count);
+            Assert.Equal(prods.Count, sut.Products.Count);
             for (int i = 0; i < sut.Products.Count; i++)
             {
                 var actualProd = sut.Products[i];
                 var expectedProd = prods[i];
-                Assert.Equal(actualProd.Name, expectedProd.Name);
-                Assert.Equal(actualProd.ToString(), expectedProd.ToString());
+                Assert.Equal(expectedProd.Name, actualProd.Name);
+                Assert.Equal(expectedProd.ToString(), actualProd.ToString());
             }
 
-            // TODO: look into Assert.Equal()
-            Assert.True(sut.Customer == cust);
-            Assert.True(sut.Store == store);
+            Assert.Equal(cust, sut.Customer);
+            Assert.Equal(store, sut.Store);
         }
 
         [Fact]
@@ -51,10 +50,10 @@ namespace Project0.StoreApplication.Testing.ModelTesting
             var actual = sut.ToString();
             foreach (var name in productNames)
             {
-                Assert.True(actual.Contains(name));
+                Assert.Contains(name, actual);
             }
-            Assert.True(actual.Contains(storeName));
-            Assert.True(actual.Contains(custName));
+            Assert.Contains(storeName, actual);
+            Assert.Contains(custName, actual);
         }
     }
 }

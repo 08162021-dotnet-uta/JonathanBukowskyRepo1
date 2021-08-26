@@ -31,7 +31,7 @@ namespace Project0.StoreApplication.Testing
             sut.Name = testName;
             var actual = sut.ToString();
 
-            Assert.True(actual.Contains(testName));
+            Assert.Contains(testName, actual);
         }
     }
 }

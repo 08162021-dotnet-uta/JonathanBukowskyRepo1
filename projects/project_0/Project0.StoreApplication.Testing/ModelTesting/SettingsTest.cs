@@ -17,22 +17,22 @@ namespace Project0.StoreApplication.Testing.ModelTesting
         {
             IApplicationSettings settings = new ApplicationSettings();
             var sut = settings;
-            Assert.Equal(sut.GetCustomersFile(), "/home/jon/revature/my_code/data/project_0/data/customers.xml");
-            Assert.Equal(sut.GetDataDir(), "/home/jon/revature/my_code/data/project_0/data/");
-            Assert.Equal(sut.GetOrdersFile(), "/home/jon/revature/my_code/data/project_0/data/orders.xml");
-            Assert.Equal(sut.GetProductsFile(), "/home/jon/revature/my_code/data/project_0/data/products.xml");
-            Assert.Equal(sut.GetStoresFile(), "/home/jon/revature/my_code/data/project_0/data/stores.xml");
+            Assert.Equal("/home/jon/revature/my_code/data/project_0/data/customers.xml", sut.GetCustomersFile());
+            Assert.Equal("/home/jon/revature/my_code/data/project_0/data/", sut.GetDataDir());
+            Assert.Equal("/home/jon/revature/my_code/data/project_0/data/orders.xml", sut.GetOrdersFile());
+            Assert.Equal("/home/jon/revature/my_code/data/project_0/data/products.xml", sut.GetProductsFile());
+            Assert.Equal("/home/jon/revature/my_code/data/project_0/data/stores.xml", sut.GetStoresFile());
         }
         [Fact]
         public void Test_TestSettingsObject()
         {
             IApplicationSettings settings = new StorageTestingSettings();
             var sut = settings;
-            Assert.Equal(sut.GetCustomersFile(), "/home/jon/revature/my_code/data/project_0/test_data/customers.xml");
-            Assert.Equal(sut.GetDataDir(), "/home/jon/revature/my_code/data/project_0/test_data/");
-            Assert.Equal(sut.GetOrdersFile(), "/home/jon/revature/my_code/data/project_0/test_data/orders.xml");
-            Assert.Equal(sut.GetProductsFile(), "/home/jon/revature/my_code/data/project_0/test_data/products.xml");
-            Assert.Equal(sut.GetStoresFile(), "/home/jon/revature/my_code/data/project_0/test_data/stores.xml");
+            Assert.Equal("/home/jon/revature/my_code/data/project_0/test_data/customers.xml", sut.GetCustomersFile());
+            Assert.Equal("/home/jon/revature/my_code/data/project_0/test_data/", sut.GetDataDir());
+            Assert.Equal("/home/jon/revature/my_code/data/project_0/test_data/orders.xml", sut.GetOrdersFile());
+            Assert.Equal("/home/jon/revature/my_code/data/project_0/test_data/products.xml", sut.GetProductsFile());
+            Assert.Equal("/home/jon/revature/my_code/data/project_0/test_data/stores.xml", sut.GetStoresFile());
         }
 
         [Fact]
@@ -42,11 +42,11 @@ namespace Project0.StoreApplication.Testing.ModelTesting
             IApplicationSettings settings = new ApplicationSettings();
             CurrentSettings.Settings = settings;
             var sut = CurrentSettings.Settings;
-            Assert.Equal(sut.GetCustomersFile(), "/home/jon/revature/my_code/data/project_0/data/customers.xml");
-            Assert.Equal(sut.GetDataDir(), "/home/jon/revature/my_code/data/project_0/data/");
-            Assert.Equal(sut.GetOrdersFile(), "/home/jon/revature/my_code/data/project_0/data/orders.xml");
-            Assert.Equal(sut.GetProductsFile(), "/home/jon/revature/my_code/data/project_0/data/products.xml");
-            Assert.Equal(sut.GetStoresFile(), "/home/jon/revature/my_code/data/project_0/data/stores.xml");
+            Assert.Equal("/home/jon/revature/my_code/data/project_0/data/customers.xml", sut.GetCustomersFile());
+            Assert.Equal("/home/jon/revature/my_code/data/project_0/data/", sut.GetDataDir());
+            Assert.Equal("/home/jon/revature/my_code/data/project_0/data/orders.xml", sut.GetOrdersFile());
+            Assert.Equal("/home/jon/revature/my_code/data/project_0/data/products.xml", sut.GetProductsFile());
+            Assert.Equal("/home/jon/revature/my_code/data/project_0/data/stores.xml", sut.GetStoresFile());
         }
 
     }

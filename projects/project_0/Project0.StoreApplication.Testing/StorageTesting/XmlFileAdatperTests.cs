@@ -27,26 +27,27 @@ namespace Project0.StoreApplication.Testing.StorageTesting
             Adapter sut = new XmlFileAdapter();
             sut.SaveAll(testStores, dataFile);
             var actual = sut.LoadAll<Store>(dataFile);
-            Assert.Equal(actual.Count, 3);
-            Assert.True(actual[0].Name == "Meijer");
-            Assert.True(actual[0].StoreID == 1);
-            Assert.True(actual[1].Name == "Kroger");
-            Assert.True(actual[1].StoreID == 2);
-            Assert.True(actual[2].Name == "Target");
-            Assert.True(actual[2].StoreID == 3);
+            Assert.Equal(3, actual.Count);
+            Assert.Equal("Meijer", actual[0].Name);
+            Assert.Equal(1, actual[0].StoreID);
+            Assert.Equal("Kroger", actual[1].Name);
+            Assert.Equal(2, actual[1].StoreID);
+            Assert.Equal("Target", actual[2].Name);
+            Assert.Equal(3, actual[2].StoreID);
         }
 
+        [Fact]
         public void Test_LoadAll()
         {
             var dataFile = dataDir + "test_load.xml";
             Adapter sut = new XmlFileAdapter();
             var actual = sut.LoadAll<Product>(dataFile);
-            Assert.Equal(actual.Count, 10);
+            Assert.Equal(10, actual.Count);
             for (int i = 0; i < 10; i++)
             {
                 var prod = actual[i];
-                Assert.True(prod.Name.Contains($"PS{i}"));
-                Assert.True(prod.ProductID == i + 1);
+                Assert.Contains($"PS{i + 1}", prod.Name);
+                Assert.Equal(i + 1, prod.ProductID);
             }
         }
     }

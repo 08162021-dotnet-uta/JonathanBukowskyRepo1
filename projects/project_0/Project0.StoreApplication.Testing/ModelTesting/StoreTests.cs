@@ -27,7 +27,7 @@ namespace Project0.StoreApplication.Testing.ModelTesting
             var expectedName = "fred's pizza";
             var sut = new GroceryStore() { Name = expectedName };
             var actual = sut.ToString();
-            Assert.True(actual.Contains(expectedName));
+            Assert.Contains(expectedName, actual);
         }
     }
 }

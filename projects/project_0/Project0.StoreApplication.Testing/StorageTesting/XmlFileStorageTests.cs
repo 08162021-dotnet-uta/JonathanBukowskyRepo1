@@ -23,7 +23,7 @@ namespace Project0.StoreApplication.Testing.StorageTesting
             IStorageDAO sut = new XmlFileStorage();
             var actual = sut.GetProducts();
             Assert.NotNull(actual);
-            Assert.Equal(actual.Count, 10);
+            Assert.Equal(10, actual.Count);
         }
         [Fact]
         public void Test_GetStores()
@@ -32,7 +32,7 @@ namespace Project0.StoreApplication.Testing.StorageTesting
             IStorageDAO sut = new XmlFileStorage();
             var actual = sut.GetStores();
             Assert.NotNull(actual);
-            Assert.Equal(actual.Count, 3);
+            Assert.Equal(3, actual.Count);
         }
         [Fact]
         public void Test_GetCustomers()
@@ -41,7 +41,7 @@ namespace Project0.StoreApplication.Testing.StorageTesting
             IStorageDAO sut = new XmlFileStorage();
             var actual = sut.GetCustomers();
             Assert.NotNull(actual);
-            Assert.Equal(actual.Count, 3);
+            Assert.Equal(3, actual.Count);
         }
         [Fact]
         public void Test_GetOrders()
@@ -50,7 +50,7 @@ namespace Project0.StoreApplication.Testing.StorageTesting
             IStorageDAO sut = new XmlFileStorage();
             var actual = sut.GetOrders();
             Assert.NotNull(actual);
-            Assert.Equal(actual.Count, 9);
+            Assert.Equal(9, actual.Count);
         }
         [Fact]
         public void Test_CreateOrder()
