@@ -9,7 +9,7 @@ namespace Project0.StoreApplication.Domain.Abstracts
     /// Store class - objects to represent a single store in our application
     /// </summary>
     [XmlInclude(typeof(GroceryStore))]
-    public abstract class Store
+    public class Store
     {
         // TODO: Reconsider which constructors are appropriate
         public Store()
