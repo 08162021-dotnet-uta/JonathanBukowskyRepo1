@@ -49,7 +49,6 @@ namespace Project0.StoreApplication.Testing.ViewTesting
                     break;
                 case "3":
                     Assert.Equal(Actions.CLOSE_MENU, actual);
-                    Assert.Null(actualView);
                     break;
                 default:
                     Assert.Equal(Actions.REPEAT_PROMPT, actual);

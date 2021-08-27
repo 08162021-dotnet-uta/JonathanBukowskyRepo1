@@ -29,8 +29,7 @@ namespace Project0.StoreApplication.Client.Views.MainMenu
             {
                 return Actions.REPEAT_PROMPT;
             }
-            var customers = Storage.GetCustomers();
-            if (selection < 1 || selection > customers.Count)
+            if (selection < 1 || selection > 3)
             {
                 return Actions.REPEAT_PROMPT;
             }
@@ -38,11 +37,9 @@ namespace Project0.StoreApplication.Client.Views.MainMenu
             switch (selection)
             {
                 case 1:
-                    //RunView(new CustomerSelectView(), CurrentContext);
                     nextView = new CustomerSelectView();
                     return Actions.OPEN_SUBMENU;
                 case 2:
-                    //RunView(new StoreSelectView(), CurrentContext);
                     nextView = new StoreSelectView();
                     return Actions.OPEN_SUBMENU;
                 case 3:
