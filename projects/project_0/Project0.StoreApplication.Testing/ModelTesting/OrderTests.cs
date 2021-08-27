@@ -55,5 +55,45 @@ namespace Project0.StoreApplication.Testing.ModelTesting
             Assert.Contains(storeName, actual);
             Assert.Contains(custName, actual);
         }
+
+        [Fact]
+        public void Test_Order_HashCode()
+        {
+            var sut = new Order() { OrderID = 1 };
+            var order2 = new Order() { OrderID = 2 };
+
+            Assert.Equal(1, sut.GetHashCode());
+            Assert.NotEqual(order2.GetHashCode(), sut.GetHashCode());
+        }
+
+        [Fact]
+        public void Test_Order_Equals()
+        {
+            var sut = new Order() { OrderID = 1 };
+            var order2 = new Order() { OrderID = 2 };
+            Order order3 = null;
+
+            Assert.True(sut.Equals(sut));
+            Assert.False(sut.Equals(order2));
+            Assert.False(sut.Equals(order3));
+            Assert.False(order2.Equals(sut));
+        }
+
+        [Fact]
+        public void Test_Order_Comparison_Operators()
+        {
+            var sut = new Order() { OrderID = 1 };
+            var order2 = new Order() { OrderID = 2 };
+            Order order3 = null;
+            var order4 = new Order() { OrderID = 1 };
+
+            Assert.True(sut == order4);
+            Assert.True(sut != order2);
+            Assert.True(sut != order3);
+            Assert.True(order4 == sut);
+            Assert.True(order2 != sut);
+            Assert.True(order3 != sut);
+        }
+
     }
 }

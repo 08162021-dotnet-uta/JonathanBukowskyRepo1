@@ -39,5 +39,44 @@ namespace Project0.StoreApplication.Testing.ModelTesting
             // assert = condition by which test succeeds/fails
             Assert.Contains(testName, actual);
         }
+
+        [Fact]
+        public void Test_Customer_HashCode()
+        {
+            var sut = new Customer() { Name = "Bob Dylan", CustomerID = 1 };
+            var cust2 = new Customer() { Name = "Jimmy Kimmel", CustomerID = 2 };
+
+            Assert.Equal(1, sut.GetHashCode());
+            Assert.NotEqual(cust2.GetHashCode(), sut.GetHashCode());
+        }
+
+        [Fact]
+        public void Test_Customer_Equals()
+        {
+            var sut = new Customer() { Name = "Bob Dylan", CustomerID = 1 };
+            var cust2 = new Customer() { Name = "Jimmy Kimmel", CustomerID = 2 };
+            Customer cust3 = null;
+
+            Assert.True(sut.Equals(sut));
+            Assert.False(sut.Equals(cust2));
+            Assert.False(cust2.Equals(sut));
+            Assert.False(sut.Equals(cust3));
+        }
+
+        [Fact]
+        public void Test_Customer_Comparison_Operators()
+        {
+            var sut = new Customer() { Name = "Bob Dylan", CustomerID = 1 };
+            var cust2 = new Customer() { Name = "Jimmy Kimmel", CustomerID = 2 };
+            Customer cust3 = null;
+            var cust4 = new Customer() { Name = "Bob Dylan", CustomerID = 1 };
+
+            Assert.True(sut == cust4);
+            Assert.True(sut != cust2);
+            Assert.True(sut != cust3);
+            Assert.True(cust4 == sut);
+            Assert.True(cust2 != sut);
+            Assert.True(cust3 != sut);
+        }
     }
 }

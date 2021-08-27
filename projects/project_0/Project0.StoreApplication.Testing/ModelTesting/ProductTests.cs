@@ -33,5 +33,45 @@ namespace Project0.StoreApplication.Testing
 
             Assert.Contains(testName, actual);
         }
+
+        [Fact]
+        public void Test_Product_HashCode()
+        {
+            var sut = new Product() { ProductID = 1 };
+            var product2 = new Product() { ProductID = 2 };
+
+            Assert.Equal(1, sut.GetHashCode());
+            Assert.NotEqual(product2.GetHashCode(), sut.GetHashCode());
+        }
+
+        [Fact]
+        public void Test_Product_Equals()
+        {
+            var sut = new Product() { ProductID = 1 };
+            var product2 = new Product() { ProductID = 2 };
+            Product product3 = null;
+
+            Assert.True(sut.Equals(sut));
+            Assert.False(sut.Equals(product2));
+            Assert.False(sut.Equals(product3));
+            Assert.False(product2.Equals(sut));
+        }
+
+        [Fact]
+        public void Test_Product_Comparison_Operators()
+        {
+            var sut = new Product() { ProductID = 1 };
+            var product2 = new Product() { ProductID = 2 };
+            Product product3 = null;
+            var product4 = new Product() { ProductID = 1 };
+
+            Assert.True(sut == product4);
+            Assert.True(sut != product2);
+            Assert.True(sut != product3);
+            Assert.True(product4 == sut);
+            Assert.True(product2 != sut);
+            Assert.True(product3 != sut);
+        }
+
     }
 }
