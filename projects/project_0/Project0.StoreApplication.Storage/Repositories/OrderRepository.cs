@@ -75,10 +75,6 @@ namespace Project0.StoreApplication.Storage.Repositories
         public OrderXML(Order order)
         {
             Customer = order.Customer.CustomerID;
-            if (order.Store == null)
-            {
-                System.Console.WriteLine($"Order: {order}");
-            }
             Store = order.Store.StoreID;
             OrderID = order.OrderID;
             Products = new();
