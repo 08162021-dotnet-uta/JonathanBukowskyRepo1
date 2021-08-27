@@ -3,12 +3,30 @@ using System.Collections.Generic;
 
 namespace Project0.StoreApplication.Client.Views.Common
 {
+    /// <summary>
+    /// Actions available to a View upon receiving user input
+    /// </summary>
     public enum Actions
     {
+        /// <summary>
+        /// Instructs caller to repeat prompt and input collection
+        /// </summary>
         REPEAT_PROMPT = 0,
+        /// <summary>
+        /// Instructs caller to end current view's execution
+        /// </summary>
         CLOSE_MENU,
+        /// <summary>
+        /// Instructs caller to execute nextView and return to this view
+        /// </summary>
         OPEN_SUBMENU,
+        /// <summary>
+        /// Instructs caller to execute nextView instead of this view
+        /// </summary>
         CHANGE_MENU,
+        /// <summary>
+        /// Instructs caller to continue executing current view
+        /// </summary>
         RERUN_MENU
     }
     public interface IView

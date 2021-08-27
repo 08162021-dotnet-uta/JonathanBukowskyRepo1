@@ -31,8 +31,9 @@ namespace Project0.StoreApplication.Client.Views.Common
             IView nextView;
             do
             {
-                // TODO: this really shouldn't be necessary to do every iteration,
-                // but I don't think we can rely on IViews to get context otherwise
+                // NOTE: this really shouldn't be necessary to do every iteration,
+                // since every IView inherits from BaseView right now, but I don't
+                // think we can technically rely on IViews to get context otherwise
                 view.SetContext(context);
 
                 var menu = view.GetMenuOptions();
