@@ -8,7 +8,7 @@ using Project0.StoreApplication.Domain.Models;
 namespace Project0.StoreApplication.Testing.ViewTesting
 {
     // TODO: Mock this up
-    public class FakeStorage : IStorageDAO
+    public class FakeStorage : IStorage
     {
         public bool ReturnNull { get; set; }
         public FakeStorage()

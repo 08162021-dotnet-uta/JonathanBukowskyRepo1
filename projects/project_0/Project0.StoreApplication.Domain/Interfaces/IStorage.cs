@@ -9,7 +9,7 @@ namespace Project0.StoreApplication.Domain.Interfaces
     /// <summary>
     /// Interface for saving/loading program data in persistent storage
     /// </summary>
-    public interface IStorageDAO
+    public interface IStorage
     {
         /// <summary>
         /// Get list of all products

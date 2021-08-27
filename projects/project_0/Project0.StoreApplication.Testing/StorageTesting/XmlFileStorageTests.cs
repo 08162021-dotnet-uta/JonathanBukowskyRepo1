@@ -20,7 +20,7 @@ namespace Project0.StoreApplication.Testing.StorageTesting
         public void Test_GetProducts()
         {
             RepositoryTesting.RepositorySetup.InitializeSettings();
-            IStorageDAO sut = new XmlFileStorage();
+            IStorage sut = new XmlFileStorage();
             var actual = sut.GetProducts();
             Assert.NotNull(actual);
             Assert.Equal(10, actual.Count);
@@ -29,7 +29,7 @@ namespace Project0.StoreApplication.Testing.StorageTesting
         public void Test_GetStores()
         {
             RepositoryTesting.RepositorySetup.InitializeSettings();
-            IStorageDAO sut = new XmlFileStorage();
+            IStorage sut = new XmlFileStorage();
             var actual = sut.GetStores();
             Assert.NotNull(actual);
             Assert.Equal(3, actual.Count);
@@ -38,7 +38,7 @@ namespace Project0.StoreApplication.Testing.StorageTesting
         public void Test_GetCustomers()
         {
             RepositoryTesting.RepositorySetup.InitializeSettings();
-            IStorageDAO sut = new XmlFileStorage();
+            IStorage sut = new XmlFileStorage();
             var actual = sut.GetCustomers();
             Assert.NotNull(actual);
             Assert.Equal(3, actual.Count);
@@ -47,7 +47,7 @@ namespace Project0.StoreApplication.Testing.StorageTesting
         public void Test_GetOrders()
         {
             RepositoryTesting.RepositorySetup.InitializeSettings();
-            IStorageDAO sut = new XmlFileStorage();
+            IStorage sut = new XmlFileStorage();
             var actual = sut.GetOrders();
             Assert.NotNull(actual);
             Assert.Equal(9, actual.Count);
@@ -59,7 +59,7 @@ namespace Project0.StoreApplication.Testing.StorageTesting
             var storeRepo = StoreRepository.Factory();
             var customerRepo = CustomerRepository.Factory();
             var productRepo = ProductRepository.Factory();
-            IStorageDAO sut = new XmlFileStorage();
+            IStorage sut = new XmlFileStorage();
             Customer customer = customerRepo.Customers[0];
             Store store = storeRepo.Stores[1];
             List<Product> prods = new()
@@ -86,7 +86,7 @@ namespace Project0.StoreApplication.Testing.StorageTesting
         public void Test_ReloadOrders()
         {
             RepositoryTesting.RepositorySetup.InitializeSettings();
-            IStorageDAO sut = new XmlFileStorage();
+            IStorage sut = new XmlFileStorage();
             var repo = OrderRepository.Factory();
             var expected = sut.GetOrders()[2];
             repo.LoadOrders();
@@ -98,7 +98,7 @@ namespace Project0.StoreApplication.Testing.StorageTesting
         public void Test_ReloadCustomers()
         {
             RepositoryTesting.RepositorySetup.InitializeSettings();
-            IStorageDAO sut = new XmlFileStorage();
+            IStorage sut = new XmlFileStorage();
             var repo = CustomerRepository.Factory();
             var expected = sut.GetCustomers()[2];
             repo.LoadCustomers();
@@ -110,7 +110,7 @@ namespace Project0.StoreApplication.Testing.StorageTesting
         public void Test_ReloadProducts()
         {
             RepositoryTesting.RepositorySetup.InitializeSettings();
-            IStorageDAO sut = new XmlFileStorage();
+            IStorage sut = new XmlFileStorage();
             var repo = ProductRepository.Factory();
             var expected = sut.GetProducts()[2];
             repo.LoadProducts();
@@ -122,7 +122,7 @@ namespace Project0.StoreApplication.Testing.StorageTesting
         public void Test_ReloadStores()
         {
             RepositoryTesting.RepositorySetup.InitializeSettings();
-            IStorageDAO sut = new XmlFileStorage();
+            IStorage sut = new XmlFileStorage();
             var repo = StoreRepository.Factory();
             var expected = sut.GetStores()[2];
             repo.LoadStores();

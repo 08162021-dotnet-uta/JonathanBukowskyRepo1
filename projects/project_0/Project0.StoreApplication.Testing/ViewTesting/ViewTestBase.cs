@@ -10,10 +10,10 @@ namespace Project0.StoreApplication.Testing.ViewTesting
     /// </summary>
     public abstract class BaseViewTest
     {
-        // this sut prop doesn't actually do much
+        // this sut prop doesn't actually do much (I could declare it in each test just as easily)
         protected IView _Sut;
         protected Context _Context;
-        protected IStorageDAO _MockStorage;
+        protected IStorage _MockStorage;
 
         public T ViewFactory<T>() where T : IView, new()
         {

@@ -12,9 +12,9 @@ namespace Project0.StoreApplication.Client.Views.Common
         {
             CurrentContext = context;
         }
-        public static IStorageDAO Storage { get; private set; }
+        public static IStorage Storage { get; private set; }
 
-        public static void SetStorage(IStorageDAO storage)
+        public static void SetStorage(IStorage storage)
         {
             Storage = storage;
         }

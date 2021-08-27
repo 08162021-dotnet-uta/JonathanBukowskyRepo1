@@ -68,7 +68,7 @@ namespace Project0.StoreApplication.Client
             // use default settings object -- could populate settings based on environment/saved user settings/etc.
             CurrentSettings.Settings = new ApplicationSettings();
             // create an interface to the persistent data
-            IStorageDAO dataStore = new XmlFileStorage();
+            IStorage dataStore = new XmlFileStorage();
             // set up frontend needs
             IView mainMenu = new MainView();
             Context context = new Context();

@@ -13,7 +13,7 @@ namespace Project0.StoreApplication.Storage
     /// <summary>
     /// Implementation of storage interface to save persistent data to files in serialized XML format
     /// </summary>
-    public class XmlFileStorage : IStorageDAO
+    public class XmlFileStorage : IStorage
     {
         public Order CreateOrder(Customer customer, Store store, List<Product> products)
         {
