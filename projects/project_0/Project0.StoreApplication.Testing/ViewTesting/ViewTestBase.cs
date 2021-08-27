@@ -15,7 +15,7 @@ namespace Project0.StoreApplication.Testing.ViewTesting
         protected Context _Context;
         protected IStorageDAO _MockStorage;
 
-        public T GetView<T>() where T : IView, new()
+        public T ViewFactory<T>() where T : IView, new()
         {
             var view = new T();
             BaseView.SetStorage(_MockStorage);

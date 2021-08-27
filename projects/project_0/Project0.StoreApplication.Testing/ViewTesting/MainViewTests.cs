@@ -6,11 +6,12 @@ using Xunit;
 
 namespace Project0.StoreApplication.Testing.ViewTesting
 {
+    [Collection("View Tests")]
     public class MainViewTests : BaseViewTest
     {
         public MainViewTests() : base()
         {
-            _Sut = GetView<MainView>();
+            _Sut = ViewFactory<MainView>();
         }
 
         [Fact]

@@ -80,7 +80,8 @@ namespace Project0.StoreApplication.Testing.ViewTesting
             return new List<Product>()
             {
                 new Product() { ProductID = 1, Name = "Cheeseburger" },
-                new Product() { ProductID = 2, Name = "Chicken Nuggets"}
+                new Product() { ProductID = 2, Name = "Chicken Nuggets"},
+                new Product() { ProductID = 2, Name = "Filet O' Fish"}
             };
         }
 

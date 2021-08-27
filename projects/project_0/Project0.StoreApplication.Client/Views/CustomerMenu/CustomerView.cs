@@ -58,7 +58,7 @@ namespace Project0.StoreApplication.Client.Views.CustomerMenu
                 case 6:
                     return Actions.CLOSE_MENU;
                 default:
-                    throw new NotImplementedException("Actions not fully implemented");
+                    return Actions.REPEAT_PROMPT;
             }
         }
 
