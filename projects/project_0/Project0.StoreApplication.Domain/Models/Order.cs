@@ -26,20 +26,57 @@ namespace Project0.StoreApplication.Domain.Models
         /// Customer placing the order
         /// </summary>
         /// <value></value>
-        [XmlIgnoreAttribute]
         public Customer Customer { get; set; }
 
         /// <summary>
         /// Products being ordered
         /// </summary>
         /// <value></value>
-        public List<Product> Products { get; set; }
+        private List<Product> Products { get; set; }
+
+        public List<Product> GetProducts()
+        {
+            // TODO: return a copy of products, or make this readonly somehow (maybe the readonly collection)
+            return Products;
+        }
+
+        /// <summary>
+        /// Add a product to order
+        /// </summary>
+        /// <param name="product">Product to add to order</param>
+        /// <returns>Error string, or null if successful</returns>
+        public string AddProduct(Product product)
+        {
+            // TODO: add error checking (can only have 50 items and $500 in an order) and return appropriately
+            Products.Add(product);
+            return null;
+        }
+
+        /// <summary>
+        /// Remove product from order
+        /// </summary>
+        /// <param name="product">Product to remove from order</param>
+        /// <returns>Error string, or null if successful</returns>
+        public string RemoveProduct(Product product)
+        {
+            if (!Products.Remove(product))
+            {
+                return "Failed to remove product from order";
+            }
+            return null;
+        }
+
+        public decimal GetTotal()
+        {
+            decimal sum = 0;
+            Products.ForEach(p => sum += p.Price);
+            return sum;
+        }
 
         /// <summary>
         /// Store through which order is being made
         /// </summary>
         /// <value></value>
-        [XmlIgnoreAttribute]
         public Store Store { get; set; }
 
         public override int GetHashCode()

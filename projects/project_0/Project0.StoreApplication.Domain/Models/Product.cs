@@ -8,6 +8,8 @@ namespace Project0.StoreApplication.Domain.Models
         public int ProductID { get; set; }
         public string Name { get; set; }
 
+        public decimal Price { get; set; }
+
         public override int GetHashCode()
         {
             // Implementing GetHashCode to avoid compiler warnings.
@@ -33,7 +35,7 @@ namespace Project0.StoreApplication.Domain.Models
         }
         public override string ToString()
         {
-            return Name;
+            return $"{Name}: ${Price:f2}";
         }
     }
 }

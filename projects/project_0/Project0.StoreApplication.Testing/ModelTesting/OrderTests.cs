@@ -18,11 +18,12 @@ namespace Project0.StoreApplication.Testing.ModelTesting
 
             // TODO: create an order in a way that makes sense
             var sut = new Order(cust, store, prods);
+            var productsActual = sut.GetProducts();
 
-            Assert.Equal(prods.Count, sut.Products.Count);
-            for (int i = 0; i < sut.Products.Count; i++)
+            Assert.Equal(prods.Count, productsActual.Count);
+            for (int i = 0; i < productsActual.Count; i++)
             {
-                var actualProd = sut.Products[i];
+                var actualProd = sut.GetProducts()[i];
                 var expectedProd = prods[i];
                 Assert.Equal(expectedProd.Name, actualProd.Name);
                 Assert.Equal(expectedProd.ToString(), actualProd.ToString());
@@ -38,15 +39,15 @@ namespace Project0.StoreApplication.Testing.ModelTesting
             var storeName = "Fred's Pizza";
             var custName = "Bob Dylan";
             var productNames = new List<string>() { "Bounty soap", "Kenmore fridge", "Burton snowboard" };
-            List<Product> prodsActual = new();
+            List<Product> prods = new();
             foreach (var name in productNames)
             {
-                prodsActual.Add(new Product() { Name = name });
+                prods.Add(new Product() { Name = name });
             }
             var store = new GroceryStore() { Name = storeName };
             var cust = new Customer() { Name = custName };
 
-            var sut = new Order(cust, store, prodsActual);
+            var sut = new Order(cust, store, prods);
             var actual = sut.ToString();
             foreach (var name in productNames)
             {
@@ -55,6 +56,80 @@ namespace Project0.StoreApplication.Testing.ModelTesting
             Assert.Contains(storeName, actual);
             Assert.Contains(custName, actual);
         }
+
+        [Fact]
+        public void Test_Order_AddProduct()
+        {
+            var storeName = "Fred's Pizza";
+            var custName = "Bob Dylan";
+            var productNames = new List<string>() { "Bounty soap", "Kenmore fridge", "Burton snowboard" };
+            List<Product> prods = new();
+            foreach (var name in productNames)
+            {
+                prods.Add(new Product() { Name = name });
+            }
+            var store = new GroceryStore() { Name = storeName };
+            var cust = new Customer() { Name = custName };
+
+            var sut = new Order(cust, store, prods);
+
+            var newProd = new Product() { Name = "Test add product", Price = 10.00m };
+
+            prods.Add(newProd);
+            var expected = prods;
+
+            sut.AddProduct(newProd);
+            var actual = sut.GetProducts();
+
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void Test_Order_RemoveProduct()
+        {
+            var storeName = "Fred's Pizza";
+            var custName = "Bob Dylan";
+            var productNames = new List<string>() { "Bounty soap", "Kenmore fridge", "Burton snowboard" };
+            List<Product> prods = new();
+            foreach (var name in productNames)
+            {
+                prods.Add(new Product() { Name = name });
+            }
+            var store = new GroceryStore() { Name = storeName };
+            var cust = new Customer() { Name = custName };
+
+            var removeProd = new Product() { Name = "Test add product", Price = 10.00m };
+            prods.Add(removeProd);
+            var sut = new Order(cust, store, prods);
+
+
+            prods.Remove(removeProd);
+            var expected = prods;
+
+            sut.RemoveProduct(removeProd);
+            var actual = sut.GetProducts();
+
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void Test_Order_GetTotal()
+        {
+            var storeName = "Fred's Pizza";
+            var custName = "Bob Dylan";
+            var prices = new List<decimal>() { 10m, 23m, 16m };
+            List<Product> prods = new();
+            foreach (var price in prices)
+            {
+                prods.Add(new Product() { Price = price });
+            }
+            var store = new GroceryStore() { Name = storeName };
+            var cust = new Customer() { Name = custName };
+            var sut = new Order(cust, store, prods);
+
+            Assert.Equal(49m, sut.GetTotal());
+        }
+
 
         [Fact]
         public void Test_Order_HashCode()

@@ -28,10 +28,13 @@ namespace Project0.StoreApplication.Testing
         {
             var sut = new Product();
             var testName = "Bounty soap";
+            var testPrice = 100.50m;
             sut.Name = testName;
+            sut.Price = testPrice;
             var actual = sut.ToString();
 
             Assert.Contains(testName, actual);
+            Assert.Contains("$100.50", actual);
         }
 
         [Fact]
