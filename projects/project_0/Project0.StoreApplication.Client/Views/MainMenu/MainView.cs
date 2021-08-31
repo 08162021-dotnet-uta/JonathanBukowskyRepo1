@@ -14,6 +14,7 @@ namespace Project0.StoreApplication.Client.Views.MainMenu
         {
             "Login as customer",
             "Login as store",
+            "Settings",
             "Exit"
         };
         public List<string> GetMenuOptions()
@@ -29,7 +30,7 @@ namespace Project0.StoreApplication.Client.Views.MainMenu
             {
                 return Actions.REPEAT_PROMPT;
             }
-            if (selection < 1 || selection > 3)
+            if (selection < 1 || selection > 4)
             {
                 return Actions.REPEAT_PROMPT;
             }
@@ -43,6 +44,9 @@ namespace Project0.StoreApplication.Client.Views.MainMenu
                     nextView = new StoreSelectView(new StoreView());
                     return Actions.OPEN_SUBMENU;
                 case 3:
+                    nextView = new SettingsView();
+                    return Actions.OPEN_SUBMENU;
+                case 4:
                     return Actions.CLOSE_MENU;
                 default:
                     throw new System.NotImplementedException("Not all selections implemented");

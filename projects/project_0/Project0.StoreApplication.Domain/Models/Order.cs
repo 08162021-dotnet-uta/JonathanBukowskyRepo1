@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Xml.Serialization;
 using Project0.StoreApplication.Domain.Abstracts;
 namespace Project0.StoreApplication.Domain.Models
@@ -33,6 +34,7 @@ namespace Project0.StoreApplication.Domain.Models
         /// Products being ordered
         /// </summary>
         /// <value></value>
+        [NotMapped]
         public List<Product> Products { get; set; }
 
         /// <summary>

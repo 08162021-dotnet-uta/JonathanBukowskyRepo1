@@ -9,6 +9,9 @@ using Project0.StoreApplication.Storage.Adapters;
 
 namespace Project0.StoreApplication.Storage
 {
+    /// <summary>
+    /// Implementation of IStorage interface for database backend
+    /// </summary>
     public class DBStorageImpl : IStorage
     {
         private readonly DBAdapter _db = new();
@@ -28,16 +31,23 @@ namespace Project0.StoreApplication.Storage
             {
                 return null;
             }
-            _db.Database.ExecuteSqlRaw("INSERT INTO Store.Order (CustomerID, StoreID, OrderDate) VALUES ({0}, {1}, NOW())", customer.CustomerID, store.StoreID);
+            _db.Database.ExecuteSqlRaw("INSERT INTO Store.[Order] (CustomerID, StoreID, OrderDate)" +
+                " VALUES ({0}, {1}, DATEADD(minute, -1, CURRENT_TIMESTAMP))", customer.CustomerID, store.StoreID);
             _db.SaveChanges();
             // TODO: Check for success/failure
             // TODO: this is not safe for concurrent use
             var ords = _db.Orders.FromSqlRaw(
-                    "SELECT * FROM Store.Order WHERE CustomerID={} AND StoreID={} ORDER BY OrderDate DESC",
+                    "SELECT TOP(1) * FROM Store.[Order] WHERE CustomerID={0} AND StoreID={1} ORDER BY OrderDate DESC",
                     customer.CustomerID,
                     store.StoreID
                 ).ToList();
-            return ords[0];
+            var result = ords[0];
+            foreach (var product in products)
+            {
+                _db.Database.ExecuteSqlRaw("INSERT INTO Store.OrderProduct (OrderID, ProductID) VALUES ({0}, {1})", result.OrderID, product.ProductID);
+            }
+            AttachProductsToOrder(result);
+            return result;
         }
 
         public List<Customer> GetCustomers()
@@ -59,7 +69,7 @@ namespace Project0.StoreApplication.Storage
         }
         public List<Order> GetOrders()
         {
-            var ords = _db.Orders.FromSqlRaw("SELECT * FROM Store.Order").ToList();
+            var ords = _db.Orders.FromSqlRaw("SELECT * FROM Store.[Order]").ToList();
             foreach (var order in ords)
             {
                 AttachProductsToOrder(order);
@@ -69,7 +79,7 @@ namespace Project0.StoreApplication.Storage
 
         public List<Order> GetOrders(Store store)
         {
-            var ords = _db.Orders.FromSqlRaw("SELECT * FROM Store.Order WHERE StoreID={}", store.StoreID).ToList();
+            var ords = _db.Orders.FromSqlRaw("SELECT * FROM Store.[Order] WHERE StoreID={0}", store.StoreID).ToList();
             foreach (var order in ords)
             {
                 AttachProductsToOrder(order);
@@ -79,7 +89,7 @@ namespace Project0.StoreApplication.Storage
 
         public List<Order> GetOrders(Customer customer)
         {
-            var ords = _db.Orders.FromSqlRaw("SELECT * FROM Store.Order WHERE CustomerID={}", customer.CustomerID).ToList();
+            var ords = _db.Orders.FromSqlRaw("SELECT * FROM Store.[Order] WHERE CustomerID={0}", customer.CustomerID).ToList();
             foreach (var order in ords)
             {
                 AttachProductsToOrder(order);
@@ -89,7 +99,7 @@ namespace Project0.StoreApplication.Storage
 
         public List<Product> GetProducts()
         {
-            var prods = _db.Products.FromSqlRaw("SELECT * FROM Store.Products").ToList();
+            var prods = _db.Products.FromSqlRaw("SELECT * FROM Store.Product").ToList();
             return prods;
         }
 
@@ -107,5 +117,10 @@ namespace Project0.StoreApplication.Storage
             _customerAdapter.SaveChanges();
         }
         */
+
+        public void LoadFromScratch()
+        {
+            //TODO: Save repo data into db?
+        }
     }
 }
