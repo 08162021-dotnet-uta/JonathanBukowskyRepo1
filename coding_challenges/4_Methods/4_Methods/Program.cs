@@ -21,29 +21,68 @@ namespace _4_MethodsChallenge
 
         public static string GetName()
         {
-            throw new NotImplementedException("GetName() is not implemented yet0");
+            System.Console.Write("Please enter your name: ");
+            string name = System.Console.ReadLine();
+            return name.Trim();
         }
 
         public static string GreetFriend(string name)
         {
-            throw new NotImplementedException("GreetFriend() is not implemented yet");
+            return $"Hello, {name}. You are my friend.";
         }
 
         public static double GetNumber()
         {
-            throw new NotImplementedException("GetNumber() is not implemented yet");
-
+            System.Console.Write("Please enter a number: ");
+            var input = Console.ReadLine();
+            double d;
+            while (!double.TryParse(input, out d))
+            {
+                Console.WriteLine("Invalid input. Please try again.");
+                System.Console.Write("Please enter a number: ");
+                input = Console.ReadLine();
+            }
+            return d;
         }
 
         public static int GetAction()
         {
-            throw new NotImplementedException("GetAction() is not implemented yet");
-
+            Console.WriteLine("Please enter an operation: 1 - add, 2 - subtract, 3 - multiply, 4 - divide");
+            Console.Write("Make a selection: ");
+            var input = Console.ReadLine();
+            int choice;
+            while (!int.TryParse(input, out choice))
+            {
+                Console.WriteLine("Invalid choice.");
+                Console.WriteLine("Please enter an operation: 1 - add, 2 - subtract, 3 - multiply, 4 - divide");
+                Console.Write("Make a selection: ");
+                input = Console.ReadLine();
+            }
+            return choice;
         }
 
         public static double DoAction(double x, double y, int action)
         {
-            throw new NotImplementedException("DoAction() is not implemented yet");
+            double result;
+            switch (action)
+            {
+                case 1:
+                    result = x + y;
+                    break;
+                case 2:
+                    result = Math.Max(x, y) - Math.Min(x, y);
+                    break;
+                case 3:
+                    result = x * y;
+                    break;
+                case 4:
+                    result = Math.Max(x, y) / Math.Min(x, y);
+                    break;
+                default:
+                    throw new FormatException("Invalid action");
+            }
+            Console.WriteLine($"Result: {result}");
+            return result;
         }
     }
 }
