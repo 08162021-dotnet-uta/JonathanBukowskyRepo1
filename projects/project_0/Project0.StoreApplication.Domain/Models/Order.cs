@@ -8,6 +8,7 @@ namespace Project0.StoreApplication.Domain.Models
     /// </summary>
     public class Order
     {
+        // TODO: I'm not sure I want this here.
         public Order() : base()
         {
 
@@ -32,8 +33,12 @@ namespace Project0.StoreApplication.Domain.Models
         /// Products being ordered
         /// </summary>
         /// <value></value>
-        private List<Product> Products { get; set; }
+        public List<Product> Products { get; set; }
 
+        /// <summary>
+        /// Get list of products in order
+        /// </summary>
+        /// <returns></returns>
         public List<Product> GetProducts()
         {
             // TODO: return a copy of products, or make this readonly somehow (maybe the readonly collection)
@@ -66,6 +71,10 @@ namespace Project0.StoreApplication.Domain.Models
             return null;
         }
 
+        /// <summary>
+        /// Get total price for the order
+        /// </summary>
+        /// <returns>total cost of all products</returns>
         public decimal GetTotal()
         {
             decimal sum = 0;
@@ -103,7 +112,7 @@ namespace Project0.StoreApplication.Domain.Models
 
         public override string ToString()
         {
-            string output = "Order:\n\tCustomer: " + Customer + "\n\tStore: " + Store + "\n\tItems:\n";
+            string output = $"Order:\t${GetTotal():f2}\n\tCustomer: " + Customer + "\n\tStore: " + Store + "\n\tItems:\n";
             foreach (var product in Products)
             {
                 output += "\t\t" + product + "\n";
