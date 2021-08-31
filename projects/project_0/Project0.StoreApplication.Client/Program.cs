@@ -33,8 +33,8 @@ namespace Project0.StoreApplication.Client
     class Program
     {
         // TODO: move this to settings
-        private const string logFile = "/home/jon/revature/my_code/data/project_0_logs/log.txt";
-        private bool _saveToLogFile = false;
+        private const string logFile = "/home/jon/revature/my_code/data/project_0/logs/log.txt";
+        private static readonly bool _saveToLogFile = false;
         public Program()
         {
             // logging levels:
@@ -46,9 +46,9 @@ namespace Project0.StoreApplication.Client
             // fatal
         }
 
-        public void MakeLogger()
+        public static void MakeLogger(bool saveToFile)
         {
-            if (_saveToLogFile)
+            if (saveToFile)
             {
                 Log.Logger = new LoggerConfiguration().WriteTo.File(logFile).CreateLogger();
             }
@@ -87,7 +87,7 @@ namespace Project0.StoreApplication.Client
             Program p = new Program();
             // TODO: get this from ENV?
             // if (ENV.save_to_file) p.SaveLogToFile = true;
-            p.MakeLogger();
+            Program.MakeLogger(_saveToLogFile);
             Log.Information("Starting program");
 
 

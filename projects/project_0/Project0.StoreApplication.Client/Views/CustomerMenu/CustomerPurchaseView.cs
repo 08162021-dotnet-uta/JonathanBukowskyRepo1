@@ -35,13 +35,12 @@ namespace Project0.StoreApplication.Client.Views.CustomerMenu
 
         public Actions HandleUserInput(string input, out IView nextView)
         {
-            int selection;
             nextView = null;
-            if (!int.TryParse(input, out selection))
+            if (!int.TryParse(input, out int selection))
             {
                 return Actions.REPEAT_PROMPT;
             }
-            if (selection < 1 || selection > 4)
+            if (selection < 1 || selection > _menu.Count)
             {
                 return Actions.REPEAT_PROMPT;
             }

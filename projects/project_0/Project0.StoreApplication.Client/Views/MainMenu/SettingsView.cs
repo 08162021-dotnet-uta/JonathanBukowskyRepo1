@@ -1,4 +1,5 @@
 
+using System;
 using System.Collections.Generic;
 using Project0.StoreApplication.Client.Views.Common;
 using Project0.StoreApplication.Storage;
@@ -10,7 +11,10 @@ namespace Project0.StoreApplication.Client.Views.MainMenu
         private static readonly List<string> _menu = new List<string>()
         {
             "Save to DB",
-            "Save to XML"
+            "Save to XML",
+            "Log to console",
+            "Log to file",
+            "Save and exit"
         };
         public List<string> GetMenuOptions()
         {
@@ -24,22 +28,34 @@ namespace Project0.StoreApplication.Client.Views.MainMenu
             {
                 return Actions.REPEAT_PROMPT;
             }
+            if (choice < 1 || choice > _menu.Count)
+            {
+                return Actions.REPEAT_PROMPT;
+            }
             switch (choice)
             {
                 case 1:
                     var dbStorage = new DBStorageImpl();
-                    BaseView.SetStorage(dbStorage);
-                    System.Console.WriteLine("Switched to database backend");
+                    SetStorage(dbStorage);
+                    Console.WriteLine("Switched to database backend");
                     break;
                 case 2:
                     var XMLStorage = new XmlFileStorage();
-                    BaseView.SetStorage(XMLStorage);
-                    System.Console.WriteLine("Switched to xml file backend");
+                    SetStorage(XMLStorage);
+                    Console.WriteLine("Switched to xml file backend");
                     break;
+                case 3:
+                    Program.MakeLogger(false);
+                    break;
+                case 4:
+                    Program.MakeLogger(true);
+                    break;
+                case 5:
+                    return Actions.CLOSE_MENU;
                 default:
-                    return Actions.REPEAT_PROMPT;
+                    throw new NotImplementedException("Not all actions implemented");
             }
-            return Actions.CLOSE_MENU;
+            return Actions.RERUN_MENU;
         }
     }
 }

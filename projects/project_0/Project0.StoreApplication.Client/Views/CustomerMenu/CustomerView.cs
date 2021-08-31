@@ -28,9 +28,12 @@ namespace Project0.StoreApplication.Client.Views.CustomerMenu
 
         public Actions HandleUserInput(string input, out IView nextView)
         {
-            int selection;
             nextView = null;
-            if (!int.TryParse(input, out selection))
+            if (!int.TryParse(input, out int selection))
+            {
+                return Actions.REPEAT_PROMPT;
+            }
+            if (selection < 1 || selection > _menu.Count)
             {
                 return Actions.REPEAT_PROMPT;
             }
@@ -58,7 +61,7 @@ namespace Project0.StoreApplication.Client.Views.CustomerMenu
                 case 6:
                     return Actions.CLOSE_MENU;
                 default:
-                    return Actions.REPEAT_PROMPT;
+                    throw new NotImplementedException("Not all actions implemented");
             }
         }
 
