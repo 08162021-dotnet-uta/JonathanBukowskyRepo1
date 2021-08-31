@@ -82,7 +82,7 @@ namespace Project0.StoreApplication.Client
         static void Main(string[] args)
         {
             // TODO: get this from ENV?
-            const bool testRun = true;
+            const bool testRun = false;
             Log.Information("Creating program instance");
             Program p = new Program();
             // TODO: get this from ENV?
@@ -104,11 +104,14 @@ namespace Project0.StoreApplication.Client
         // a little temporary function for me to test stuff in main without running app
         static void Playground()
         {
+            /*
             DemoEF demo = new();
+            demo.SetCustomer(new Domain.Models.Customer() { Name = "Test Customer ORM" });
             foreach (var c in demo.GetCustomers())
             {
                 System.Console.WriteLine(c);
             }
+            */
             // This is gonna get a little messy... trying to fix some saved data so that it fits the new code
             /*
             CurrentSettings.Settings = new ApplicationSettings();

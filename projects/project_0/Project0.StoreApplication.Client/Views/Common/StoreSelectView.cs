@@ -11,6 +11,12 @@ namespace Project0.StoreApplication.Client.Views.Common
     public class StoreSelectView : BaseView, IView
     {
 
+        private IView _nextView;
+        public StoreSelectView(IView nextView) : base()
+        {
+            _nextView = nextView;
+        }
+
         public List<string> GetMenuOptions()
         {
             return Storage.GetStores().ConvertAll((Store s) => s.ToString());
@@ -32,7 +38,7 @@ namespace Project0.StoreApplication.Client.Views.Common
             CurrentContext.SelectedStore = stores[selection - 1];
 
             // set next view and notify success
-            nextView = new StoreView();
+            nextView = _nextView;
             return Actions.CHANGE_MENU;
         }
     }

@@ -40,7 +40,7 @@ namespace Project0.StoreApplication.Client.Views.MainMenu
                     nextView = new CustomerSelectView();
                     return Actions.OPEN_SUBMENU;
                 case 2:
-                    nextView = new StoreSelectView();
+                    nextView = new StoreSelectView(new StoreView());
                     return Actions.OPEN_SUBMENU;
                 case 3:
                     return Actions.CLOSE_MENU;

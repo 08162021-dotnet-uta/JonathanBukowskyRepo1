@@ -39,8 +39,8 @@ namespace Project0.StoreApplication.Client.Views.CustomerMenu
             {
                 case 1:
                     //RunView(new StoreSelectView(), CurrentContext);
-                    nextView = new StoreSelectView();
-                    return Actions.OPEN_SUBMENU;
+                    nextView = new StoreSelectView(this);
+                    return Actions.CHANGE_MENU;
                 case 2:
                     Console.WriteLine("\n");
                     foreach (var prod in Storage.GetProducts())
