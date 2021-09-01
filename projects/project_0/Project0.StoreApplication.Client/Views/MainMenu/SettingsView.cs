@@ -24,16 +24,16 @@ namespace Project0.StoreApplication.Client.Views.MainMenu
 
         public Actions HandleUserInput(string input, out IView nextView)
         {
-            Log.Debug($"Inside SettingsView HandleInput");
+            Log.Information($"Inside SettingsView HandleInput");
             nextView = null;
             if (!int.TryParse(input, out int choice))
             {
-                Log.Debug($"Invalid input {input}");
+                Log.Information($"Invalid input {input}");
                 return Actions.REPEAT_PROMPT;
             }
             if (choice < 1 || choice > _menu.Count)
             {
-                Log.Debug($"Invalid choice {choice}");
+                Log.Information($"Invalid choice {choice}");
                 return Actions.REPEAT_PROMPT;
             }
             switch (choice)

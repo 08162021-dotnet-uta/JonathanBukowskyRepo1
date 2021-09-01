@@ -19,18 +19,23 @@ namespace Project0.StoreApplication.Client.Views.CustomerMenu
             return Products.ConvertAll((Product p) => p.ToString());
         }
 
+        public string GetPrompt()
+        {
+            return "\n\n\tPlease select a product: ";
+        }
+
         public Actions HandleUserInput(string input, out IView nextView)
         {
-            Log.Debug($"Inside ProductSelect handleInput");
+            Log.Information($"Inside ProductSelect handleInput");
             nextView = null;
             if (!int.TryParse(input, out int selection))
             {
-                Log.Debug($"Invalid input {input}");
+                Log.Information($"Invalid input {input}");
                 return Actions.REPEAT_PROMPT;
             }
             if (selection < 1 || selection > Products.Count)
             {
-                Log.Debug($"Invalid selection {selection}");
+                Log.Information($"Invalid selection {selection}");
                 return Actions.REPEAT_PROMPT;
             }
             HandleProductSelected(Products[selection - 1]);

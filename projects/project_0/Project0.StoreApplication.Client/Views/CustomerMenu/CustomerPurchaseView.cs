@@ -34,16 +34,16 @@ namespace Project0.StoreApplication.Client.Views.CustomerMenu
 
         public Actions HandleUserInput(string input, out IView nextView)
         {
-            Log.Debug("Inside CustomerPurchase HandleInput");
+            Log.Information("Inside CustomerPurchase HandleInput");
             nextView = null;
             if (!int.TryParse(input, out int selection))
             {
-                Log.Debug($"Invalid input {input}");
+                Log.Information($"Invalid input {input}");
                 return Actions.REPEAT_PROMPT;
             }
             if (selection < 1 || selection > _menu.Count)
             {
-                Log.Debug($"Invalid selection {selection}");
+                Log.Information($"Invalid selection {selection}");
                 return Actions.REPEAT_PROMPT;
             }
             switch (selection)
@@ -75,6 +75,7 @@ namespace Project0.StoreApplication.Client.Views.CustomerMenu
             {
                 Console.WriteLine($"\t{product}");
             }
+            Console.WriteLine();
         }
 
         private void AddProductToCart(Product product)

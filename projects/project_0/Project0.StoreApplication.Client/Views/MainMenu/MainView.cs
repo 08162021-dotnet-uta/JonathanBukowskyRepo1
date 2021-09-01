@@ -25,20 +25,20 @@ namespace Project0.StoreApplication.Client.Views.MainMenu
 
         public Actions HandleUserInput(string input, out IView nextView)
         {
-            Log.Debug("Inside MainView HandleInput");
+            Log.Information("Inside MainView HandleInput");
             nextView = null;
             if (!int.TryParse(input, out int selection))
             {
-                Log.Debug($"Invalid input {input}");
+                Log.Information($"Invalid input {input}");
                 return Actions.REPEAT_PROMPT;
             }
             if (selection < 1 || selection > _menu.Count)
             {
-                Log.Debug($"Invalid selection {input}");
+                Log.Information($"Invalid selection {input}");
                 return Actions.REPEAT_PROMPT;
             }
             nextView = this;
-            Log.Debug($"Input: {input}");
+            Log.Information($"Input: {input}");
             switch (selection)
             {
                 case 1:

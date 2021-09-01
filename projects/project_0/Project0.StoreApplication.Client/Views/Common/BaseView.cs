@@ -48,7 +48,7 @@ namespace Project0.StoreApplication.Client.Views.Common
                     Console.Write(prompt);
                     userInput = Console.ReadLine();
                     nextAction = view.HandleUserInput(userInput, out nextView);
-                    Log.Debug($"Next action: {nextAction}");
+                    Log.Information($"Next action: {nextAction}");
                 } while (nextAction == Actions.REPEAT_PROMPT);
 
                 switch (nextAction)

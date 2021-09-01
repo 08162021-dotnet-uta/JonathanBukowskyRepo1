@@ -18,20 +18,25 @@ namespace Project0.StoreApplication.Client.Views.MainMenu
             return Storage.GetCustomers().ConvertAll((Customer c) => c.ToString());
         }
 
+        public string GetPrompt()
+        {
+            return "\n\n\tPlease select a customer: ";
+        }
+
         public Actions HandleUserInput(string input, out IView nextView)
         {
             nextView = null;
-            Log.Debug($"Inside CustomerSelect HandleInput");
+            Log.Information($"Inside CustomerSelect HandleInput");
             if (!int.TryParse(input, out int selection))
             {
-                Log.Debug($"Invalid input {input}");
+                Log.Information($"Invalid input {input}");
                 return Actions.REPEAT_PROMPT;
             }
             // NOTE: not thread safe
             var customers = Storage.GetCustomers();
             if (selection < 1 || selection > customers.Count)
             {
-                Log.Debug($"Invalid selection {input}");
+                Log.Information($"Invalid selection {input}");
                 return Actions.REPEAT_PROMPT;
             }
             CurrentContext.Customer = customers[selection - 1];

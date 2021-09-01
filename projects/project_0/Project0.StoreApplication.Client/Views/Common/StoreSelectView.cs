@@ -23,19 +23,24 @@ namespace Project0.StoreApplication.Client.Views.Common
             return Storage.GetStores().ConvertAll((Store s) => s.ToString());
         }
 
+        public string GetPrompt()
+        {
+            return "\n\n\tPlease select a store: ";
+        }
+
         public Actions HandleUserInput(string input, out IView nextView)
         {
-            Log.Debug($"inside storeview handleinput");
+            Log.Information($"inside storeview handleinput");
             nextView = null;
             if (!int.TryParse(input, out int selection))
             {
-                Log.Debug($"Invalid input {input}");
+                Log.Information($"Invalid input {input}");
                 return Actions.REPEAT_PROMPT;
             }
             var stores = Storage.GetStores();
             if (selection > stores.Count || selection < 1)
             {
-                Log.Debug($"Invalid selection {selection}");
+                Log.Information($"Invalid selection {selection}");
                 return Actions.REPEAT_PROMPT;
             }
             CurrentContext.SelectedStore = stores[selection - 1];

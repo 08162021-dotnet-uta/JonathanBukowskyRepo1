@@ -105,4 +105,14 @@
       <int>5</int>
     </Products>
   </OrderXML>
+  <OrderXML>
+    <Customer>1</Customer>
+    <Store>3</Store>
+    <OrderID>12</OrderID>
+    <Products>
+      <int>7</int>
+      <int>3</int>
+      <int>10</int>
+    </Products>
+  </OrderXML>
 </ArrayOfOrderXML>
