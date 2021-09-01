@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using Project0.StoreApplication.Client.Views.Common;
 using Project0.StoreApplication.Storage;
+using Serilog;
 
 namespace Project0.StoreApplication.Client.Views.MainMenu
 {
@@ -23,13 +24,16 @@ namespace Project0.StoreApplication.Client.Views.MainMenu
 
         public Actions HandleUserInput(string input, out IView nextView)
         {
+            Log.Debug($"Inside SettingsView HandleInput");
             nextView = null;
             if (!int.TryParse(input, out int choice))
             {
+                Log.Debug($"Invalid input {input}");
                 return Actions.REPEAT_PROMPT;
             }
             if (choice < 1 || choice > _menu.Count)
             {
+                Log.Debug($"Invalid choice {choice}");
                 return Actions.REPEAT_PROMPT;
             }
             switch (choice)

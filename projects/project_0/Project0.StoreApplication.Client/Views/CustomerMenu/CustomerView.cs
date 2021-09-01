@@ -3,6 +3,7 @@ using System;
 using Project0.StoreApplication.Domain.Models;
 using Project0.StoreApplication.Client.Views.Common;
 using System.Collections.Generic;
+using Serilog;
 
 namespace Project0.StoreApplication.Client.Views.CustomerMenu
 {
@@ -28,13 +29,16 @@ namespace Project0.StoreApplication.Client.Views.CustomerMenu
 
         public Actions HandleUserInput(string input, out IView nextView)
         {
+            Log.Debug($"inside customerView handleinput");
             nextView = null;
             if (!int.TryParse(input, out int selection))
             {
+                Log.Debug($"Invalid input {input}");
                 return Actions.REPEAT_PROMPT;
             }
             if (selection < 1 || selection > _menu.Count)
             {
+                Log.Debug($"Invalid selection {input}");
                 return Actions.REPEAT_PROMPT;
             }
             nextView = this;
@@ -117,6 +121,7 @@ namespace Project0.StoreApplication.Client.Views.CustomerMenu
                 Console.WriteLine("Your cart is empty");
                 return Actions.RERUN_MENU;
             }
+            Log.Debug($"Creating order {CurrentContext.Customer} {CurrentContext.SelectedStore} numprods: {CurrentContext.Cart.Count}");
             Order o = Storage.CreateOrder(CurrentContext.Customer, CurrentContext.SelectedStore, CurrentContext.Cart);
             if (o != null)
             {

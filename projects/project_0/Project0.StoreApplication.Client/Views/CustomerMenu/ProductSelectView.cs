@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Project0.StoreApplication.Domain.Models;
 using Project0.StoreApplication.Client.Views.Common;
 using System;
+using Serilog;
 
 namespace Project0.StoreApplication.Client.Views.CustomerMenu
 {
@@ -20,14 +21,16 @@ namespace Project0.StoreApplication.Client.Views.CustomerMenu
 
         public Actions HandleUserInput(string input, out IView nextView)
         {
-            int selection;
+            Log.Debug($"Inside ProductSelect handleInput");
             nextView = null;
-            if (!int.TryParse(input, out selection))
+            if (!int.TryParse(input, out int selection))
             {
+                Log.Debug($"Invalid input {input}");
                 return Actions.REPEAT_PROMPT;
             }
             if (selection < 1 || selection > Products.Count)
             {
+                Log.Debug($"Invalid selection {selection}");
                 return Actions.REPEAT_PROMPT;
             }
             HandleProductSelected(Products[selection - 1]);

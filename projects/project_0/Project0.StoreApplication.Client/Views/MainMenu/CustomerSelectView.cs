@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Project0.StoreApplication.Domain.Models;
 using Project0.StoreApplication.Client.Views.Common;
 using Project0.StoreApplication.Client.Views.CustomerMenu;
+using Serilog;
 
 namespace Project0.StoreApplication.Client.Views.MainMenu
 {
@@ -20,14 +21,17 @@ namespace Project0.StoreApplication.Client.Views.MainMenu
         public Actions HandleUserInput(string input, out IView nextView)
         {
             nextView = null;
+            Log.Debug($"Inside CustomerSelect HandleInput");
             if (!int.TryParse(input, out int selection))
             {
+                Log.Debug($"Invalid input {input}");
                 return Actions.REPEAT_PROMPT;
             }
             // NOTE: not thread safe
             var customers = Storage.GetCustomers();
             if (selection < 1 || selection > customers.Count)
             {
+                Log.Debug($"Invalid selection {input}");
                 return Actions.REPEAT_PROMPT;
             }
             CurrentContext.Customer = customers[selection - 1];

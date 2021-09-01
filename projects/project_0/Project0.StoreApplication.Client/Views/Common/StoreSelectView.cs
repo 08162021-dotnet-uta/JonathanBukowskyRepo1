@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Project0.StoreApplication.Client.Views.StoreMenu;
 using Project0.StoreApplication.Domain.Abstracts;
+using Serilog;
 
 namespace Project0.StoreApplication.Client.Views.Common
 {
@@ -24,15 +25,17 @@ namespace Project0.StoreApplication.Client.Views.Common
 
         public Actions HandleUserInput(string input, out IView nextView)
         {
-            int selection;
+            Log.Debug($"inside storeview handleinput");
             nextView = null;
-            if (!int.TryParse(input, out selection))
+            if (!int.TryParse(input, out int selection))
             {
+                Log.Debug($"Invalid input {input}");
                 return Actions.REPEAT_PROMPT;
             }
             var stores = Storage.GetStores();
             if (selection > stores.Count || selection < 1)
             {
+                Log.Debug($"Invalid selection {selection}");
                 return Actions.REPEAT_PROMPT;
             }
             CurrentContext.SelectedStore = stores[selection - 1];

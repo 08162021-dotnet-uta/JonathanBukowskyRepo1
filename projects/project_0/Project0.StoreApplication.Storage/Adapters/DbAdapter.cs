@@ -15,10 +15,7 @@ namespace Project0.StoreApplication.Storage.Adapters
         protected override void OnConfiguring(DbContextOptionsBuilder builder)
         {
             var connectionString = System.IO.File.ReadAllText("/home/jon/revature/my_code/data/project_0/config/connection_string.txt");
-            //builder.UseSqlServer(@"server=(localdb)\MSSQLLocalDB;database=StoreApplicationDB;Trusted_Connection=True;");
-            //builder.UseSqlServer(@"Data Source=172.28.96.1;database=StoreApplicationDB;Integrated Security=True;");
             builder.UseSqlServer(connectionString);
-            //builder.UseSqlServer(@"server=172.17.64.1;database=StoreApplicationDB;Trusted_Connection=True;");
         }
 
     }
