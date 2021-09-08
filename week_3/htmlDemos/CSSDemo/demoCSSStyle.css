@@ -1,0 +1,43 @@
+
+div {
+    color: blue;
+}
+
+#id1 {
+    border: 3px solid;
+    border-color: black;
+    color: aquamarine;
+}
+
+.class1, .class2 {
+    border: 3px dotted;
+    border-right: 10px dotted;
+}
+
+/*
+* {
+    text-decoration: line-through;
+}
+*/
+
+b.class3 {
+    color: aqua;
+    font-size: 100px;
+}
+
+.class3:hover {
+    color: blueviolet;
+}
+
+em#id2 {
+    float: right;
+}
+
+:nth-child(3) {
+    font-weight: bold;
+    color: brown;
+}
+
+.class6::first-line {
+    color: RGB(40, 12, 200);
+}

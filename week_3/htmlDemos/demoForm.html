@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+</head>
+
+<body>
+    <header>
+        <img src="https://th.bing.com/th/id/R.a99c710e7d9e86a18b1c0c09347de162?rik=F2dbjKBO8eu2VA&riu=http%3a%2f%2fsilk-demo.trendsetterthemes.org%2fimg%2fHTML5.png&ehk=PEgbSvtUDA8hE7p9BXuWwBG7e8KumzpdNKin3jyWyFY%3d&risl=&pid=ImgRaw&r=0
+" />
+    </header>
+    <div>
+        <h1>About</h1>
+        <p>Some text about this website</p>
+        <h2>Our Locations</h2>
+        <ul>
+            <li>
+                USA
+                <ul>
+                    <li><a href="#">New York</a></li>
+                    <li><a href="#">Columbus</a></li>
+                    <li><a href="#">Austin</a></li>
+                    <li><a href="#">Philly</a></li>
+                </ul>
+            </li>
+            <li> World
+                <ul>
+                    <li><a href="#">Ottowa</a></li>
+                    <li><a href="#">Sydney</a></li>
+                </ul>
+            </li>
+        </ul>
+
+        <h2>Upcoming Classes</h2>
+        <table style="border: 1px solid black;">
+            <thead>
+                <tr>
+                    <th style="border: 1px solid black">Location</th>
+                    <th style="border: 1px solid black">Topic</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="border: 1px solid black">New York</td>
+                    <td style="border: 1px solid black">Javascript & jQuery</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid black">San Francisco</td>
+                    <td style="border: 1px solid black">HTML & CSS</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>Sign up!</h3>
+        <form action="dostuff">
+            <label for="name">Name:</label>
+            <input type="text" id="name"><br>
+            <label for="email">Email:</label>
+            <input type="email" id="email"><br>
+            <label for="location">Location:</label>
+            <select name="location" id="location">
+                <option value="newyork">New York</option>
+                <option value="sanfrancisco">San Francisco</option>
+            </select>
+            <fieldset>
+                <legend>Gender:</legend>
+                <label for="girlgender">Female</label>
+                <input type="radio" name="gender" id="girlgender" value="girl">
+                <label for="boygender">Male</label>
+                <input type="radio" name="gender" id="boygender" value="boy">
+            </fieldset>
+            <label for="experience">Experience</label> <br />
+            <textarea id="experience"> </textarea> <br />
+            <input type="submit" value="Sign Up"> <br />
+            <a href="https://www.twitter.com">Twitter</a> |
+            <a href="https://www.facebook.com">Facebook</a> |
+            <a href="https://www.flickr.com">Flickr</a>
+            <!-- <input type="select" id="name"><br> -->
+        </form>
+
+    </div>
+</body>
+
+</html>
