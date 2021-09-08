@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using Project0.StoreApplication.Domain.Interfaces;
+using Serilog;
 
 namespace Project0.StoreApplication.Client.Views.Common
 {
@@ -47,6 +48,7 @@ namespace Project0.StoreApplication.Client.Views.Common
                     Console.Write(prompt);
                     userInput = Console.ReadLine();
                     nextAction = view.HandleUserInput(userInput, out nextView);
+                    Log.Information($"Next action: {nextAction}");
                 } while (nextAction == Actions.REPEAT_PROMPT);
 
                 switch (nextAction)

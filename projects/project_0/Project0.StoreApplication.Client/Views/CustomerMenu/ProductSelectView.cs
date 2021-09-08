@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Project0.StoreApplication.Domain.Models;
 using Project0.StoreApplication.Client.Views.Common;
 using System;
+using Serilog;
 
 namespace Project0.StoreApplication.Client.Views.CustomerMenu
 {
@@ -18,16 +19,23 @@ namespace Project0.StoreApplication.Client.Views.CustomerMenu
             return Products.ConvertAll((Product p) => p.ToString());
         }
 
+        public string GetPrompt()
+        {
+            return "\n\n\tPlease select a product: ";
+        }
+
         public Actions HandleUserInput(string input, out IView nextView)
         {
-            int selection;
+            Log.Information($"Inside ProductSelect handleInput");
             nextView = null;
-            if (!int.TryParse(input, out selection))
+            if (!int.TryParse(input, out int selection))
             {
+                Log.Information($"Invalid input {input}");
                 return Actions.REPEAT_PROMPT;
             }
             if (selection < 1 || selection > Products.Count)
             {
+                Log.Information($"Invalid selection {selection}");
                 return Actions.REPEAT_PROMPT;
             }
             HandleProductSelected(Products[selection - 1]);

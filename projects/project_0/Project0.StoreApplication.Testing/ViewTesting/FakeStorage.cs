@@ -48,8 +48,8 @@ namespace Project0.StoreApplication.Testing.ViewTesting
             var products = GetProducts();
             return new List<Order>()
             {
-                new Order() { Customer = customers[0], Store = stores[1], Products = new() { products[0], products[1] }},
-                new Order() { Customer = customers[1], Store = stores[0], Products = new() { products[1], products[2]}}
+                new Order(customers[0], stores[1], new() { products[0], products[1] }),
+                new Order(customers[1], stores[0], new() { products[1], products[2] })
             };
         }
 

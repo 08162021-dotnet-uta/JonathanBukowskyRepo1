@@ -3,6 +3,7 @@ using System;
 using Project0.StoreApplication.Domain.Models;
 using Project0.StoreApplication.Client.Views.Common;
 using System.Collections.Generic;
+using Serilog;
 
 namespace Project0.StoreApplication.Client.Views.CustomerMenu
 {
@@ -28,10 +29,16 @@ namespace Project0.StoreApplication.Client.Views.CustomerMenu
 
         public Actions HandleUserInput(string input, out IView nextView)
         {
-            int selection;
+            Log.Information($"inside customerView handleinput");
             nextView = null;
-            if (!int.TryParse(input, out selection))
+            if (!int.TryParse(input, out int selection))
             {
+                Log.Information($"Invalid input {input}");
+                return Actions.REPEAT_PROMPT;
+            }
+            if (selection < 1 || selection > _menu.Count)
+            {
+                Log.Information($"Invalid selection {input}");
                 return Actions.REPEAT_PROMPT;
             }
             nextView = this;
@@ -39,8 +46,8 @@ namespace Project0.StoreApplication.Client.Views.CustomerMenu
             {
                 case 1:
                     //RunView(new StoreSelectView(), CurrentContext);
-                    nextView = new StoreSelectView();
-                    return Actions.OPEN_SUBMENU;
+                    nextView = new StoreSelectView(this);
+                    return Actions.CHANGE_MENU;
                 case 2:
                     Console.WriteLine("\n");
                     foreach (var prod in Storage.GetProducts())
@@ -58,7 +65,7 @@ namespace Project0.StoreApplication.Client.Views.CustomerMenu
                 case 6:
                     return Actions.CLOSE_MENU;
                 default:
-                    return Actions.REPEAT_PROMPT;
+                    throw new NotImplementedException("Not all actions implemented");
             }
         }
 
@@ -114,6 +121,7 @@ namespace Project0.StoreApplication.Client.Views.CustomerMenu
                 Console.WriteLine("Your cart is empty");
                 return Actions.RERUN_MENU;
             }
+            Log.Information($"Creating order {CurrentContext.Customer} {CurrentContext.SelectedStore} numprods: {CurrentContext.Cart.Count}");
             Order o = Storage.CreateOrder(CurrentContext.Customer, CurrentContext.SelectedStore, CurrentContext.Cart);
             if (o != null)
             {

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Xml.Serialization;
 using Project0.StoreApplication.Domain.Abstracts;
 namespace Project0.StoreApplication.Domain.Models
@@ -8,6 +9,7 @@ namespace Project0.StoreApplication.Domain.Models
     /// </summary>
     public class Order
     {
+        // TODO: I'm not sure I want this here.
         public Order() : base()
         {
 
@@ -26,20 +28,66 @@ namespace Project0.StoreApplication.Domain.Models
         /// Customer placing the order
         /// </summary>
         /// <value></value>
-        [XmlIgnoreAttribute]
         public Customer Customer { get; set; }
 
         /// <summary>
         /// Products being ordered
         /// </summary>
         /// <value></value>
+        [NotMapped]
         public List<Product> Products { get; set; }
+
+        /// <summary>
+        /// Get list of products in order
+        /// </summary>
+        /// <returns></returns>
+        public List<Product> GetProducts()
+        {
+            // TODO: return a copy of products, or make this readonly somehow (maybe the readonly collection)
+            return Products;
+        }
+
+        /// <summary>
+        /// Add a product to order
+        /// </summary>
+        /// <param name="product">Product to add to order</param>
+        /// <returns>Error string, or null if successful</returns>
+        public string AddProduct(Product product)
+        {
+            // TODO: add error checking (can only have 50 items and $500 in an order) and return appropriately
+            Products.Add(product);
+            return null;
+        }
+
+        /// <summary>
+        /// Remove product from order
+        /// </summary>
+        /// <param name="product">Product to remove from order</param>
+        /// <returns>Error string, or null if successful</returns>
+        public string RemoveProduct(Product product)
+        {
+            if (!Products.Remove(product))
+            {
+                return "Failed to remove product from order";
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// Get total price for the order
+        /// </summary>
+        /// <returns>total cost of all products</returns>
+        public decimal GetTotal()
+        {
+            decimal sum = 0;
+            Products.ForEach(p => sum += p.Price);
+            return sum;
+        }
 
         /// <summary>
         /// Store through which order is being made
         /// </summary>
         /// <value></value>
-        [XmlIgnoreAttribute]
         public Store Store { get; set; }
 
         public override int GetHashCode()
@@ -66,7 +114,7 @@ namespace Project0.StoreApplication.Domain.Models
 
         public override string ToString()
         {
-            string output = "Order:\n\tCustomer: " + Customer + "\n\tStore: " + Store + "\n\tItems:\n";
+            string output = $"Order:\t${GetTotal():f2}\n\tCustomer: " + Customer + "\n\tStore: " + Store + "\n\tItems:\n";
             foreach (var product in Products)
             {
                 output += "\t\t" + product + "\n";

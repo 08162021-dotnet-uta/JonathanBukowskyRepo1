@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Project0.StoreApplication.Client.Views.Common;
 using Project0.StoreApplication.Client.Views.StoreMenu;
+using Serilog;
 
 namespace Project0.StoreApplication.Client.Views.MainMenu
 {
@@ -14,6 +15,7 @@ namespace Project0.StoreApplication.Client.Views.MainMenu
         {
             "Login as customer",
             "Login as store",
+            "Settings",
             "Exit"
         };
         public List<string> GetMenuOptions()
@@ -23,26 +25,32 @@ namespace Project0.StoreApplication.Client.Views.MainMenu
 
         public Actions HandleUserInput(string input, out IView nextView)
         {
-            int selection;
+            Log.Information("Inside MainView HandleInput");
             nextView = null;
-            if (!int.TryParse(input, out selection))
+            if (!int.TryParse(input, out int selection))
             {
+                Log.Information($"Invalid input {input}");
                 return Actions.REPEAT_PROMPT;
             }
-            if (selection < 1 || selection > 3)
+            if (selection < 1 || selection > _menu.Count)
             {
+                Log.Information($"Invalid selection {input}");
                 return Actions.REPEAT_PROMPT;
             }
             nextView = this;
+            Log.Information($"Input: {input}");
             switch (selection)
             {
                 case 1:
                     nextView = new CustomerSelectView();
                     return Actions.OPEN_SUBMENU;
                 case 2:
-                    nextView = new StoreSelectView();
+                    nextView = new StoreSelectView(new StoreView());
                     return Actions.OPEN_SUBMENU;
                 case 3:
+                    nextView = new SettingsView();
+                    return Actions.OPEN_SUBMENU;
+                case 4:
                     return Actions.CLOSE_MENU;
                 default:
                     throw new System.NotImplementedException("Not all selections implemented");

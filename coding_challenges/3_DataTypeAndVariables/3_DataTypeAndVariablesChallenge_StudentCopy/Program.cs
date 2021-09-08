@@ -6,11 +6,21 @@ namespace _3_DataTypeAndVariablesChallenge
     {
         public static void Main(string[] args)
         {
-            //
-            //
-            // Insert code here.
-            //
-            //
+            bool b = false;
+            byte by = byte.MaxValue;
+            sbyte sby = sbyte.MaxValue;
+            char c = char.MaxValue;
+            decimal dec;
+            double db;
+            float f;
+            int i;
+            uint ui;
+            nint ni;
+            nuint nui;
+            long l;
+            ulong ul;
+            short s;
+            ushort us;
         }
 
         /// <summary>
@@ -25,7 +35,42 @@ namespace _3_DataTypeAndVariablesChallenge
         /// <returns></returns>
         public static string PrintValues(object obj)
         {
-            throw new NotImplementedException($"PrintValues() has not been implemented");
+            switch (obj)
+            {
+                case int x:
+                    return "Data type => int";
+                case bool b:
+                    return "Data type => bool";
+                case byte by:
+                    return "Data type => byte";
+                case sbyte sby:
+                    return "Data type => sbyte";
+                case char c:
+                    return "Data type => char";
+                case decimal dec:
+                    return "Data type => decimal";
+                case double db:
+                    return "Data type => double";
+                case float f:
+                    return "Data type => float";
+                case uint ui:
+                    return "Data type => uint";
+                case nint ni:
+                    return "Data type => nint";
+                case nuint nui:
+                    return "Data type => nuint";
+                case long l:
+                    return "Data type => long";
+                case ulong ul:
+                    return "Data type => ulong";
+                case short s:
+                    return "Data type => short";
+                case ushort us:
+                    return "Data type => ushort";
+                case string v:
+                    return "Data type => string";
+            }
+            return $"Data type => {(obj.GetType()).Name.ToLower()}";
         }
 
         /// <summary>
@@ -39,8 +84,12 @@ namespace _3_DataTypeAndVariablesChallenge
         /// <returns></returns>
         public static int? StringToInt(string numString)
         {
-            throw new NotImplementedException($"StringToInt() has not been implemented");
-
+            //int res;
+            if (!int.TryParse(numString, out int res))
+            {
+                return null;
+            }
+            return res;
         }
     }// end of class
 }// End of Namespace

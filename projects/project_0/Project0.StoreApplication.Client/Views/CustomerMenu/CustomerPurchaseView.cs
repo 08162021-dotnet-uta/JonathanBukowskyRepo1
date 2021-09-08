@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Project0.StoreApplication.Domain.Models;
 using Project0.StoreApplication.Client.Views.Common;
 using System;
+using Serilog;
 
 /// <summary>
 /// The Views namespace contains classes to control command line menu interactions
@@ -14,10 +15,8 @@ namespace Project0.StoreApplication.Client.Views.CustomerMenu
     /// </summary>
     public class CustomerPurchaseView : BaseView, IView
     {
-        private List<Product> _selectedProducts;
         public CustomerPurchaseView()
         {
-            _selectedProducts = new();
         }
 
         private static readonly List<string> _menu = new()
@@ -35,14 +34,16 @@ namespace Project0.StoreApplication.Client.Views.CustomerMenu
 
         public Actions HandleUserInput(string input, out IView nextView)
         {
-            int selection;
+            Log.Information("Inside CustomerPurchase HandleInput");
             nextView = null;
-            if (!int.TryParse(input, out selection))
+            if (!int.TryParse(input, out int selection))
             {
+                Log.Information($"Invalid input {input}");
                 return Actions.REPEAT_PROMPT;
             }
-            if (selection < 1 || selection > 4)
+            if (selection < 1 || selection > _menu.Count)
             {
+                Log.Information($"Invalid selection {selection}");
                 return Actions.REPEAT_PROMPT;
             }
             switch (selection)
@@ -74,6 +75,7 @@ namespace Project0.StoreApplication.Client.Views.CustomerMenu
             {
                 Console.WriteLine($"\t{product}");
             }
+            Console.WriteLine();
         }
 
         private void AddProductToCart(Product product)

@@ -5,8 +5,23 @@ namespace Project0.StoreApplication.Domain.Models
     /// </summary>
     public class Product
     {
+        /// <summary>
+        /// Unique identifier for the product.
+        /// </summary>
+        /// <value></value>
         public int ProductID { get; set; }
+
+        /// <summary>
+        /// The display name of the product
+        /// </summary>
+        /// <value></value>
         public string Name { get; set; }
+
+        /// <summary>
+        /// The sales price of the product
+        /// </summary>
+        /// <value></value>
+        public decimal Price { get; set; }
 
         public override int GetHashCode()
         {
@@ -33,7 +48,7 @@ namespace Project0.StoreApplication.Domain.Models
         }
         public override string ToString()
         {
-            return Name;
+            return $"{Name}: ${Price:f2}";
         }
     }
 }

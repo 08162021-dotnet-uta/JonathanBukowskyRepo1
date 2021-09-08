@@ -8,11 +8,13 @@
         <OrderID>4</OrderID>
         <Products>
           <Product>
-            <ProductID>0</ProductID>
+            <ProductID>1</ProductID>
+            <Price>11.00</Price>
             <Name>PS1</Name>
           </Product>
           <Product>
-            <ProductID>7</ProductID>
+            <ProductID>8</ProductID>
+            <Price>20.05</Price>
             <Name>PS8</Name>
           </Product>
         </Products>
@@ -21,11 +23,13 @@
         <OrderID>5</OrderID>
         <Products>
           <Product>
-            <ProductID>6</ProductID>
+            <ProductID>7</ProductID>
+            <Price>16.10</Price>
             <Name>PS7</Name>
           </Product>
           <Product>
-            <ProductID>4</ProductID>
+            <ProductID>5</ProductID>
+            <Price>12.00</Price>
             <Name>PS5</Name>
           </Product>
         </Products>
@@ -34,15 +38,18 @@
         <OrderID>6</OrderID>
         <Products>
           <Product>
-            <ProductID>1</ProductID>
+            <ProductID>2</ProductID>
+            <Price>5.59</Price>
             <Name>PS2</Name>
           </Product>
           <Product>
-            <ProductID>2</ProductID>
+            <ProductID>3</ProductID>
+            <Price>50.00</Price>
             <Name>PS3</Name>
           </Product>
           <Product>
-            <ProductID>3</ProductID>
+            <ProductID>4</ProductID>
+            <Price>62.25</Price>
             <Name>PS4</Name>
           </Product>
         </Products>
@@ -51,15 +58,18 @@
         <OrderID>7</OrderID>
         <Products>
           <Product>
-            <ProductID>8</ProductID>
+            <ProductID>9</ProductID>
+            <Price>10.99</Price>
             <Name>PS9</Name>
           </Product>
           <Product>
-            <ProductID>7</ProductID>
+            <ProductID>8</ProductID>
+            <Price>20.05</Price>
             <Name>PS8</Name>
           </Product>
           <Product>
-            <ProductID>6</ProductID>
+            <ProductID>7</ProductID>
+            <Price>16.10</Price>
             <Name>PS7</Name>
           </Product>
         </Products>
@@ -68,15 +78,18 @@
         <OrderID>8</OrderID>
         <Products>
           <Product>
-            <ProductID>3</ProductID>
+            <ProductID>4</ProductID>
+            <Price>62.25</Price>
             <Name>PS4</Name>
           </Product>
           <Product>
-            <ProductID>4</ProductID>
+            <ProductID>5</ProductID>
+            <Price>12.00</Price>
             <Name>PS5</Name>
           </Product>
           <Product>
-            <ProductID>5</ProductID>
+            <ProductID>6</ProductID>
+            <Price>13.00</Price>
             <Name>PS6</Name>
           </Product>
         </Products>
@@ -85,15 +98,18 @@
         <OrderID>9</OrderID>
         <Products>
           <Product>
-            <ProductID>8</ProductID>
+            <ProductID>9</ProductID>
+            <Price>10.99</Price>
             <Name>PS9</Name>
           </Product>
           <Product>
-            <ProductID>7</ProductID>
+            <ProductID>8</ProductID>
+            <Price>20.05</Price>
             <Name>PS8</Name>
           </Product>
           <Product>
-            <ProductID>6</ProductID>
+            <ProductID>7</ProductID>
+            <Price>16.10</Price>
             <Name>PS7</Name>
           </Product>
         </Products>
@@ -108,15 +124,18 @@
         <OrderID>1</OrderID>
         <Products>
           <Product>
-            <ProductID>4</ProductID>
+            <ProductID>5</ProductID>
+            <Price>12.00</Price>
             <Name>PS5</Name>
           </Product>
           <Product>
-            <ProductID>3</ProductID>
+            <ProductID>4</ProductID>
+            <Price>62.25</Price>
             <Name>PS4</Name>
           </Product>
           <Product>
-            <ProductID>1</ProductID>
+            <ProductID>2</ProductID>
+            <Price>5.59</Price>
             <Name>PS2</Name>
           </Product>
         </Products>
@@ -131,15 +150,18 @@
         <OrderID>2</OrderID>
         <Products>
           <Product>
-            <ProductID>1</ProductID>
+            <ProductID>2</ProductID>
+            <Price>5.59</Price>
             <Name>PS2</Name>
           </Product>
           <Product>
-            <ProductID>4</ProductID>
+            <ProductID>5</ProductID>
+            <Price>12.00</Price>
             <Name>PS5</Name>
           </Product>
           <Product>
-            <ProductID>3</ProductID>
+            <ProductID>4</ProductID>
+            <Price>62.25</Price>
             <Name>PS4</Name>
           </Product>
         </Products>
@@ -148,11 +170,13 @@
         <OrderID>3</OrderID>
         <Products>
           <Product>
-            <ProductID>7</ProductID>
+            <ProductID>8</ProductID>
+            <Price>20.05</Price>
             <Name>PS8</Name>
           </Product>
           <Product>
-            <ProductID>9</ProductID>
+            <ProductID>10</ProductID>
+            <Price>8.99</Price>
             <Name>PS10</Name>
           </Product>
         </Products>

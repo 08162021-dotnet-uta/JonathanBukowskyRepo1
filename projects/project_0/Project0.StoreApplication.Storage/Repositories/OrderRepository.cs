@@ -78,13 +78,14 @@ namespace Project0.StoreApplication.Storage.Repositories
             Store = order.Store.StoreID;
             OrderID = order.OrderID;
             Products = new();
-            foreach (var prod in order.Products)
+            foreach (var prod in order.GetProducts())
             {
                 Products.Add(prod.ProductID);
             }
         }
         public Order GetOrder()
         {
+            // TODO: this is bad, I shouldn't be using the other Repositories here.
             var customerRepo = CustomerRepository.Factory();
             var storeRepo = StoreRepository.Factory();
             var productRepo = ProductRepository.Factory();
