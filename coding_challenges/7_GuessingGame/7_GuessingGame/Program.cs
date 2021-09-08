@@ -5,9 +5,45 @@ namespace _7_GuessingGameChallenge
 {
     public class Program
     {
+        private static Random randGen = new();
+        private const int MIN_GUESS = 1;
+        private const int MAX_GUESS = 100;
+        private const int NUM_GUESSES = 10;
         public static void Main(string[] args)
         {
-           
+            do
+            {
+                int num = GetRandomNumber();
+                Console.WriteLine($"You will have {NUM_GUESSES} chances to guess my number");
+                List<int> guesses = new();
+                int compare;
+                do
+                {
+                    int guess = GetUsersGuess();
+                    guesses.Add(guess);
+                    compare = CompareNums(num, guess);
+                    if (compare < 0)
+                    {
+                        Console.WriteLine("Too high");
+                    }
+                    else if (compare > 0)
+                    {
+                        Console.WriteLine("Too low");
+                    }
+                    else
+                    {
+                        Console.WriteLine($"You got it! The number is {num}.");
+                    }
+                } while (++guessCount < NUM_GUESSES && compare != 0);
+            }
+        }
+
+        public static string GuessesToString(List<int> guesses)
+        {
+            string result = "";
+            foreach(int guess in guesses)
+            {
+            }
         }
 
         /// <summary>
@@ -16,7 +52,7 @@ namespace _7_GuessingGameChallenge
         /// <returns></returns>
         public static int GetRandomNumber()
         {
-            throw new NotImplementedException();
+            return randGen.Next(MIN_GUESS, MAX_GUESS);
         }
 
         /// <summary>
@@ -27,7 +63,14 @@ namespace _7_GuessingGameChallenge
         /// <returns></returns>
         public static int GetUsersGuess()
         {
-            throw new NotImplementedException();
+            int guess = -1;
+            bool success;
+            do
+            {
+                Console.Write($"Enter a guess between {MIN_GUESS}-{MAX_GUESS}: ");
+                success = int.TryParse(Console.ReadLine(), out guess);
+            } while (!success || guess < MIN_GUESS || guess > MAX_GUESS);
+            return guess;
         }
 
         /// <summary>
@@ -43,12 +86,29 @@ namespace _7_GuessingGameChallenge
         /// <returns></returns>
         public static int CompareNums(int randomNum, int guess)
         {
-            throw new NotImplementedException();
+            if (randomNum < guess)
+            {
+                return -1;
+            }
+            else if (randomNum == guess)
+            {
+                return 0;
+            }
+            else
+            {
+                return 1;
+            }
         }
 
         public static bool PlayGameAgain()
         {
-            throw new NotImplementedException();
+            string input;
+            do
+            {
+                Console.Write("Would you like to play again (y/n)? ");
+                input = Console.ReadLine();
+            } while (input != "y" && input != "n");
+            return input == "y";
         }
     }
 }
