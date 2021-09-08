@@ -30,7 +30,7 @@ namespace Project0.StoreApplication.Testing.ViewTesting
             Assert.Equal(_menu, _Sut.GetMenuOptions());
         }
 
-        [Theory]
+        [Theory(Skip = "Old setup")]
         [InlineData("1")]
         [InlineData("2")]
         [InlineData("3")]
