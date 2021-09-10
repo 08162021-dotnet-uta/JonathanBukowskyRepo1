@@ -22,7 +22,7 @@ namespace Project1.StoreApplication.Models
         }
         public string Name { get; set; }
 
-        public int StoreID { get; set; }
+        public int StoreId { get; set; }
 
         /// <summary>
         /// The list of orders that are associated with this store
@@ -32,7 +32,7 @@ namespace Project1.StoreApplication.Models
 
         public override int GetHashCode()
         {
-            return StoreID;
+            return StoreId;
         }
         public override bool Equals(object o)
         {
@@ -44,11 +44,11 @@ namespace Project1.StoreApplication.Models
         }
         public static bool operator !=(Store a, Store b)
         {
-            return a?.StoreID != b?.StoreID;
+            return a?.StoreId != b?.StoreId;
         }
         public static bool operator ==(Store a, Store b)
         {
-            return a?.StoreID == b?.StoreID;
+            return a?.StoreId == b?.StoreId;
         }
 
         public override string ToString()
