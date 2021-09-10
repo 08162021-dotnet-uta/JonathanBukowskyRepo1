@@ -18,13 +18,13 @@ namespace Project1.StoreApplication.Storage
         {
         }
 
-        public virtual DbSet<Customer> Customers { get; set; }
-        public virtual DbSet<Order> Orders { get; set; }
-        public virtual DbSet<OrderProduct> OrderProducts { get; set; }
-        public virtual DbSet<Product> Products { get; set; }
-        public virtual DbSet<ProductCategory> ProductCategories { get; set; }
-        public virtual DbSet<Store> Stores { get; set; }
-        public virtual DbSet<StoreProduct> StoreProducts { get; set; }
+        public virtual DbSet<DBCustomer> Customers { get; set; }
+        public virtual DbSet<DBOrder> Orders { get; set; }
+        public virtual DbSet<DBOrderProduct> OrderProducts { get; set; }
+        public virtual DbSet<DBProduct> Products { get; set; }
+        public virtual DbSet<DBProductCategory> ProductCategories { get; set; }
+        public virtual DbSet<DBStore> Stores { get; set; }
+        public virtual DbSet<DBStoreProduct> StoreProducts { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -39,10 +39,11 @@ namespace Project1.StoreApplication.Storage
         {
             modelBuilder.HasAnnotation("Relational:Collation", "SQL_Latin1_General_CP1_CI_AS");
 
-            modelBuilder.Entity<Customer>(entity =>
+            modelBuilder.Entity<DBCustomer>(entity =>
             {
                 entity.ToTable("Customer", "Customer");
 
+                entity.HasKey(e => e.CustomerId);
                 entity.Property(e => e.CustomerId).HasColumnName("CustomerID");
 
                 entity.Property(e => e.Active)
@@ -63,10 +64,11 @@ namespace Project1.StoreApplication.Storage
                     .HasConstraintName("FK_Customer_DefaultStore");
             });
 
-            modelBuilder.Entity<Order>(entity =>
+            modelBuilder.Entity<DBOrder>(entity =>
             {
                 entity.ToTable("Order", "Store");
 
+                entity.HasKey(e => e.OrderId);
                 entity.Property(e => e.OrderId).HasColumnName("OrderID");
 
                 entity.Property(e => e.Active)
@@ -90,10 +92,11 @@ namespace Project1.StoreApplication.Storage
                     .HasConstraintName("FK_Order_Store");
             });
 
-            modelBuilder.Entity<OrderProduct>(entity =>
+            modelBuilder.Entity<DBOrderProduct>(entity =>
             {
                 entity.ToTable("OrderProduct", "Store");
 
+                entity.HasKey(e => e.OrderProductId);
                 entity.Property(e => e.OrderProductId).HasColumnName("OrderProductID");
 
                 entity.Property(e => e.Active)
@@ -119,10 +122,11 @@ namespace Project1.StoreApplication.Storage
                     .HasConstraintName("FK_OrderProduct_Product");
             });
 
-            modelBuilder.Entity<Product>(entity =>
+            modelBuilder.Entity<DBProduct>(entity =>
             {
                 entity.ToTable("Product", "Store");
 
+                entity.HasKey(e => e.ProductId);
                 entity.Property(e => e.ProductId).HasColumnName("ProductID");
 
                 entity.Property(e => e.Active)
@@ -145,13 +149,14 @@ namespace Project1.StoreApplication.Storage
                     .HasConstraintName("FK_Product_Category");
             });
 
-            modelBuilder.Entity<ProductCategory>(entity =>
+            modelBuilder.Entity<DBProductCategory>(entity =>
             {
                 entity.HasKey(e => e.CategoryId)
                     .HasName("PK_Category");
 
                 entity.ToTable("ProductCategory", "Store");
 
+                entity.HasKey(e => e.CategoryId);
                 entity.Property(e => e.CategoryId).HasColumnName("CategoryID");
 
                 entity.Property(e => e.Active)
@@ -165,10 +170,11 @@ namespace Project1.StoreApplication.Storage
                     .HasMaxLength(100);
             });
 
-            modelBuilder.Entity<Store>(entity =>
+            modelBuilder.Entity<DBStore>(entity =>
             {
                 entity.ToTable("Store", "Store");
 
+                entity.HasKey(e => e.StoreId);
                 entity.Property(e => e.StoreId).HasColumnName("StoreID");
 
                 entity.Property(e => e.Active)
@@ -180,10 +186,11 @@ namespace Project1.StoreApplication.Storage
                     .HasMaxLength(100);
             });
 
-            modelBuilder.Entity<StoreProduct>(entity =>
+            modelBuilder.Entity<DBStoreProduct>(entity =>
             {
                 entity.ToTable("StoreProduct", "Store");
 
+                entity.HasKey(e => e.StoreProductId);
                 entity.Property(e => e.StoreProductId).HasColumnName("StoreProductID");
 
                 entity.Property(e => e.Active)

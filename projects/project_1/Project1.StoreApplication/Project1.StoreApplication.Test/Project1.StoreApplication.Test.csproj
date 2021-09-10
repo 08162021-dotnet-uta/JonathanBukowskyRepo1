@@ -19,4 +19,11 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Project1.StoreApplication.Business\Project1.StoreApplication.Business.csproj" />
+    <ProjectReference Include="..\Project1.StoreApplication.Client\Project1.StoreApplication.Client.csproj" />
+    <ProjectReference Include="..\Project1.StoreApplication.Models\Project1.StoreApplication.Models.csproj" />
+    <ProjectReference Include="..\Project1.StoreApplication.Storage\Project1.StoreApplication.Storage.csproj" />
+  </ItemGroup>
+
 </Project>

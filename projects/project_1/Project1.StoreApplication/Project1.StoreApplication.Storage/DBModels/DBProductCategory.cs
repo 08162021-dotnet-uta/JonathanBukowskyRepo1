@@ -5,11 +5,11 @@ using System.Collections.Generic;
 
 namespace Project1.StoreApplication.Storage.DBModels
 {
-    public partial class ProductCategory : DBObject
+    public partial class DBProductCategory : DBObject
     {
-        public ProductCategory()
+        public DBProductCategory()
         {
-            Products = new HashSet<Product>();
+            Products = new HashSet<DBProduct>();
         }
 
         public int CategoryId { get; set; }
@@ -17,6 +17,6 @@ namespace Project1.StoreApplication.Storage.DBModels
         public string Description { get; set; }
         public bool? Active { get; set; }
 
-        public virtual ICollection<Product> Products { get; set; }
+        public virtual ICollection<DBProduct> Products { get; set; }
     }
 }

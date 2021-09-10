@@ -16,4 +16,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Project1.StoreApplication.Models\Project1.StoreApplication.Models.csproj" />
+  </ItemGroup>
+
 </Project>
