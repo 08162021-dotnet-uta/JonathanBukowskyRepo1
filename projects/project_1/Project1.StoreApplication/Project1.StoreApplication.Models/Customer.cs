@@ -13,7 +13,7 @@ namespace Project1.StoreApplication.Models
             Orders = new();
         }
 
-        private int CustomerID { get; set; }
+        public int CustomerId { get; set; }
 
         //public string Name { get; set; }
         public string FirstName { get; set; }
@@ -32,7 +32,7 @@ namespace Project1.StoreApplication.Models
 
         public override int GetHashCode()
         {
-            return CustomerID;
+            return CustomerId;
         }
 
         public override bool Equals(object o)
@@ -46,7 +46,7 @@ namespace Project1.StoreApplication.Models
 
         public static bool operator !=(Customer a, Customer b)
         {
-            return a?.CustomerID != b?.CustomerID;
+            return a?.CustomerId != b?.CustomerId;
         }
 
         public static bool operator ==(Customer a, Customer b)
@@ -54,7 +54,7 @@ namespace Project1.StoreApplication.Models
             // NOTE: if the code is written correctly, this *should* be sufficient comparison
             //      it would be a great idea to compare other fields and such, but I'm not sure
             //  currently whether that would be either A) desired or B) necessary
-            return a?.CustomerID == b?.CustomerID;
+            return a?.CustomerId == b?.CustomerId;
         }
     }
 }

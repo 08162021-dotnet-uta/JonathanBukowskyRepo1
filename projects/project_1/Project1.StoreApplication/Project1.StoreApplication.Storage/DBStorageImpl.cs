@@ -12,9 +12,21 @@ namespace Project1.StoreApplication.Storage
 {
     public class DBStorageImpl : IStorage
     {
-        private readonly StoreApplicationDB2Context _db = new();
+        private readonly StoreApplicationDB2Context _db;
 
-        public DBOrder CreateOrder(DBCustomer customer, DBStore store, List<DBProduct> products)
+        public DBStorageImpl() : base()
+        {
+            _db = new StoreApplicationDB2Context();
+        }
+        // TODO: use dependency injection
+        /*
+        public DBStorageImpl(DbContext db) : base()
+        {
+            _db = db;
+        }
+        */
+
+        public Order CreateOrder(Customer customer, Store store, List<Product> products)
         {
             // TODO: validation
             if (customer == null)
@@ -43,21 +55,21 @@ namespace Project1.StoreApplication.Storage
             foreach (var product in products)
             {
                 _db.Database.ExecuteSqlRaw("INSERT INTO Store.OrderProduct (OrderID, ProductID) VALUES ({0}, {1})", result.OrderId, product.ProductId);
+                AttachProductsToOrder(result);
             }
-            AttachProductsToOrder(result);
-            return result;
+            return result.ConvertToModel();
         }
 
-        public List<DBCustomer> GetCustomers()
+        public List<Customer> GetCustomers()
         {
             var custs = _db.Customers.FromSqlRaw("SELECT * FROM Customer.Customer").ToList();
-            return custs;
+            return custs.ConvertAll(c => c.ConvertToModel());
         }
 
         public List<Customer> GetModelCustomers()
         {
             var custs = _db.Customers.FromSqlRaw("SELECT * FROM Customer.Customer").ToList();
-            return (from c in custs select c.ConvertToModel()).ToList();
+            return custs.ConvertAll(c => c.ConvertToModel());
         }
 
 
@@ -71,46 +83,46 @@ namespace Project1.StoreApplication.Storage
         {
             order.OrderProducts = _db.OrderProducts.FromSqlRaw(_orderSubQuery, order.OrderId).ToList();
         }
-        public List<DBOrder> GetOrders()
+        public List<Order> GetOrders()
         {
             var ords = _db.Orders.FromSqlRaw("SELECT * FROM Store.[Order]").ToList();
             foreach (var order in ords)
             {
                 AttachProductsToOrder(order);
             }
-            return ords;
+            return ords.ConvertAll(o => o.ConvertToModel());
         }
 
-        public List<DBOrder> GetOrders(DBStore store)
+        public List<Order> GetOrders(Store store)
         {
             var ords = _db.Orders.FromSqlRaw("SELECT * FROM Store.[Order] WHERE StoreID={0}", store.StoreId).ToList();
             foreach (var order in ords)
             {
                 AttachProductsToOrder(order);
             }
-            return ords;
+            return ords.ConvertAll(o => o.ConvertToModel());
         }
 
-        public List<DBOrder> GetOrders(DBCustomer customer)
+        public List<Order> GetOrders(Customer customer)
         {
             var ords = _db.Orders.FromSqlRaw("SELECT * FROM Store.[Order] WHERE CustomerID={0}", customer.CustomerId).ToList();
             foreach (var order in ords)
             {
                 AttachProductsToOrder(order);
             }
-            return ords;
+            return ords.ConvertAll(o => o.ConvertToModel());
         }
 
-        public List<DBProduct> GetProducts()
+        public List<Product> GetProducts()
         {
             var prods = _db.Products.FromSqlRaw("SELECT * FROM Store.Product").ToList();
-            return prods;
+            return prods.ConvertAll(p => p.ConvertToModel());
         }
 
-        public List<DBStore> GetStores()
+        public List<Store> GetStores()
         {
             var stores = _db.Stores.FromSqlRaw("SELECT * FROM Store.Store").ToList();
-            return stores;
+            return stores.ConvertAll(s => s.ConvertToModel());
         }
 
         /*

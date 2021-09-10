@@ -9,7 +9,7 @@ namespace Project1.StoreApplication.Models
         /// Unique identifier for the product.
         /// </summary>
         /// <value></value>
-        public int ProductID { get; set; }
+        public int ProductId { get; set; }
 
         /// <summary>
         /// The display name of the product
@@ -28,7 +28,7 @@ namespace Project1.StoreApplication.Models
             // Implementing GetHashCode to avoid compiler warnings.
             // I'm not sure I'm ever going to use this,
             // and I'm not sure this is appropriate functionality
-            return ProductID;
+            return ProductId;
         }
         public override bool Equals(object o)
         {
@@ -40,11 +40,11 @@ namespace Project1.StoreApplication.Models
         }
         public static bool operator ==(Product a, Product b)
         {
-            return a?.ProductID == b?.ProductID;
+            return a?.ProductId == b?.ProductId;
         }
         public static bool operator !=(Product a, Product b)
         {
-            return a?.ProductID != b?.ProductID;
+            return a?.ProductId != b?.ProductId;
         }
         public override string ToString()
         {
