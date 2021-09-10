@@ -34,16 +34,15 @@ namespace _7_GuessingGameChallenge
                     {
                         Console.WriteLine($"You got it! The number is {num}.");
                     }
-                } while (++guessCount < NUM_GUESSES && compare != 0);
-            }
+                    Console.WriteLine($"Your guesses so far: {GuessesToString(guesses)}\n");
+                } while (guesses.Count < NUM_GUESSES && compare != 0);
+            } while (PlayGameAgain());
         }
 
         public static string GuessesToString(List<int> guesses)
         {
-            string result = "";
-            foreach(int guess in guesses)
-            {
-            }
+            string result = string.Join(", ", guesses);
+            return result;
         }
 
         /// <summary>
