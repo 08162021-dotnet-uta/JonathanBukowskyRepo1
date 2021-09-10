@@ -5,11 +5,11 @@ using System.Collections.Generic;
 
 namespace Project1.StoreApplication.Storage.DBModels
 {
-    public partial class Order : DBObject
+    public partial class DBOrder : DBObject
     {
-        public Order()
+        public DBOrder()
         {
-            OrderProducts = new HashSet<OrderProduct>();
+            OrderProducts = new HashSet<DBOrderProduct>();
         }
 
         public int OrderId { get; set; }
@@ -18,8 +18,8 @@ namespace Project1.StoreApplication.Storage.DBModels
         public DateTime OrderDate { get; set; }
         public bool? Active { get; set; }
 
-        public virtual Customer Customer { get; set; }
-        public virtual Store Store { get; set; }
-        public virtual ICollection<OrderProduct> OrderProducts { get; set; }
+        public virtual DBCustomer Customer { get; set; }
+        public virtual DBStore Store { get; set; }
+        public virtual ICollection<DBOrderProduct> OrderProducts { get; set; }
     }
 }

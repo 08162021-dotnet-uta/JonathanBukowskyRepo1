@@ -7,14 +7,14 @@ namespace Project1.StoreApplication.Models
     /// <summary>
     /// An Order created in StoreApplication will be an already confirmed, non-modifiable order placed by a Customer at a Store
     /// </summary>
-    public class ModelOrder
+    public class Order
     {
         // TODO: I'm not sure I want this here.
-        public ModelOrder() : base()
+        public Order() : base()
         {
 
         }
-        public ModelOrder(ModelCustomer customer, ModelStore store, List<ModelProduct> products) : base()
+        public Order(Customer customer, Store store, List<Product> products) : base()
         {
             Customer = customer;
             Products = new(products);
@@ -28,20 +28,20 @@ namespace Project1.StoreApplication.Models
         /// Customer placing the order
         /// </summary>
         /// <value></value>
-        public ModelCustomer Customer { get; set; }
+        public Customer Customer { get; set; }
 
         /// <summary>
         /// Products being ordered
         /// </summary>
         /// <value></value>
         [NotMapped]
-        public List<ModelProduct> Products { get; set; }
+        public List<Product> Products { get; set; }
 
         /// <summary>
         /// Get list of products in order
         /// </summary>
         /// <returns></returns>
-        public List<ModelProduct> GetProducts()
+        public List<Product> GetProducts()
         {
             // TODO: return a copy of products, or make this readonly somehow (maybe the readonly collection)
             return Products;
@@ -52,7 +52,7 @@ namespace Project1.StoreApplication.Models
         /// </summary>
         /// <param name="product">Product to add to order</param>
         /// <returns>Error string, or null if successful</returns>
-        public string AddProduct(ModelProduct product)
+        public string AddProduct(Product product)
         {
             // TODO: add error checking (can only have 50 items and $500 in an order) and return appropriately
             Products.Add(product);
@@ -64,7 +64,7 @@ namespace Project1.StoreApplication.Models
         /// </summary>
         /// <param name="product">Product to remove from order</param>
         /// <returns>Error string, or null if successful</returns>
-        public string RemoveProduct(ModelProduct product)
+        public string RemoveProduct(Product product)
         {
             if (!Products.Remove(product))
             {
@@ -88,7 +88,7 @@ namespace Project1.StoreApplication.Models
         /// Store through which order is being made
         /// </summary>
         /// <value></value>
-        public ModelStore Store { get; set; }
+        public Store Store { get; set; }
 
         public override int GetHashCode()
         {
@@ -96,18 +96,18 @@ namespace Project1.StoreApplication.Models
         }
         public override bool Equals(object o)
         {
-            if (o is ModelOrder)
+            if (o is Order)
             {
-                return (this == (o as ModelOrder));
+                return (this == (o as Order));
             }
             return false;
         }
 
-        public static bool operator !=(ModelOrder a, ModelOrder b)
+        public static bool operator !=(Order a, Order b)
         {
             return a?.OrderID != b?.OrderID;
         }
-        public static bool operator ==(ModelOrder a, ModelOrder b)
+        public static bool operator ==(Order a, Order b)
         {
             return a?.OrderID == b?.OrderID;
         }

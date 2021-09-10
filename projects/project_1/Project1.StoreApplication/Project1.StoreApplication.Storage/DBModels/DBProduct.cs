@@ -5,12 +5,12 @@ using System.Collections.Generic;
 
 namespace Project1.StoreApplication.Storage.DBModels
 {
-    public partial class Product : DBObject
+    public partial class DBProduct : DBObject
     {
-        public Product()
+        public DBProduct()
         {
-            OrderProducts = new HashSet<OrderProduct>();
-            StoreProducts = new HashSet<StoreProduct>();
+            OrderProducts = new HashSet<DBOrderProduct>();
+            StoreProducts = new HashSet<DBStoreProduct>();
         }
 
         public int ProductId { get; set; }
@@ -20,8 +20,8 @@ namespace Project1.StoreApplication.Storage.DBModels
         public decimal Price { get; set; }
         public bool? Active { get; set; }
 
-        public virtual ProductCategory Category { get; set; }
-        public virtual ICollection<OrderProduct> OrderProducts { get; set; }
-        public virtual ICollection<StoreProduct> StoreProducts { get; set; }
+        public virtual DBProductCategory Category { get; set; }
+        public virtual ICollection<DBOrderProduct> OrderProducts { get; set; }
+        public virtual ICollection<DBStoreProduct> StoreProducts { get; set; }
     }
 }

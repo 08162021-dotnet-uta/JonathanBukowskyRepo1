@@ -12,47 +12,48 @@ namespace Project1.StoreApplication.Storage
     /// </summary>
     public interface IStorage
     {
+        // TODO: change these to use model objects instead of db objects
 
         /// <summary>
         /// Get list of all products
         /// </summary>
         /// <returns></returns>
-        List<Product> GetProducts();
+        List<DBProduct> GetProducts();
         //bool AddProduct(Product product);
 
         /// <summary>
         /// Get list of all stores
         /// </summary>
         /// <returns></returns>
-        List<Store> GetStores();
+        List<DBStore> GetStores();
         //bool AddStore(Store store);
 
         /// <summary>
         /// Get list of all customers
         /// </summary>
         /// <returns></returns>
-        List<Customer> GetCustomers();
+        List<DBCustomer> GetCustomers();
         //bool AddCustomer(Customer customer);
 
         /// <summary>
         /// Get list of all orders
         /// </summary>
         /// <returns></returns>
-        List<Order> GetOrders();
+        List<DBOrder> GetOrders();
 
         /// <summary>
         /// Get list of all orders associated with specific store
         /// </summary>
         /// <param name="store"></param>
         /// <returns></returns>
-        List<Order> GetOrders(Store store);
+        List<DBOrder> GetOrders(DBStore store);
 
         /// <summary>
         /// Get list of all orders associated with specific customer
         /// </summary>
         /// <param name="customer"></param>
         /// <returns></returns>
-        List<Order> GetOrders(Customer customer);
+        List<DBOrder> GetOrders(DBCustomer customer);
         // TODO: consider throwing errors instead of bool return value to provide better feedback on why failure occurred?
         //      perhaps return an int or something else like that?
 
@@ -63,6 +64,6 @@ namespace Project1.StoreApplication.Storage
         /// <param name="store">Store ordered from</param>
         /// <param name="products">Products being ordered</param>
         /// <returns></returns>
-        Order CreateOrder(Customer customer, Store store, List<Product> products);
+        DBOrder CreateOrder(DBCustomer customer, DBStore store, List<DBProduct> products);
     }
 }

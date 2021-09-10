@@ -3,7 +3,7 @@ namespace Project1.StoreApplication.Models
     /// <summary>
     /// A product sold at a Store that can be ordered by a Customer
     /// </summary>
-    public class ModelProduct
+    public class Product
     {
         /// <summary>
         /// Unique identifier for the product.
@@ -32,17 +32,17 @@ namespace Project1.StoreApplication.Models
         }
         public override bool Equals(object o)
         {
-            if (o is ModelProduct)
+            if (o is Product)
             {
-                return (this == (o as ModelProduct));
+                return (this == (o as Product));
             }
             return false;
         }
-        public static bool operator ==(ModelProduct a, ModelProduct b)
+        public static bool operator ==(Product a, Product b)
         {
             return a?.ProductID == b?.ProductID;
         }
-        public static bool operator !=(ModelProduct a, ModelProduct b)
+        public static bool operator !=(Product a, Product b)
         {
             return a?.ProductID != b?.ProductID;
         }

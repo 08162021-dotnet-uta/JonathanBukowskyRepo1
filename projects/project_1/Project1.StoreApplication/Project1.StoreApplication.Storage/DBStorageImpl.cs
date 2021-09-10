@@ -14,7 +14,7 @@ namespace Project1.StoreApplication.Storage
     {
         private readonly StoreApplicationDB2Context _db = new();
 
-        public Order CreateOrder(Customer customer, Store store, List<Product> products)
+        public DBOrder CreateOrder(DBCustomer customer, DBStore store, List<DBProduct> products)
         {
             // TODO: validation
             if (customer == null)
@@ -48,16 +48,16 @@ namespace Project1.StoreApplication.Storage
             return result;
         }
 
-        public List<Customer> GetCustomers()
+        public List<DBCustomer> GetCustomers()
         {
             var custs = _db.Customers.FromSqlRaw("SELECT * FROM Customer.Customer").ToList();
             return custs;
         }
 
-        public List<ModelCustomer> GetModelCustomers()
+        public List<Customer> GetModelCustomers()
         {
             var custs = _db.Customers.FromSqlRaw("SELECT * FROM Customer.Customer").ToList();
-            return (from c in custs select c.Convert()).ToList();
+            return (from c in custs select c.ConvertToModel()).ToList();
         }
 
 
@@ -67,11 +67,11 @@ namespace Project1.StoreApplication.Storage
             "INNER JOIN Store.Product AS p " +
                 "ON p.ProductID = op.ProductID " +
             "WHERE op.OrderID = {0}";
-        private void AttachProductsToOrder(Order order)
+        private void AttachProductsToOrder(DBOrder order)
         {
             order.OrderProducts = _db.OrderProducts.FromSqlRaw(_orderSubQuery, order.OrderId).ToList();
         }
-        public List<Order> GetOrders()
+        public List<DBOrder> GetOrders()
         {
             var ords = _db.Orders.FromSqlRaw("SELECT * FROM Store.[Order]").ToList();
             foreach (var order in ords)
@@ -81,7 +81,7 @@ namespace Project1.StoreApplication.Storage
             return ords;
         }
 
-        public List<Order> GetOrders(Store store)
+        public List<DBOrder> GetOrders(DBStore store)
         {
             var ords = _db.Orders.FromSqlRaw("SELECT * FROM Store.[Order] WHERE StoreID={0}", store.StoreId).ToList();
             foreach (var order in ords)
@@ -91,7 +91,7 @@ namespace Project1.StoreApplication.Storage
             return ords;
         }
 
-        public List<Order> GetOrders(Customer customer)
+        public List<DBOrder> GetOrders(DBCustomer customer)
         {
             var ords = _db.Orders.FromSqlRaw("SELECT * FROM Store.[Order] WHERE CustomerID={0}", customer.CustomerId).ToList();
             foreach (var order in ords)
@@ -101,13 +101,13 @@ namespace Project1.StoreApplication.Storage
             return ords;
         }
 
-        public List<Product> GetProducts()
+        public List<DBProduct> GetProducts()
         {
             var prods = _db.Products.FromSqlRaw("SELECT * FROM Store.Product").ToList();
             return prods;
         }
 
-        public List<Store> GetStores()
+        public List<DBStore> GetStores()
         {
             var stores = _db.Stores.FromSqlRaw("SELECT * FROM Store.Store").ToList();
             return stores;

@@ -28,9 +28,9 @@ namespace Project1.StoreApplication.Storage.DBConverters
         /// </summary>
         /// <param name="customer"></param>
         /// <returns></returns>
-        public static ModelCustomer ConvertToModel(this Customer customer)
+        public static Customer ConvertToModel(this DBCustomer customer)
         {
-            ModelCustomer cust = new();
+            Customer cust = new();
             cust.FirstName = customer.FirstName;
             cust.LastName = customer.LastName;
             cust.Orders = (from o in customer.Orders
@@ -38,51 +38,51 @@ namespace Project1.StoreApplication.Storage.DBConverters
             return cust;
         }
 
-        public static ModelOrder ConvertToModel(this Order order)
-        {
-            ModelOrder o = new();
-            // TODO: give o values
-            return o;
-        }
-
-        public static ModelStore ConvertToModel(this Store store)
-        {
-            ModelStore s = new();
-            // TODO: give s values
-            return s;
-        }
-
-        public static ModelProduct ConvertToModel(this Product product)
-        {
-            ModelProduct p = new();
-            // TODO: give p values
-            return p;
-        }
-
-        public static Customer ConvertToDBObj(this ModelCustomer customer)
-        {
-            Customer c = new();
-            // TODO: give c values
-            return c;
-        }
-
-        public static Order ConvertToDBObj(this ModelOrder order)
+        public static Order ConvertToModel(this DBOrder order)
         {
             Order o = new();
             // TODO: give o values
             return o;
         }
 
-        public static Store ConvertToDBObj(this ModelStore store)
+        public static Store ConvertToModel(this DBStore store)
         {
             Store s = new();
             // TODO: give s values
             return s;
         }
 
-        public static Product ConvertToDBObj(this ModelProduct product)
+        public static Product ConvertToModel(this DBProduct product)
         {
             Product p = new();
+            // TODO: give p values
+            return p;
+        }
+
+        public static DBCustomer ConvertToDBObj(this Customer customer)
+        {
+            DBCustomer c = new();
+            // TODO: give c values
+            return c;
+        }
+
+        public static DBOrder ConvertToDBObj(this Order order)
+        {
+            DBOrder o = new();
+            // TODO: give o values
+            return o;
+        }
+
+        public static DBStore ConvertToDBObj(this Store store)
+        {
+            DBStore s = new();
+            // TODO: give s values
+            return s;
+        }
+
+        public static DBProduct ConvertToDBObj(this Product product)
+        {
+            DBProduct p = new();
             // TODO: give p values
             return p;
         }

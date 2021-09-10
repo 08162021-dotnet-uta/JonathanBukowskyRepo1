@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Project1.StoreApplication.Models
 {
-    public class ModelCustomer : ModelObject
+    public class Customer : ModelObject
     {
-        public ModelCustomer() : base()
+        public Customer() : base()
         {
             Orders = new();
         }
@@ -28,7 +28,7 @@ namespace Project1.StoreApplication.Models
         /// Orders made by this ModelCustomer
         /// </summary>
         /// <value></value>
-        public List<ModelOrder> Orders { get; set; }
+        public List<Order> Orders { get; set; }
 
         public override int GetHashCode()
         {
@@ -37,19 +37,19 @@ namespace Project1.StoreApplication.Models
 
         public override bool Equals(object o)
         {
-            if (o is ModelCustomer)
+            if (o is Customer)
             {
-                return (this == (o as ModelCustomer));
+                return (this == (o as Customer));
             }
             return false;
         }
 
-        public static bool operator !=(ModelCustomer a, ModelCustomer b)
+        public static bool operator !=(Customer a, Customer b)
         {
             return a?.CustomerID != b?.CustomerID;
         }
 
-        public static bool operator ==(ModelCustomer a, ModelCustomer b)
+        public static bool operator ==(Customer a, Customer b)
         {
             // NOTE: if the code is written correctly, this *should* be sufficient comparison
             //      it would be a great idea to compare other fields and such, but I'm not sure

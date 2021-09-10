@@ -7,15 +7,15 @@ namespace Project1.StoreApplication.Models
     /// <summary>
     /// Store class - objects to represent a single store in our application
     /// </summary>
-    public class ModelStore
+    public class Store
     {
         // TODO: Reconsider which constructors are appropriate
-        public ModelStore()
+        public Store()
         {
             Name = "Generic store";
             Orders = new();
         }
-        public ModelStore(string name)
+        public Store(string name)
         {
             Name = name;
             Orders = new();
@@ -28,7 +28,7 @@ namespace Project1.StoreApplication.Models
         /// The list of orders that are associated with this store
         /// </summary>
         /// <value></value>
-        public List<ModelOrder> Orders { get; set; }
+        public List<Order> Orders { get; set; }
 
         public override int GetHashCode()
         {
@@ -36,17 +36,17 @@ namespace Project1.StoreApplication.Models
         }
         public override bool Equals(object o)
         {
-            if (o is ModelStore)
+            if (o is Store)
             {
-                return (this == (o as ModelStore));
+                return (this == (o as Store));
             }
             return false;
         }
-        public static bool operator !=(ModelStore a, ModelStore b)
+        public static bool operator !=(Store a, Store b)
         {
             return a?.StoreID != b?.StoreID;
         }
-        public static bool operator ==(ModelStore a, ModelStore b)
+        public static bool operator ==(Store a, Store b)
         {
             return a?.StoreID == b?.StoreID;
         }
