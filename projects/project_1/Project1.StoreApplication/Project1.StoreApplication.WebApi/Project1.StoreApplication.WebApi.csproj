@@ -8,4 +8,9 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Project1.StoreApplication.Models\Project1.StoreApplication.Models.csproj" />
+    <ProjectReference Include="..\Project1.StoreApplication.Storage\Project1.StoreApplication.Storage.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -33,7 +33,7 @@ namespace Project1.StoreApplication.Storage
         /// </summary>
         /// <returns></returns>
         List<Customer> GetCustomers();
-        //bool AddCustomer(Customer customer);
+        bool AddCustomer(Customer customer);
 
         /// <summary>
         /// Get list of all orders

@@ -138,6 +138,22 @@ namespace Project1.StoreApplication.Storage
         {
             //TODO: Save repo data into db?
         }
+
+        public bool AddCustomer(Customer customer)
+        {
+            //try
+            //{
+                _db.Database.ExecuteSqlRaw("INSERT INTO Customer.Customer (FirstName, LastName) VALUES ({0}, {1})", customer.FirstName, customer.LastName);
+                return true;
+            //}
+            /*
+            catch ()
+            {
+                //TODO: better error handling
+                return false;
+            }
+            */
+        }
     }
 
 }

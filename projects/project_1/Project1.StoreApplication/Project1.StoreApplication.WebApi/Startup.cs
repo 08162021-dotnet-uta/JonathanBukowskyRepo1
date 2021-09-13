@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using Project1.StoreApplication.Storage;
 
 namespace Project1.StoreApplication.WebApi
 {
@@ -26,12 +27,15 @@ namespace Project1.StoreApplication.WebApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped<IStorage, DBStorageImpl>();
 
             services.AddControllers();
+            /*
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Project1.StoreApplication.WebApi", Version = "v1" });
             });
+            */
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -40,11 +44,15 @@ namespace Project1.StoreApplication.WebApi
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                /*
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Project1.StoreApplication.WebApi v1"));
+                */
             }
 
             app.UseHttpsRedirection();
+
+            app.UseStaticFiles();
 
             app.UseRouting();
 
