@@ -18,7 +18,7 @@ namespace Project1.StoreApplication.Storage
         /// Get list of all products
         /// </summary>
         /// <returns></returns>
-        List<Product> GetProducts();
+        Task<List<Product>> GetProducts();
         bool AddProduct(Product product);
 
         /// <summary>

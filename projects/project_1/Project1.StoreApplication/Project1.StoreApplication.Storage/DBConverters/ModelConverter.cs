@@ -67,6 +67,8 @@ namespace Project1.StoreApplication.Storage.DBConverters
             Product p = new();
             p.ProductId = product.ProductId;
             p.Name = product.Name;
+            p.Description = product.Description;
+            p.CategoryID = product.CategoryId;
             p.Price = product.Price;
             return p;
         }

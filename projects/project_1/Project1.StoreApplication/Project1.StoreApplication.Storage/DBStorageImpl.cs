@@ -113,10 +113,11 @@ namespace Project1.StoreApplication.Storage
             return ords.ConvertAll(o => o.ConvertToModel());
         }
 
-        public List<Product> GetProducts()
+        public async Task<List<Product>> GetProducts()
         {
-            var prods = _db.Products.FromSqlRaw("SELECT * FROM Store.Product").ToList();
-            return prods.ConvertAll(p => p.ConvertToModel());
+            var prods = _db.Products.FromSqlRaw("SELECT * FROM Store.Product");
+            var result = (from p in prods select p.ConvertToModel()).ToListAsync();
+            return await result;
         }
 
         public List<Store> GetStores()

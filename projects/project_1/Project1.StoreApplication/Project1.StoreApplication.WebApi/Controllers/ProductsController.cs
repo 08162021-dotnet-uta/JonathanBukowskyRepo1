@@ -18,6 +18,12 @@ namespace Project1.StoreApplication.WebApi.Controllers
             _db = db;
         }
 
+        [HttpGet]
+        public async Task<List<Product>> GetProducts()
+        {
+            return await _db.GetProducts();
+        }
+
         [HttpPost("add")]
         public async Task<bool> AddProduct([FromForm] Product product)
         {
