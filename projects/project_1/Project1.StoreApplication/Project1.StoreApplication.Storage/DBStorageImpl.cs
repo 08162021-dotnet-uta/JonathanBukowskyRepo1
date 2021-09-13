@@ -154,6 +154,24 @@ namespace Project1.StoreApplication.Storage
             }
             */
         }
+
+        public bool AddProduct(Product product)
+        {
+            // Required: name, price
+            // Optional: description, category
+            _db.Database.ExecuteSqlRaw("INSERT INTO Store.Product (Name, Price, Description, CategoryID) VALUES ({0}, {1}, {2}, {3})",
+                product.Name,
+                product.Price,
+                product.Description,
+                product.CategoryID);
+            // TODO: better error handling/return type
+            return true;
+        }
+
+        public bool AddStore(Store store)
+        {
+            throw new NotImplementedException();
+        }
     }
 
 }

@@ -19,14 +19,14 @@ namespace Project1.StoreApplication.Storage
         /// </summary>
         /// <returns></returns>
         List<Product> GetProducts();
-        //bool AddProduct(Product product);
+        bool AddProduct(Product product);
 
         /// <summary>
         /// Get list of all stores
         /// </summary>
         /// <returns></returns>
         List<Store> GetStores();
-        //bool AddStore(Store store);
+        bool AddStore(Store store);
 
         /// <summary>
         /// Get list of all customers
