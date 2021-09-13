@@ -21,13 +21,13 @@ namespace Project1.StoreApplication.WebApi.Controllers
         [HttpGet]
         public async Task<List<Store>> GetStores()
         {
-            return _db.GetStores();
+            return await _db.GetStores();
         }
 
         [HttpPost("add")]
         public async Task<bool> AddStore([FromForm] Store store)
         {
-            return _db.AddStore(store);
+            return await _db.AddStore(store);
         }
     }
 }

@@ -29,7 +29,7 @@ namespace Project1.StoreApplication.WebApi.Controllers
         {
             // TODO: add categories
             product.CategoryID = null;
-            return _db.AddProduct(product);
+            return await _db.AddProduct(product);
         }
     }
 }

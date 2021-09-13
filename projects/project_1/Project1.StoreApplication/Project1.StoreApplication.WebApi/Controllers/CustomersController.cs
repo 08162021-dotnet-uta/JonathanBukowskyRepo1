@@ -13,7 +13,7 @@ namespace Project1.StoreApplication.WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class Customers : ControllerBase
+    public class CustomersController : ControllerBase
     {
         private IStorage _db;
         /*
@@ -22,7 +22,7 @@ namespace Project1.StoreApplication.WebApi.Controllers
             _db = new StoreApplicationDB2Context();
         }
         */
-        public Customers(IStorage db) : base()
+        public CustomersController(IStorage db) : base()
         {
             _db = db;
         }
@@ -32,8 +32,16 @@ namespace Project1.StoreApplication.WebApi.Controllers
         {
             //var custs = _db.Customers.FromSqlRaw("SELECT * FROM Customer.Customer");
             //var result = await (from c in custs select c.ConvertToModel()).ToListAsync();
-            var result = _db.GetCustomers();
+            var result = await _db.GetCustomers();
             return result;
         }
+
+        [HttpPost("add")]
+        public async Task<Boolean> AddCustomer([FromForm] Customer customer)
+        {
+            //TODO: Validation
+            return await _db.AddCustomer(customer);
+        }
+
     }
 }
