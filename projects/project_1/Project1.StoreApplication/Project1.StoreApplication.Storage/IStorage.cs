@@ -19,41 +19,41 @@ namespace Project1.StoreApplication.Storage
         /// </summary>
         /// <returns></returns>
         Task<List<Product>> GetProducts();
-        bool AddProduct(Product product);
+        Task<bool> AddProduct(Product product);
 
         /// <summary>
         /// Get list of all stores
         /// </summary>
         /// <returns></returns>
-        List<Store> GetStores();
-        bool AddStore(Store store);
+        Task<List<Store>> GetStores();
+        Task<bool> AddStore(Store store);
 
         /// <summary>
         /// Get list of all customers
         /// </summary>
         /// <returns></returns>
-        List<Customer> GetCustomers();
-        bool AddCustomer(Customer customer);
+        Task<List<Customer>> GetCustomers();
+        Task<bool> AddCustomer(Customer customer);
 
         /// <summary>
         /// Get list of all orders
         /// </summary>
         /// <returns></returns>
-        List<Order> GetOrders();
+        Task<List<Order>> GetOrders();
 
         /// <summary>
         /// Get list of all orders associated with specific store
         /// </summary>
         /// <param name="store"></param>
         /// <returns></returns>
-        List<Order> GetOrders(Store store);
+        Task<List<Order>> GetOrders(Store store);
 
         /// <summary>
         /// Get list of all orders associated with specific customer
         /// </summary>
         /// <param name="customer"></param>
         /// <returns></returns>
-        List<Order> GetOrders(Customer customer);
+        Task<List<Order>> GetOrders(Customer customer);
         // TODO: consider throwing errors instead of bool return value to provide better feedback on why failure occurred?
         //      perhaps return an int or something else like that?
 
@@ -64,6 +64,6 @@ namespace Project1.StoreApplication.Storage
         /// <param name="store">Store ordered from</param>
         /// <param name="products">Products being ordered</param>
         /// <returns></returns>
-        Order CreateOrder(Customer customer, Store store, List<Product> products);
+        Task<Order> CreateOrder(Customer customer, Store store, List<Product> products);
     }
 }

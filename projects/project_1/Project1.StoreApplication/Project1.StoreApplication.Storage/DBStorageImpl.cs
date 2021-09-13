@@ -26,7 +26,7 @@ namespace Project1.StoreApplication.Storage
         }
         */
 
-        public Order CreateOrder(Customer customer, Store store, List<Product> products)
+        public async Task<Order> CreateOrder(Customer customer, Store store, List<Product> products)
         {
             // TODO: validation
             if (customer == null)
@@ -41,34 +41,34 @@ namespace Project1.StoreApplication.Storage
             {
                 return null;
             }
-            _db.Database.ExecuteSqlRaw("INSERT INTO Store.[Order] (CustomerID, StoreID, OrderDate)" +
+            await _db.Database.ExecuteSqlRawAsync("INSERT INTO Store.[Order] (CustomerID, StoreID, OrderDate)" +
                 " VALUES ({0}, {1}, DATEADD(minute, -1, CURRENT_TIMESTAMP))", customer.CustomerId, store.StoreId);
-            _db.SaveChanges();
+            await _db.SaveChangesAsync();
             // TODO: Check for success/failure
             // TODO: this is not safe for concurrent use
-            var ords = _db.Orders.FromSqlRaw(
+            var ords = await _db.Orders.FromSqlRaw(
                     "SELECT TOP(1) * FROM Store.[Order] WHERE CustomerID={0} AND StoreID={1} ORDER BY OrderDate DESC",
                     customer.CustomerId,
                     store.StoreId
-                ).ToList();
+                ).ToListAsync();
             var result = ords[0];
             foreach (var product in products)
             {
                 _db.Database.ExecuteSqlRaw("INSERT INTO Store.OrderProduct (OrderID, ProductID) VALUES ({0}, {1})", result.OrderId, product.ProductId);
-                AttachProductsToOrder(result);
+                await AttachProductsToOrder(result);
             }
             return result.ConvertToModel();
         }
 
-        public List<Customer> GetCustomers()
+        public async Task<List<Customer>> GetCustomers()
         {
-            var custs = _db.Customers.FromSqlRaw("SELECT * FROM Customer.Customer").ToList();
+            var custs = await _db.Customers.FromSqlRaw("SELECT * FROM Customer.Customer").ToListAsync();
             return custs.ConvertAll(c => c.ConvertToModel());
         }
 
-        public List<Customer> GetModelCustomers()
+        public async Task<List<Customer>> GetModelCustomers()
         {
-            var custs = _db.Customers.FromSqlRaw("SELECT * FROM Customer.Customer").ToList();
+            var custs = await _db.Customers.FromSqlRaw("SELECT * FROM Customer.Customer").ToListAsync();
             return custs.ConvertAll(c => c.ConvertToModel());
         }
 
@@ -79,36 +79,36 @@ namespace Project1.StoreApplication.Storage
             "INNER JOIN Store.Product AS p " +
                 "ON p.ProductID = op.ProductID " +
             "WHERE op.OrderID = {0}";
-        private void AttachProductsToOrder(DBOrder order)
+        private async Task AttachProductsToOrder(DBOrder order)
         {
-            order.OrderProducts = _db.OrderProducts.FromSqlRaw(_orderSubQuery, order.OrderId).ToList();
+            order.OrderProducts = await _db.OrderProducts.FromSqlRaw(_orderSubQuery, order.OrderId).ToListAsync();
         }
-        public List<Order> GetOrders()
+        public async Task<List<Order>> GetOrders()
         {
-            var ords = _db.Orders.FromSqlRaw("SELECT * FROM Store.[Order]").ToList();
+            var ords = await _db.Orders.FromSqlRaw("SELECT * FROM Store.[Order]").ToListAsync();
             foreach (var order in ords)
             {
-                AttachProductsToOrder(order);
+                await AttachProductsToOrder(order);
             }
             return ords.ConvertAll(o => o.ConvertToModel());
         }
 
-        public List<Order> GetOrders(Store store)
+        public async Task<List<Order>> GetOrders(Store store)
         {
-            var ords = _db.Orders.FromSqlRaw("SELECT * FROM Store.[Order] WHERE StoreID={0}", store.StoreId).ToList();
+            var ords = await _db.Orders.FromSqlRaw("SELECT * FROM Store.[Order] WHERE StoreID={0}", store.StoreId).ToListAsync();
             foreach (var order in ords)
             {
-                AttachProductsToOrder(order);
+                await AttachProductsToOrder(order);
             }
             return ords.ConvertAll(o => o.ConvertToModel());
         }
 
-        public List<Order> GetOrders(Customer customer)
+        public async Task<List<Order>> GetOrders(Customer customer)
         {
-            var ords = _db.Orders.FromSqlRaw("SELECT * FROM Store.[Order] WHERE CustomerID={0}", customer.CustomerId).ToList();
+            var ords = await _db.Orders.FromSqlRaw("SELECT * FROM Store.[Order] WHERE CustomerID={0}", customer.CustomerId).ToListAsync();
             foreach (var order in ords)
             {
-                AttachProductsToOrder(order);
+                await AttachProductsToOrder(order);
             }
             return ords.ConvertAll(o => o.ConvertToModel());
         }
@@ -120,9 +120,9 @@ namespace Project1.StoreApplication.Storage
             return await result;
         }
 
-        public List<Store> GetStores()
+        public async Task<List<Store>> GetStores()
         {
-            var stores = _db.Stores.FromSqlRaw("SELECT * FROM Store.Store").ToList();
+            var stores = await _db.Stores.FromSqlRaw("SELECT * FROM Store.Store").ToListAsync();
             return stores.ConvertAll(s => s.ConvertToModel());
         }
 
@@ -135,17 +135,13 @@ namespace Project1.StoreApplication.Storage
         }
         */
 
-        public void LoadFromScratch()
-        {
-            //TODO: Save repo data into db?
-        }
-
-        public bool AddCustomer(Customer customer)
+        public async Task<bool> AddCustomer(Customer customer)
         {
             //try
             //{
-                _db.Database.ExecuteSqlRaw("INSERT INTO Customer.Customer (FirstName, LastName) VALUES ({0}, {1})", customer.FirstName, customer.LastName);
-                return true;
+            await _db.Database.ExecuteSqlRawAsync("INSERT INTO Customer.Customer (FirstName, LastName) VALUES ({0}, {1})", customer.FirstName, customer.LastName);
+            await _db.SaveChangesAsync();
+            return true;
             //}
             /*
             catch ()
@@ -156,22 +152,24 @@ namespace Project1.StoreApplication.Storage
             */
         }
 
-        public bool AddProduct(Product product)
+        public async Task<bool> AddProduct(Product product)
         {
             // Required: name, price
             // Optional: description, category
-            _db.Database.ExecuteSqlRaw("INSERT INTO Store.Product (Name, Price, Description, CategoryID) VALUES ({0}, {1}, {2}, {3})",
+            await _db.Database.ExecuteSqlRawAsync("INSERT INTO Store.Product (Name, Price, Description, CategoryID) VALUES ({0}, {1}, {2}, {3})",
                 product.Name,
                 product.Price,
                 product.Description,
                 product.CategoryID);
+            await _db.SaveChangesAsync();
             // TODO: better error handling/return type
             return true;
         }
 
-        public bool AddStore(Store store)
+        public async Task<bool> AddStore(Store store)
         {
-            _db.Database.ExecuteSqlRaw("INSERT INTO Store.Store (Name) VALUES ({0})", store.Name);
+            await _db.Database.ExecuteSqlRawAsync("INSERT INTO Store.Store (Name) VALUES ({0})", store.Name);
+            await _db.SaveChangesAsync();
             // TODO: better error handling/return type
             return true;
         }
