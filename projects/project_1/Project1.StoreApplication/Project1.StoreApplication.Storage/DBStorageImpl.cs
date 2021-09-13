@@ -171,7 +171,9 @@ namespace Project1.StoreApplication.Storage
 
         public bool AddStore(Store store)
         {
-            throw new NotImplementedException();
+            _db.Database.ExecuteSqlRaw("INSERT INTO Store.Store (Name) VALUES ({0})", store.Name);
+            // TODO: better error handling/return type
+            return true;
         }
     }
 
