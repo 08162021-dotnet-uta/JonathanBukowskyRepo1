@@ -65,9 +65,9 @@ namespace Project1.StoreApplication.Business
             return cust;
         }
 
-        public async Task<Store> SelectStore(Store store)
+        public async Task<Store> SelectStore(int storeId)
         {
-            var s = await _db.GetStore(store.StoreId);
+            var s = await _db.GetStore(storeId);
             return s;
         }
 

@@ -20,6 +20,19 @@ function PopulateStores() {
 
 function chooseStore(storeId) {
     console.log(`Selecting store ${storeId}`);
+    fetch(`/api/stores/select/${storeId}`, { method: "POST" })
+        .then(res => res.json())
+        .then(data => {
+            if (data.success) {
+                sessionStorage.setItem("selectedStore", JSON.stringify(data.store));
+                console.log(JSON.parse(sessionStorage.getItem("selectedStore")));
+                window.location.href = "/html/home.html";
+            } else {
+                throw new Exception("Error selecting store");
+            }
+        }).catch(err => {
+            console.log(err)
+        });
 }
 
 function getButtonHTML(store, selectedId) {

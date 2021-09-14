@@ -25,6 +25,18 @@ namespace Project1.StoreApplication.WebApi.Controllers
             return await _app.GetStores();
         }
 
+        [HttpPost("select/{storeId}")]
+        [Consumes("application/json")]
+        public async Task<object> SelectStore(int storeId)
+        {
+            var store = await _app.SelectStore(storeId);
+            if (store == null)
+            {
+                return new { success = false, store = (Store) null };
+            }
+            return new { success = true, store };
+        }
+
         [HttpPost("add")]
         public async Task<Store> AddStore([FromForm] Store store)
         {

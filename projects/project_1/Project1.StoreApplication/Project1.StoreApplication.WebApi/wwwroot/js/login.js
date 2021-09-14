@@ -27,11 +27,12 @@ function login(e) {
     }).then(data => {
         console.log(data);
         if (data.success) {
-            sessionStorage.setItem("user", data);
+            sessionStorage.setItem("user", JSON.stringify(data.user));
             window.location.href = "/html/stores.html";
         } else {
             let statusDiv = document.querySelector(".status");
-            statusDiv.innerHTML = '<p style="background-color:red;"> Error logging in </p>';
+            statusDiv.innerHTML = '<p class="err-msg-login" style="background-color:red;"> Error logging in </p>';
+            setTimeout(() => document.querySelector(".err-msg-login").remove(), 4000);
         }
         //console.log("custid: ", sessionStorage.getItem("customerId").customerId);
     }).catch(err => {
