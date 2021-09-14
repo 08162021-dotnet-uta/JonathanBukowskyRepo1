@@ -30,6 +30,8 @@ namespace Project1.StoreApplication.Storage.DBConverters
         /// <returns></returns>
         public static Customer ConvertToModel(this DBCustomer customer)
         {
+            if (customer == null)
+                return null;
             Customer cust = new();
             cust.CustomerId = customer.CustomerId;
             cust.FirstName = customer.FirstName;
@@ -41,6 +43,8 @@ namespace Project1.StoreApplication.Storage.DBConverters
 
         public static Order ConvertToModel(this DBOrder order)
         {
+            if (order == null)
+                return null;
             Order o = new();
             o.OrderID = order.OrderId;
             o.Products = new();
@@ -55,6 +59,8 @@ namespace Project1.StoreApplication.Storage.DBConverters
 
         public static Store ConvertToModel(this DBStore store)
         {
+            if (store == null)
+                return null;
             Store s = new();
             s.StoreId = store.StoreId;
             s.Name = store.Name;
@@ -64,6 +70,8 @@ namespace Project1.StoreApplication.Storage.DBConverters
 
         public static Product ConvertToModel(this DBProduct product)
         {
+            if (product == null)
+                return null;
             Product p = new();
             p.ProductId = product.ProductId;
             p.Name = product.Name;
@@ -78,6 +86,8 @@ namespace Project1.StoreApplication.Storage.DBConverters
 
         public static DBCustomer ConvertToDBObj(this Customer customer)
         {
+            if (customer == null)
+                return null;
             DBCustomer c = new();
             c.CustomerId = customer.CustomerId;
             c.FirstName = customer.FirstName;
@@ -87,6 +97,8 @@ namespace Project1.StoreApplication.Storage.DBConverters
 
         public static DBOrder ConvertToDBObj(this Order order)
         {
+            if (order == null)
+                return null;
             DBOrder o = new();
             // TODO: give o values
             return o;
@@ -94,6 +106,8 @@ namespace Project1.StoreApplication.Storage.DBConverters
 
         public static DBStore ConvertToDBObj(this Store store)
         {
+            if (store == null)
+                return null;
             DBStore s = new();
             // TODO: give s values
             return s;
@@ -101,6 +115,8 @@ namespace Project1.StoreApplication.Storage.DBConverters
 
         public static DBProduct ConvertToDBObj(this Product product)
         {
+            if (product == null)
+                return null;
             DBProduct p = new();
             // TODO: give p values
             return p;

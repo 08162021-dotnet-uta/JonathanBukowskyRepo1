@@ -27,6 +27,7 @@ namespace Project1.StoreApplication.Storage
         /// </summary>
         /// <returns></returns>
         Task<List<Store>> GetStores();
+        Task<Store> GetStore(int storeId);
         Task<bool> AddStore(Store store);
 
         /// <summary>
@@ -35,6 +36,8 @@ namespace Project1.StoreApplication.Storage
         /// <returns></returns>
         Task<List<Customer>> GetCustomers();
         Task<Customer> AddCustomer(Customer customer);
+
+        Task<Customer> GetLogin(string username, string password);
 
         /// <summary>
         /// Get list of all orders
@@ -65,6 +68,6 @@ namespace Project1.StoreApplication.Storage
         /// <param name="store">Store ordered from</param>
         /// <param name="products">Products being ordered</param>
         /// <returns></returns>
-        Task<Order> CreateOrder(Customer customer, Store store, List<Product> products);
+        Task<Order> CreateOrder(Customer customer, Store store, List<(Product,int)> products);
     }
 }

@@ -40,5 +40,76 @@ namespace Project1.StoreApplication.Business
             var prods = await _db.GetProducts(s);
             return prods;
         }
+
+        public async Task<Customer> LoginCustomer(string username, string password)
+        {
+            var cust = await _db.GetLogin(username, password);
+            return cust;
+        }
+
+        public async Task<Store> SelectStore(Store store)
+        {
+            var s = await _db.GetStore(store.StoreId);
+            return s;
+        }
+
+        public async Task<List<Store>> GetStores()
+        {
+            var stores = await _db.GetStores();
+            return stores;
+        }
+
+        public async Task<List<(Product, int)>> AddProductToCart(Product product, Customer customer, int quantity = 1)
+        {
+            var cart = _carts.GetCart(customer);
+            var curQuantity = cart.GetQuantity(product);
+            if (curQuantity > 0)
+            {
+                cart.SetQuantity(product, curQuantity + quantity);
+            }
+            else
+            {
+                cart.AddProduct(product, quantity);
+            }
+            return cart.GetCart();
+        }
+
+        public async Task<List<(Product, int)>> RemoveProductFromCart(Product product, Customer customer, int quantity = 1)
+        {
+            var cart = _carts.GetCart(customer);
+            var curQuantity = cart.GetQuantity(product);
+            if (curQuantity < quantity)
+            {
+                throw new ArgumentOutOfRangeException("Quantity must be less than or equal to number currently in cart");
+            }
+            else if (curQuantity == quantity)
+            {
+                cart.RemoveProduct(product);
+            }
+            else
+            {
+                cart.SetQuantity(product, curQuantity - quantity);
+            }
+            return cart.GetCart();
+        }
+
+        public async Task<Order> Checkout(Customer customer, Store store)
+        {
+            var cart = _carts.GetCart(customer);
+            var prods = cart.GetCart();
+            var order = await _db.CreateOrder(customer, store, prods);
+            return order;
+        }
+
+        public async Task<List<Order>> GetOrderHistory(Customer customer)
+        {
+            return await _db.GetOrders(customer);
+        }
+
+        public async Task<List<Order>> GetOrderHistory(Store store)
+        {
+            return await _db.GetOrders(store);
+        }
+
     }
 }

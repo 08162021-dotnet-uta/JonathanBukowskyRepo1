@@ -26,7 +26,7 @@ namespace Project1.StoreApplication.Storage
         }
         */
 
-        public async Task<Order> CreateOrder(Customer customer, Store store, List<Product> products)
+        public async Task<Order> CreateOrder(Customer customer, Store store, List<(Product, int)> products)
         {
             // TODO: validation
             if (customer == null)
@@ -46,17 +46,24 @@ namespace Project1.StoreApplication.Storage
             await _db.SaveChangesAsync();
             // TODO: Check for success/failure
             // TODO: this is not safe for concurrent use
-            var ords = await _db.Orders.FromSqlRaw(
+            var result = await _db.Orders.FromSqlRaw(
                     "SELECT TOP(1) * FROM Store.[Order] WHERE CustomerID={0} AND StoreID={1} ORDER BY OrderDate DESC",
                     customer.CustomerId,
                     store.StoreId
-                ).ToListAsync();
-            var result = ords[0];
-            foreach (var product in products)
+                ).FirstAsync();
+            if (result == null)
             {
-                _db.Database.ExecuteSqlRaw("INSERT INTO Store.OrderProduct (OrderID, ProductID) VALUES ({0}, {1})", result.OrderId, product.ProductId);
-                await AttachProductsToOrder(result);
+                throw new DbUpdateException("Error saving order to db");
             }
+            foreach (var (product, quantity) in products)
+            {
+                _db.Database.ExecuteSqlRaw("INSERT INTO Store.OrderProduct (OrderID, ProductID, Quantity) VALUES ({0}, {1}, {2})",
+                    result.OrderId,
+                    product.ProductId,
+                    quantity
+                );
+            }
+            await AttachProductsToOrder(result);
             return result.ConvertToModel();
         }
 
@@ -66,10 +73,18 @@ namespace Project1.StoreApplication.Storage
             return custs.ConvertAll(c => c.ConvertToModel());
         }
 
-        public async Task<List<Customer>> GetModelCustomers()
+
+        public async Task<Customer> GetLogin(string username, string password)
         {
-            var custs = await _db.Customers.FromSqlRaw("SELECT * FROM Customer.Customer").ToListAsync();
-            return custs.ConvertAll(c => c.ConvertToModel());
+            var login = await _db.CustomerLogins.FromSqlRaw("SELECT * FROM Customer.CustomerLogin WHERE Username = {0} AND Password = {1}",
+                username, password).FirstOrDefaultAsync();
+            if (login == null)
+            {
+                // TODO: No logins found, could return error
+                return null;
+            }
+            var cust = await _db.Customers.FromSqlRaw("SELECT * FROM Customer.Customer WHERE CustomerID = {0}", login.CustomerId).FirstAsync();
+            return cust.ConvertToModel();
         }
 
 
@@ -132,6 +147,12 @@ namespace Project1.StoreApplication.Storage
         {
             var stores = await _db.Stores.FromSqlRaw("SELECT * FROM Store.Store").ToListAsync();
             return stores.ConvertAll(s => s.ConvertToModel());
+        }
+
+        public async Task<Store> GetStore(int storeId)
+        {
+            var store = await _db.Stores.FromSqlRaw("SELECT * FROM Store.Store WHERE StoreID={0}", storeId).FirstOrDefaultAsync();
+            return store.ConvertToModel();
         }
 
         /*
