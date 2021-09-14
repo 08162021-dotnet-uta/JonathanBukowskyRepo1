@@ -28,6 +28,7 @@ namespace Project1.StoreApplication.WebApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<StoreApplicationDB2Context>();
             services.AddSingleton<ICarts, CartManager>();
             services.AddScoped<IStorage, DBStorageImpl>();
             services.AddScoped<StoreApp>();

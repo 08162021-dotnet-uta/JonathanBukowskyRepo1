@@ -14,17 +14,16 @@ namespace Project1.StoreApplication.Storage
     {
         private readonly StoreApplicationDB2Context _db;
 
+        /*
         public DBStorageImpl() : base()
         {
             _db = new StoreApplicationDB2Context();
         }
-        // TODO: use dependency injection
-        /*
-        public DBStorageImpl(DbContext db) : base()
+        */
+        public DBStorageImpl(StoreApplicationDB2Context db) : base()
         {
             _db = db;
         }
-        */
 
         public async Task<Order> CreateOrder(Customer customer, Store store, List<(Product, int)> products)
         {

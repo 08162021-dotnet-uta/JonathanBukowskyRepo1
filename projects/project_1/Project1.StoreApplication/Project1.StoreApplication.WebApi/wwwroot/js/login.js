@@ -26,9 +26,16 @@ function login(e) {
         return res.json()
     }).then(data => {
         console.log(data);
-        sessionStorage.setItem("user", data);
+        if (data.success) {
+            sessionStorage.setItem("user", data);
+            window.location.href = "/html/stores.html";
+        } else {
+            let statusDiv = document.querySelector(".status");
+            statusDiv.innerHTML = '<p style="background-color:red;"> Error logging in </p>';
+        }
         //console.log("custid: ", sessionStorage.getItem("customerId").customerId);
-        window.location.href = "/html/stores.html";
+    }).catch(err => {
+        // TODO: add error handling and display on webpage
     });
 }
 
