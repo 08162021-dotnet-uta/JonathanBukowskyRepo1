@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Project1.StoreApplication.Business;
 using Project1.StoreApplication.Models;
 using Project1.StoreApplication.Storage;
 using System;
@@ -12,22 +13,22 @@ namespace Project1.StoreApplication.WebApi.Controllers
     [ApiController]
     public class StoresController : ControllerBase
     {
-        private IStorage _db;
-        public StoresController(IStorage db)
+        private StoreApp _app;
+        public StoresController(StoreApp app)
         {
-            _db = db;
+            _app = app;
         }
 
         [HttpGet]
         public async Task<List<Store>> GetStores()
         {
-            return await _db.GetStores();
+            return await _app.GetStores();
         }
 
         [HttpPost("add")]
-        public async Task<bool> AddStore([FromForm] Store store)
+        public async Task<Store> AddStore([FromForm] Store store)
         {
-            return await _db.AddStore(store);
+            return await _app.AddStore(store);
         }
     }
 }

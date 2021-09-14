@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Project1.StoreApplication.Business;
 using Project1.StoreApplication.Storage;
 using System;
 using System.Collections.Generic;
@@ -11,16 +12,16 @@ namespace Project1.StoreApplication.WebApi.Controllers
     [ApiController]
     public class LoginController : ControllerBase
     {
-        private IStorage _db;
-        public LoginController(IStorage db)
+        private StoreApp _app;
+        public LoginController(StoreApp app)
         {
-            _db = db;
+            _app = app;
         }
 
         [HttpPost]
         public int LogIn(string username, string password)
         {
-            
+            throw new NotImplementedException("Login not implemented");
         }
     }
 }

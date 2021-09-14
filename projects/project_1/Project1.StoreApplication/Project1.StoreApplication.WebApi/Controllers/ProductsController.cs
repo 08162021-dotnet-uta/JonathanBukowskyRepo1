@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Project1.StoreApplication.Business;
 using Project1.StoreApplication.Models;
 using Project1.StoreApplication.Storage;
 using System;
@@ -12,24 +13,24 @@ namespace Project1.StoreApplication.WebApi.Controllers
     [ApiController]
     public class ProductsController : ControllerBase
     {
-        private IStorage _db;
-        public ProductsController(IStorage db)
+        private StoreApp _app;
+        public ProductsController(StoreApp app)
         {
-            _db = db;
+            _app = app;
         }
 
         [HttpGet]
         public async Task<List<Product>> GetProducts()
         {
-            return await _db.GetProducts();
+            return await _app.GetProducts();
         }
 
         [HttpPost("add")]
-        public async Task<bool> AddProduct([FromForm] Product product)
+        public async Task<Product> AddProduct([FromForm] Product product)
         {
             // TODO: add categories
             product.CategoryID = null;
-            return await _db.AddProduct(product);
+            return await _app.AddProduct(product);
         }
     }
 }

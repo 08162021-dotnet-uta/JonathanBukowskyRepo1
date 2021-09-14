@@ -185,7 +185,7 @@ namespace Project1.StoreApplication.Storage
             //}
         }
 
-        public async Task<bool> AddProduct(Product product)
+        public async Task<Product> AddProduct(Product product)
         {
             // Required: name, price
             // Optional: description, category
@@ -195,16 +195,24 @@ namespace Project1.StoreApplication.Storage
                 product.Description,
                 product.CategoryID);
             await _db.SaveChangesAsync();
+            // TODO: make this more better
+            var prod = await _db.Products.FromSqlRaw("SELECT * FROM Store.Product WHERE Name = {0} AND Price = {1} and Description = {2}",
+                product.Name,
+                product.Price,
+                product.Description
+                ).FirstOrDefaultAsync();
             // TODO: better error handling/return type
-            return true;
+            return prod.ConvertToModel();
         }
 
-        public async Task<bool> AddStore(Store store)
+        public async Task<Store> AddStore(Store store)
         {
             await _db.Database.ExecuteSqlRawAsync("INSERT INTO Store.Store (Name) VALUES ({0})", store.Name);
             await _db.SaveChangesAsync();
+            // TODO: make this more better
+            var s = await _db.Stores.FromSqlRaw("SELECT * FROM Store.Store WHERE Name = {0}", store.Name).FirstOrDefaultAsync();
             // TODO: better error handling/return type
-            return true;
+            return s.ConvertToModel();
         }
     }
 

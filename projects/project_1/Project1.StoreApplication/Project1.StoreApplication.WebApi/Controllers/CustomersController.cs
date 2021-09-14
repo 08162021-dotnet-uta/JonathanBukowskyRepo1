@@ -8,6 +8,7 @@ using Project1.StoreApplication.Storage;
 using Project1.StoreApplication.Models;
 using Microsoft.EntityFrameworkCore;
 using Project1.StoreApplication.Storage.DBConverters;
+using Project1.StoreApplication.Business;
 
 namespace Project1.StoreApplication.WebApi.Controllers
 {
@@ -15,32 +16,32 @@ namespace Project1.StoreApplication.WebApi.Controllers
     [ApiController]
     public class CustomersController : ControllerBase
     {
-        private IStorage _db;
+        private StoreApp _app;
         /*
         public Customers() : base()
         {
             _db = new StoreApplicationDB2Context();
         }
         */
-        public CustomersController(IStorage db) : base()
+        public CustomersController(StoreApp app) : base()
         {
-            _db = db;
+            _app = app;
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Customer>>> GetTodoItems()
+        public async Task<IEnumerable<Customer>> GetCustomers()
         {
             //var custs = _db.Customers.FromSqlRaw("SELECT * FROM Customer.Customer");
             //var result = await (from c in custs select c.ConvertToModel()).ToListAsync();
-            var result = await _db.GetCustomers();
+            var result = await _app.GetCustomers();
             return result;
         }
 
         [HttpPost("add")]
-        public async Task<Boolean> AddCustomer([FromForm] Customer customer)
+        public async Task<Customer> AddCustomer([FromForm] Customer customer)
         {
             //TODO: Validation
-            return await _db.AddCustomer(customer);
+            return await _app.AddCustomer(customer);
         }
 
     }

@@ -29,6 +29,18 @@ namespace Project1.StoreApplication.Business
             return cust;
         }
 
+        public async Task<Product> AddProduct(Product product)
+        {
+            var prod = await _db.AddProduct(product);
+            return prod;
+        }
+
+        public async Task<Store> AddStore(Store store)
+        {
+            var s = await _db.AddStore(store);
+            return s;
+        }
+
         public async Task<List<Product>> GetProducts()
         {
             var prods = await _db.GetProducts();

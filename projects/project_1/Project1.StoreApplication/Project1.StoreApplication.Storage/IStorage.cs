@@ -20,7 +20,7 @@ namespace Project1.StoreApplication.Storage
         /// <returns></returns>
         Task<List<Product>> GetProducts();
         Task<List<Product>> GetProducts(Store store);
-        Task<bool> AddProduct(Product product);
+        Task<Product> AddProduct(Product product);
 
         /// <summary>
         /// Get list of all stores
@@ -28,7 +28,7 @@ namespace Project1.StoreApplication.Storage
         /// <returns></returns>
         Task<List<Store>> GetStores();
         Task<Store> GetStore(int storeId);
-        Task<bool> AddStore(Store store);
+        Task<Store> AddStore(Store store);
 
         /// <summary>
         /// Get list of all customers
