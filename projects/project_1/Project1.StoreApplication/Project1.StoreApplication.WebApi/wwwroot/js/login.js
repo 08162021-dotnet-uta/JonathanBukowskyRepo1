@@ -14,17 +14,22 @@ function login(e) {
     }
     fetch("/api/login", {
         method: "POST",
-        body: JSON.stringify(reqObj)
-    }).then(res => res.json)
-        .then(data => {
-            if (data.success) {
-                sessionStorage.setItem("customerId", data.customerId);
-                window.location.href = "/stores.html";
-            }
-            else {
-                // TODO: add validation feedback
-            }
-        });
+        body: JSON.stringify(reqObj),
+        headers: {
+            'content-type': 'application/json'
+        }
+    }).then(res => {
+        //console.log(res);
+        if (!res.ok) {
+            throw new Exception("Error logging in");
+        }
+        return res.json()
+    }).then(data => {
+        console.log(data);
+        sessionStorage.setItem("user", data);
+        //console.log("custid: ", sessionStorage.getItem("customerId").customerId);
+        window.location.href = "/html/stores.html";
+    });
 }
 
 document.addEventListener("DOMContentLoaded", function (event) {
