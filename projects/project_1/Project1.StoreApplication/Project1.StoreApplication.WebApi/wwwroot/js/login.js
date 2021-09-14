@@ -18,6 +18,7 @@ function login(e) {
     }).then(res => res.json)
         .then(data => {
             if (data.success) {
+                sessionStorage.setItem("customerId", data.customerId);
                 window.location.href = "/stores.html";
             }
             else {

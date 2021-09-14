@@ -19,6 +19,7 @@ namespace Project1.StoreApplication.Storage.DBModels
         public bool? Active { get; set; }
 
         public virtual DBStore DefaultStoreNavigation { get; set; }
+        public virtual DBCustomerLogin CustomerLogin { get; set; }
         public virtual ICollection<DBOrder> Orders { get; set; }
     }
 }

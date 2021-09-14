@@ -25,6 +25,7 @@ namespace Project1.StoreApplication.Storage
         public virtual DbSet<DBProductCategory> ProductCategories { get; set; }
         public virtual DbSet<DBStore> Stores { get; set; }
         public virtual DbSet<DBStoreProduct> StoreProducts { get; set; }
+        public virtual DbSet<DBCustomerLogin> CustomerLogins { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -38,6 +39,28 @@ namespace Project1.StoreApplication.Storage
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasAnnotation("Relational:Collation", "SQL_Latin1_General_CP1_CI_AS");
+
+            modelBuilder.Entity<DBCustomerLogin>(entity =>
+            {
+                entity.ToTable("Customer", "CustomerLogin");
+
+                entity.HasKey(e => e.CustomerLoginId);
+                entity.Property(e => e.CustomerLoginId).HasColumnName("CustomerLoginID");
+
+                entity.HasOne(e => e.Customer)
+                    .WithOne(c => c.CustomerLogin)
+                    .HasForeignKey<DBCustomerLogin>(e => e.CustomerId)
+                    .HasConstraintName("FK_CustomerLogin_Customer");
+
+                entity.Property(e => e.Username)
+                    .IsRequired()
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.Password)
+                    .IsRequired()
+                    .HasMaxLength(50);
+
+            });
 
             modelBuilder.Entity<DBCustomer>(entity =>
             {
