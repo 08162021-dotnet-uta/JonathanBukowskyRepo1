@@ -120,6 +120,14 @@ namespace Project1.StoreApplication.Storage
             return await result;
         }
 
+        public async Task<List<Product>> GetProducts(Store store)
+        {
+            var prodQuery = _db.Products.FromSqlRaw("SELECT * FROM Store.Product p INNER JOIN Store.StoreProduct sp ON sp.ProductID == p.ProductID "
+                + "WHERE sp.StoreID = {0}", store.StoreId);
+            var prods = await (from p in prodQuery select p.ConvertToModel()).ToListAsync();
+            return prods;
+        }
+
         public async Task<List<Store>> GetStores()
         {
             var stores = await _db.Stores.FromSqlRaw("SELECT * FROM Store.Store").ToListAsync();
@@ -135,21 +143,25 @@ namespace Project1.StoreApplication.Storage
         }
         */
 
-        public async Task<bool> AddCustomer(Customer customer)
+        public async Task<Customer> AddCustomer(Customer customer)
         {
             //try
             //{
             await _db.Database.ExecuteSqlRawAsync("INSERT INTO Customer.Customer (FirstName, LastName) VALUES ({0}, {1})", customer.FirstName, customer.LastName);
             await _db.SaveChangesAsync();
-            return true;
-            //}
-            /*
-            catch ()
+            var query = _db.Customers.FromSqlRaw("SELECT TOP(1) * FROM Customer.Customer WHERE FirstName={0} AND LastName={1} ORDER BY CustomerID DESC",
+                        customer.FirstName, customer.LastName);
+            try
             {
-                //TODO: better error handling
-                return false;
+                var newCust = await query.FirstAsync();
+                return newCust.ConvertToModel();
             }
-            */
+            catch (InvalidOperationException)
+            {
+                // Error: newly created customer does not exist for some reason
+                return null;
+            }
+            //}
         }
 
         public async Task<bool> AddProduct(Product product)

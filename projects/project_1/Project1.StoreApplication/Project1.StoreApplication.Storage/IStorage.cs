@@ -19,6 +19,7 @@ namespace Project1.StoreApplication.Storage
         /// </summary>
         /// <returns></returns>
         Task<List<Product>> GetProducts();
+        Task<List<Product>> GetProducts(Store store);
         Task<bool> AddProduct(Product product);
 
         /// <summary>
@@ -33,7 +34,7 @@ namespace Project1.StoreApplication.Storage
         /// </summary>
         /// <returns></returns>
         Task<List<Customer>> GetCustomers();
-        Task<bool> AddCustomer(Customer customer);
+        Task<Customer> AddCustomer(Customer customer);
 
         /// <summary>
         /// Get list of all orders
