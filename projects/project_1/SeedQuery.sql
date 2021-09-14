@@ -16,5 +16,21 @@ go
 INSERT INTO Customer.Customer (FirstName, LastName, DefaultStore)
 VALUES ('Johnny', 'Bravo', NULL),
 	('Bob', 'Dylan', NULL),
-	('Freddie', 'Mercury', NULL);
+	('Freddie', 'Mercury', NULL),
+	('Ted', 'Nugent', NULL);
+
+INSERT INTO Customer.CustomerLogin (Username, [Password], CustomerId)
+VALUES ('jbravo', '12345', 1),
+	('bobbyd', '54321', 2),
+	('fmercury', 'rhapsody', 3),
+	('rockerted', 'riff', 4);
+
+INSERT INTO Store.Product (Name, Description, Price)
+VALUES ('Large Pepperoni Pizza', 'A large, one-topping pizza with pepperoni', 15.99),
+	('Small Pepperoni Pizza', 'A small, one-topping pizza with pepperoni', 12.99);
+
+INSERT INTO Store.Store (Name)
+VALUES ('Jet''s Pizza'),
+	('Chicago Bros. Pizza');
+
 go
