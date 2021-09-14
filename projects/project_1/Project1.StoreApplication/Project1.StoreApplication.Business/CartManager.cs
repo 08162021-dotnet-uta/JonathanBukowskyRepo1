@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Project1.StoreApplication.Business
 {
-    class CartManager : ICarts
+    public class CartManager : ICarts
     {
         // TODO: Use interface instead of concrete class?
         private Dictionary<Customer, Cart> _carts;

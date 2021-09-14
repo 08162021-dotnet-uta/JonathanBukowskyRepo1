@@ -12,6 +12,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Project1.StoreApplication.Storage;
+using Project1.StoreApplication.Business;
 
 namespace Project1.StoreApplication.WebApi
 {
@@ -27,7 +28,9 @@ namespace Project1.StoreApplication.WebApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton<ICarts, CartManager>();
             services.AddScoped<IStorage, DBStorageImpl>();
+            services.AddScoped<StoreApp>();
 
             services.AddControllers();
             /*

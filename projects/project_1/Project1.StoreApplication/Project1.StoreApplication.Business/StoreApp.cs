@@ -18,7 +18,7 @@ namespace Project1.StoreApplication.Business
             _carts = carts;
         }
 
-        public async Task<Customer> AddCustomerAsync(Customer customer)
+        public async Task<Customer> AddCustomer(Customer customer)
         {
             // TODO: validation for customer
             var cust = await _db.AddCustomer(customer);
@@ -33,6 +33,12 @@ namespace Project1.StoreApplication.Business
         {
             var prods = await _db.GetProducts();
             return prods;
+        }
+
+        public async Task<List<Customer>> GetCustomers()
+        {
+            var custs = await _db.GetCustomers();
+            return custs;
         }
 
         public async Task<List<Product>> GetProductsByStore(Store s)
