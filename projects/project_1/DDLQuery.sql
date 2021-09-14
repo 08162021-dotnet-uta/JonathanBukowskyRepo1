@@ -33,6 +33,7 @@ DROP TABLE IF EXISTS Store.Store;
 DROP TABLE IF EXISTS Store.StoreProduct;
 DROP TABLE IF EXISTS Store.ProductCategory;
 DROP TABLE IF EXISTS Customer.Customer;
+DROP TABLE IF EXISTS Customer.CustomerLogin;
 
 -- One shot creation, just for fun
 /*
@@ -86,6 +87,14 @@ create table Customer.Customer
 	DefaultStore INTEGER,
 	--Active BIT NOT NULL DEFAULT 1 -- I'm going to set the default in an alter command below to give example of that
 	Active BIT NOT NULL CONSTRAINT DF_Customer_Active DEFAULT 1
+);
+
+CREATE TABLE Customer.CustomerLogin
+(
+	CustomerLoginID INTEGER NOT NULL IDENTITY(1,1) CONSTRAINT PK_CustomerLogin PRIMARY KEY (CustomerLoginId),
+	Username NVARCHAR(50) NOT NULL,
+	[Password] NVARCHAR(50) NOT NULL,
+	CustomerID INTEGER NOT NULL CONSTRAINT FK_CustomerLogin_Customer FOREIGN KEY (CustomerID) REFERENCES Customer.Customer
 );
 
 create table Store.Store
