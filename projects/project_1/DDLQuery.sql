@@ -26,14 +26,14 @@ go
 
 -- Unbuild ?
 
+DROP TABLE IF EXISTS Customer.CustomerLogin;
 DROP TABLE IF EXISTS Store.OrderProduct;
+DROP TABLE IF EXISTS Store.StoreProduct;
 DROP TABLE IF EXISTS Store."Order";
 DROP TABLE IF EXISTS Store.Product;
 DROP TABLE IF EXISTS Store.Store;
-DROP TABLE IF EXISTS Store.StoreProduct;
 DROP TABLE IF EXISTS Store.ProductCategory;
 DROP TABLE IF EXISTS Customer.Customer;
-DROP TABLE IF EXISTS Customer.CustomerLogin;
 
 -- One shot creation, just for fun
 /*
@@ -147,7 +147,8 @@ CREATE TABLE Store.StoreProduct
 	StoreID INTEGER NOT NULL CONSTRAINT FK_StoreProduct_Store FOREIGN KEY (StoreID) REFERENCES Store.Store,
 	ProductID INTEGER NOT NULL CONSTRAINT FK_StoreProduct_Product FOREIGN KEY (ProductID) REFERENCES Store.Product,
 	Quantity INTEGER NOT NULL,
-	Active BIT NOT NULL CONSTRAINT DF_StoreProduct_Active DEFAULT 1
+	Active BIT NOT NULL CONSTRAINT DF_StoreProduct_Active DEFAULT 1,
+	CONSTRAINT UNQ_StoreID_ProductID UNIQUE (StoreID, ProductID)
 );
 
 -- ALTER
