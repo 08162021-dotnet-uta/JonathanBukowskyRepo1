@@ -103,6 +103,12 @@ namespace Project1.StoreApplication.Business
             customer = await _db.GetCustomer(customer);
             product = await _db.GetProduct(product);
             store = await _db.GetStore(store.StoreId);
+            var storeProducts = await _db.GetProducts(store);
+            var storeProduct = storeProducts.Find(sp => sp.ProductId == product.ProductId);
+            if (storeProduct == null)
+            {
+                throw new ArgumentException("Invalid product found in cart");
+            }
             var cart = _carts.GetCart(customer, store);
             _logger.LogInformation($"Getting cart for customer {customer}, id {customer.CustomerId}");
             foreach (var (p, q) in cart.GetCart())
@@ -112,10 +118,18 @@ namespace Project1.StoreApplication.Business
             var curQuantity = cart.GetQuantity(product);
             if (curQuantity > 0)
             {
+                if (curQuantity + quantity > storeProduct.Quantity)
+                {
+                    throw new ArgumentException("Invalid quantity -- not enough store inventory");
+                }
                 cart.SetQuantity(product, curQuantity + quantity);
             }
             else
             {
+                if (quantity > storeProduct.Quantity)
+                {
+                    throw new ArgumentException("Invalid quantity -- not enough store inventory");
+                }
                 cart.AddProduct(product, quantity);
             }
             _logger.LogInformation($"Checking new cart for customer {customer}, id {customer.CustomerId}");
@@ -155,8 +169,24 @@ namespace Project1.StoreApplication.Business
             store = await _db.GetStore(store.StoreId);
             var cart = _carts.GetCart(customer, store);
             var prods = cart.GetCart();
+            var currentInventory = await _db.GetProducts(store);
+            foreach (var (prod, quantity) in prods)
+            {
+                var inv = currentInventory.Find(product => product.ProductId == prod.ProductId);
+                if (inv == null)
+                {
+                    throw new ArgumentException("Invalid product in cart");
+                }
+                if (inv.Quantity < quantity)
+                {
+                    throw new ArgumentException("Cannot purchase more products than are in store inventory");
+                }
+            }
             var order = await _db.CreateOrder(customer, store, prods);
-            cart.ClearCart();
+            if (order != null)
+            {
+                cart.ClearCart();
+            }
             return order;
         }
 

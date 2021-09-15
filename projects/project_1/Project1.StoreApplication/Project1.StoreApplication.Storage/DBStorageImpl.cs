@@ -276,6 +276,7 @@ namespace Project1.StoreApplication.Storage
                 product.ProductId
             ).FirstAsync();
             _logger.LogInformation($"Attaching Quantity {storeProd.Quantity} to product {product.ProductId}");
+            // TODO: I would prefer to figure out exactly why EF has an outdated copy of the info from the above query.
             // For whatever reason, Entity framework is not getting a fresh instance of StoreProduct entities here.
             //  This next line will force a reload from the database. This is fixing my issues.
             //  I found this solution in the discussion here:
