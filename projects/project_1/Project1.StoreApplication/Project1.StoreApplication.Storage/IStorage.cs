@@ -32,6 +32,7 @@ namespace Project1.StoreApplication.Storage
         Task<Store> AddStore(Store store);
         Task<List<Product>> AddStoreProduct(Store store, Product product);
         Task<List<Product>> RemoveStoreProduct(Store store, Product product);
+        Task<List<Product>> UpdateStoreQuantity(Store store, Product product, int quantityDelta);
 
         /// <summary>
         /// Get list of all customers

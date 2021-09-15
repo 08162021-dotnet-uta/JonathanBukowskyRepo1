@@ -183,6 +183,11 @@ namespace Project1.StoreApplication.Business
                 }
             }
             var order = await _db.CreateOrder(customer, store, prods);
+            foreach (var (prod, quantity) in prods)
+            {
+                // remove quantity in order from store inventory
+                await _db.UpdateStoreQuantity(store, prod, -quantity);
+            }
             if (order != null)
             {
                 cart.ClearCart();

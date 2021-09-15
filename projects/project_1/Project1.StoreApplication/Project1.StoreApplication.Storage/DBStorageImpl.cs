@@ -338,11 +338,45 @@ namespace Project1.StoreApplication.Storage
             return await GetStoreProducts(dbStore.StoreId);
         }
 
+        public async Task<List<Product>> UpdateStoreQuantity(Store store, Product product, int quantityDelta)
+        {
+            var (dbStore, dbProduct) = await ValidateStoreAndProduct(store, product);
+            var dbStoreProduct = await _db.StoreProducts.FromSqlRaw("SELECT * FROM Store.StoreProduct WHERE ProductID = {0} AND StoreID = {1}",
+                dbProduct.ProductId,
+                dbStore.StoreId
+            ).FirstAsync();
+            var newQuantity = dbStoreProduct.Quantity + quantityDelta;
+            if (newQuantity > 0)
+            {
+                await _db.Database.ExecuteSqlRawAsync("UPDATE Store.StoreProduct SET Quantity = {0} WHERE StoreID = {1} AND ProductID = {2}",
+                    newQuantity,
+                    dbStore.StoreId,
+                    dbProduct.ProductId
+                );
+                dbStoreProduct.Quantity = newQuantity;
+                await _db.SaveChangesAsync();
+            }
+            else if (newQuantity == 0)
+            {
+                await DeleteStoreProduct(dbStore, dbProduct);
+            }
+            else
+            {
+                throw new ArgumentException("Invalid quantity -- new quantity must be non-negative");
+            }
+            return await GetStoreProducts(dbStore.StoreId);
+        }
+
+        private async Task DeleteStoreProduct(DBStore store, DBProduct product)
+        {
+            await _db.Database.ExecuteSqlRawAsync("DELETE FROM Store.StoreProduct WHERE ProductID = {0} AND StoreID = {1}", product.ProductId, store.StoreId);
+            await _db.SaveChangesAsync();
+        }
+
         public async Task<List<Product>> RemoveStoreProduct(Store store, Product product)
         {
             var (dbStore, dbProduct) = await ValidateStoreAndProduct(store, product);
-            await _db.Database.ExecuteSqlRawAsync("DELETE FROM Store.StoreProduct WHERE ProductID = {0} AND StoreID = {1}", dbProduct.ProductId, dbStore.StoreId);
-            await _db.SaveChangesAsync();
+            await DeleteStoreProduct(dbStore, dbProduct);
             return await GetStoreProducts(dbStore.StoreId);
         }
     }

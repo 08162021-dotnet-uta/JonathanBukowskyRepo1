@@ -18,8 +18,8 @@ function Checkout(customerId, storeId) {
         console.log("order", data);
         let container = document.querySelector(".status");
         container.innerHTML = DisplayOrder(data);
-        let cart = document.querySelector(".cart-content");
-        cart.innerHTML = "";
+        // refresh cart and store inventory
+        EditCart();
     });
 }
 
