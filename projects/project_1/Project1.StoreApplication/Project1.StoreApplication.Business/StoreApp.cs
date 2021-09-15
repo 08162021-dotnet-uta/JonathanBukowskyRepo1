@@ -90,18 +90,20 @@ namespace Project1.StoreApplication.Business
             return stores;
         }
 
-        public async Task<List<(Product, int)>> GetCart(Customer customer)
+        public async Task<List<(Product, int)>> GetCart(Customer customer, Store store)
         {
             customer = await _db.GetCustomer(customer);
-            var cart = _carts.GetCart(customer);
+            store = await _db.GetStore(store.StoreId);
+            var cart = _carts.GetCart(customer, store);
             return cart.GetCart();
         }
 
-        public async Task<List<(Product, int)>> AddProductToCart(Product product, Customer customer, int quantity = 1)
+        public async Task<List<(Product, int)>> AddProductToCart(Product product, Customer customer, Store store, int quantity = 1)
         {
             customer = await _db.GetCustomer(customer);
             product = await _db.GetProduct(product);
-            var cart = _carts.GetCart(customer);
+            store = await _db.GetStore(store.StoreId);
+            var cart = _carts.GetCart(customer, store);
             _logger.LogInformation($"Getting cart for customer {customer}, id {customer.CustomerId}");
             foreach (var (p, q) in cart.GetCart())
             {
@@ -124,11 +126,12 @@ namespace Project1.StoreApplication.Business
             return cart.GetCart();
         }
 
-        public async Task<List<(Product, int)>> RemoveProductFromCart(Product product, Customer customer, int quantity = 1)
+        public async Task<List<(Product, int)>> RemoveProductFromCart(Product product, Customer customer, Store store, int quantity = 1)
         {
             customer = await _db.GetCustomer(customer);
             product = await _db.GetProduct(product);
-            var cart = _carts.GetCart(customer);
+            store = await _db.GetStore(store.StoreId);
+            var cart = _carts.GetCart(customer, store);
             var curQuantity = cart.GetQuantity(product);
             _logger.LogInformation($"Removing quantity {quantity} of product {product} from cart of {customer} with current quantity {curQuantity}");
             if (curQuantity < quantity)
@@ -148,7 +151,9 @@ namespace Project1.StoreApplication.Business
 
         public async Task<Order> Checkout(Customer customer, Store store)
         {
-            var cart = _carts.GetCart(customer);
+            customer = await _db.GetCustomer(customer);
+            store = await _db.GetStore(store.StoreId);
+            var cart = _carts.GetCart(customer, store);
             var prods = cart.GetCart();
             var order = await _db.CreateOrder(customer, store, prods);
             return order;

@@ -40,10 +40,10 @@ namespace Project1.StoreApplication.WebApi.Controllers
             return result;
         }
 
-        [HttpGet("{customerId}/cart")]
-        public async Task<List<object>> GetCart(int customerId)
+        [HttpGet("{customerId}/cart/{storeId}")]
+        public async Task<List<object>> GetCart(int customerId, int storeId)
         {
-            var result = await _app.GetCart(new Customer() { CustomerId = customerId });
+            var result = await _app.GetCart(new Customer() { CustomerId = customerId }, new Store() { StoreId = storeId });
             return ConvertToJSON(result);
         }
 
@@ -63,18 +63,26 @@ namespace Project1.StoreApplication.WebApi.Controllers
             return result;
         }
 
-        [HttpPost("{customerId}/cart/add")]
-        public async Task<List<object>> AddToCart(int customerId, [FromBody] CartSubmissionData data)
+        [HttpPost("{customerId}/cart/{storeId}/add")]
+        public async Task<List<object>> AddToCart(int customerId, int storeId, [FromBody] CartSubmissionData data)
         {
             // TODO: make this work right for selected stores
-            var cart = await _app.AddProductToCart(new Product() { ProductId = data.productId }, new Customer() { CustomerId = customerId });
+            var cart = await _app.AddProductToCart(
+                new Product() { ProductId = data.productId },
+                new Customer() { CustomerId = customerId },
+                new Store() { StoreId = storeId }
+            );
             return ConvertToJSON(cart);
         }
 
-        [HttpPost("{customerId}/cart/remove")]
-        public async Task<List<object>> RemoveFromCart(int customerId, [FromBody] CartSubmissionData data)
+        [HttpPost("{customerId}/cart/{storeId}/remove")]
+        public async Task<List<object>> RemoveFromCart(int customerId, int storeId, [FromBody] CartSubmissionData data)
         {
-            var cart = await _app.RemoveProductFromCart(new Product() { ProductId = data.productId }, new Customer() { CustomerId = customerId });
+            var cart = await _app.RemoveProductFromCart(
+                new Product() { ProductId = data.productId },
+                new Customer() { CustomerId = customerId },
+                new Store() { StoreId = storeId }
+            );
             return ConvertToJSON(cart);
         }
 
@@ -83,6 +91,20 @@ namespace Project1.StoreApplication.WebApi.Controllers
         {
             //TODO: Validation
             return await _app.AddCustomer(customer);
+        }
+
+        [HttpGet("{customerId}/orders")]
+        public async Task<List<Order>> GetOrders(int customerId)
+        {
+            var orders = await _app.GetOrderHistory(new Customer() { CustomerId = customerId });
+            return orders;
+        }
+
+        [HttpPost("{customerId}/checkout/{storeId}")]
+        public async Task<Order> Checkout(int customerId, int storeId)
+        {
+            var order = await _app.Checkout(new Customer() { CustomerId = customerId }, new Store() { StoreId = storeId });
+            return order;
         }
 
     }
