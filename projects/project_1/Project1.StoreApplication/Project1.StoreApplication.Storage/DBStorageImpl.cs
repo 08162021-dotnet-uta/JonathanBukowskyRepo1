@@ -72,6 +72,16 @@ namespace Project1.StoreApplication.Storage
             return custs.ConvertAll(c => c.ConvertToModel());
         }
 
+        public async Task<Customer> GetCustomer(Customer customer)
+        {
+            var cust = await _db.Customers.FromSqlRaw("SELECT * FROM Customer.Customer WHERE CustomerID = {0}", customer.CustomerId).FirstOrDefaultAsync();
+            if (cust == null)
+            {
+                throw new ArgumentException("Invalid customer");
+            }
+            return cust.ConvertToModel();
+        }
+
 
         public async Task<Customer> GetLogin(string username, string password)
         {
@@ -127,6 +137,16 @@ namespace Project1.StoreApplication.Storage
             return ords.ConvertAll(o => o.ConvertToModel());
         }
 
+        public async Task<Product> GetProduct(Product product)
+        {
+            var prod = await _db.Products.FromSqlRaw("SELECT * FROM Store.Product WHERE ProductID = {0}", product.ProductId).FirstOrDefaultAsync();
+            if (prod == null)
+            {
+                throw new ArgumentException("Invalid product");
+            }
+            return prod.ConvertToModel();
+        }
+
         public async Task<List<Product>> GetProducts()
         {
             var prods = _db.Products.FromSqlRaw("SELECT * FROM Store.Product");
@@ -136,7 +156,7 @@ namespace Project1.StoreApplication.Storage
 
         public async Task<List<Product>> GetProducts(Store store)
         {
-            var prodQuery = _db.Products.FromSqlRaw("SELECT * FROM Store.Product p INNER JOIN Store.StoreProduct sp ON sp.ProductID == p.ProductID "
+            var prodQuery = _db.Products.FromSqlRaw("SELECT p.* FROM Store.Product p INNER JOIN Store.StoreProduct sp ON sp.ProductID = p.ProductID "
                 + "WHERE sp.StoreID = {0}", store.StoreId);
             var prods = await (from p in prodQuery select p.ConvertToModel()).ToListAsync();
             return prods;
@@ -212,6 +232,43 @@ namespace Project1.StoreApplication.Storage
             var s = await _db.Stores.FromSqlRaw("SELECT * FROM Store.Store WHERE Name = {0}", store.Name).FirstOrDefaultAsync();
             // TODO: better error handling/return type
             return s.ConvertToModel();
+        }
+
+        public async Task<List<Product>> GetStoreProducts(int storeId)
+        {
+            var storeProductsQuery = _db.Products.FromSqlRaw("SELECT p.* FROM Store.Product p INNER JOIN Store.StoreProduct sp ON p.ProductID = sp.ProductID "
+                + "WHERE sp.StoreID = {0}", storeId);
+            var storeProducts = await (from p in storeProductsQuery select p.ConvertToModel()).ToListAsync();
+            return storeProducts;
+        }
+
+        private async Task<(DBStore, DBProduct)> ValidateStoreAndProduct(Store store, Product product)
+        {
+            var dbStore = await _db.Stores.FromSqlRaw("SELECT * FROM Store.Store WHERE StoreID = {0}", store.StoreId).FirstOrDefaultAsync();
+            if (dbStore == null)
+            {
+                throw new ArgumentException("Invalid store");
+            }
+            var dbProduct = await _db.Products.FromSqlRaw("SELECT * FROM Store.Product WHERE ProductID = {0}", product.ProductId).FirstOrDefaultAsync();
+            if (dbProduct == null)
+            {
+                throw new ArgumentException("Invalid product");
+            }
+            return (dbStore, dbProduct);
+        }
+
+        public async Task<List<Product>> AddStoreProduct(Store store, Product product)
+        {
+            var (dbStore, dbProduct) = await ValidateStoreAndProduct(store, product);
+            await _db.Database.ExecuteSqlRawAsync("INSERT INTO Store.StoreProduct (StoreID, ProductID, Quantity) VALUES ({0}, {1}, 1)", dbStore.StoreId, dbProduct.ProductId);
+            return await GetStoreProducts(dbStore.StoreId);
+        }
+
+        public async Task<List<Product>> RemoveStoreProduct(Store store, Product product)
+        {
+            var (dbStore, dbProduct) = await ValidateStoreAndProduct(store, product);
+            await _db.Database.ExecuteSqlRawAsync("DELETE FROM Store.StoreProduct WHERE ProductID = {0} AND StoreID = {1}", dbProduct.ProductId, dbStore.StoreId);
+            return await GetStoreProducts(dbStore.StoreId);
         }
     }
 

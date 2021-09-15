@@ -19,6 +19,7 @@ namespace Project1.StoreApplication.Storage
         /// </summary>
         /// <returns></returns>
         Task<List<Product>> GetProducts();
+        Task<Product> GetProduct(Product product);
         Task<List<Product>> GetProducts(Store store);
         Task<Product> AddProduct(Product product);
 
@@ -29,12 +30,15 @@ namespace Project1.StoreApplication.Storage
         Task<List<Store>> GetStores();
         Task<Store> GetStore(int storeId);
         Task<Store> AddStore(Store store);
+        Task<List<Product>> AddStoreProduct(Store store, Product product);
+        Task<List<Product>> RemoveStoreProduct(Store store, Product product);
 
         /// <summary>
         /// Get list of all customers
         /// </summary>
         /// <returns></returns>
         Task<List<Customer>> GetCustomers();
+        Task<Customer> GetCustomer(Customer customer);
         Task<Customer> AddCustomer(Customer customer);
 
         Task<Customer> GetLogin(string username, string password);

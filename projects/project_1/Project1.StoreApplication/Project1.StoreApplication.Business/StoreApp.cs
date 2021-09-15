@@ -1,4 +1,5 @@
-﻿using Project1.StoreApplication.Models;
+﻿using Microsoft.Extensions.Logging;
+using Project1.StoreApplication.Models;
 using Project1.StoreApplication.Storage;
 using System;
 using System.Collections.Generic;
@@ -12,10 +13,12 @@ namespace Project1.StoreApplication.Business
     {
         private IStorage _db;
         private ICarts _carts;
-        public StoreApp(IStorage db, ICarts carts)
+        private ILogger<StoreApp> _logger;
+        public StoreApp(IStorage db, ICarts carts, ILogger<StoreApp> logger)
         {
             _db = db;
             _carts = carts;
+            _logger = logger;
         }
 
         public async Task<Customer> AddCustomer(Customer customer)
@@ -59,6 +62,15 @@ namespace Project1.StoreApplication.Business
             return prods;
         }
 
+        public async Task<List<Product>> AddProductToInventory(Store store, Product product)
+        {
+            return await _db.AddStoreProduct(store, product);
+        }
+        public async Task<List<Product>> RemoveProductFromInventory(Store store, Product product)
+        {
+            return await _db.RemoveStoreProduct(store, product);
+        }
+
         public async Task<Customer> LoginCustomer(string username, string password)
         {
             var cust = await _db.GetLogin(username, password);
@@ -77,9 +89,23 @@ namespace Project1.StoreApplication.Business
             return stores;
         }
 
+        public async Task<List<(Product, int)>> GetCart(Customer customer)
+        {
+            customer = await _db.GetCustomer(customer);
+            var cart = _carts.GetCart(customer);
+            return cart.GetCart();
+        }
+
         public async Task<List<(Product, int)>> AddProductToCart(Product product, Customer customer, int quantity = 1)
         {
+            customer = await _db.GetCustomer(customer);
+            product = await _db.GetProduct(product);
             var cart = _carts.GetCart(customer);
+            _logger.LogInformation($"Getting cart for customer {customer}, id {customer.CustomerId}");
+            foreach (var (p, q) in cart.GetCart())
+            {
+                _logger.LogInformation($"product {p.ProductId} in cart with quantity {q}");
+            }
             var curQuantity = cart.GetQuantity(product);
             if (curQuantity > 0)
             {
@@ -89,13 +115,21 @@ namespace Project1.StoreApplication.Business
             {
                 cart.AddProduct(product, quantity);
             }
+            _logger.LogInformation($"Checking new cart for customer {customer}, id {customer.CustomerId}");
+            foreach (var (p, q) in cart.GetCart())
+            {
+                _logger.LogInformation($"product {p.ProductId} in cart with quantity {q}");
+            }
             return cart.GetCart();
         }
 
         public async Task<List<(Product, int)>> RemoveProductFromCart(Product product, Customer customer, int quantity = 1)
         {
+            customer = await _db.GetCustomer(customer);
+            product = await _db.GetProduct(product);
             var cart = _carts.GetCart(customer);
             var curQuantity = cart.GetQuantity(product);
+            _logger.LogInformation($"Removing quantity {quantity} of product {product} from cart of {customer} with current quantity {curQuantity}");
             if (curQuantity < quantity)
             {
                 throw new ArgumentOutOfRangeException("Quantity must be less than or equal to number currently in cart");
