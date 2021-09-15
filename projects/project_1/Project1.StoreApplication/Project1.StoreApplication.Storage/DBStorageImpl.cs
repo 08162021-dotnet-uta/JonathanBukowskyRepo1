@@ -129,12 +129,20 @@ namespace Project1.StoreApplication.Storage
             }
             _logger.LogInformation("Done attaching products to order object");
         }
+
+        private async Task AttachOrderInfo(DBOrder order)
+        {
+            order.Customer = await _db.Customers.FromSqlRaw("SELECT * FROM Customer.Customer WHERE CustomerID = {0}", order.CustomerId).FirstAsync();
+            order.Store = await _db.Stores.FromSqlRaw("SELECT * FROM Store.Store WHERE StoreID = {0}", order.StoreId).FirstAsync();
+        }
+
         public async Task<List<Order>> GetOrders()
         {
             var ords = await _db.Orders.FromSqlRaw("SELECT * FROM Store.[Order]").ToListAsync();
             foreach (var order in ords)
             {
                 await AttachProductsToOrder(order);
+                await AttachOrderInfo(order);
             }
             return ords.ConvertAll(o => o.ConvertToModel());
         }
@@ -145,6 +153,7 @@ namespace Project1.StoreApplication.Storage
             foreach (var order in ords)
             {
                 await AttachProductsToOrder(order);
+                await AttachOrderInfo(order);
             }
             return ords.ConvertAll(o => o.ConvertToModel());
         }
@@ -155,6 +164,7 @@ namespace Project1.StoreApplication.Storage
             foreach (var order in ords)
             {
                 await AttachProductsToOrder(order);
+                await AttachOrderInfo(order);
             }
             return ords.ConvertAll(o => o.ConvertToModel());
         }

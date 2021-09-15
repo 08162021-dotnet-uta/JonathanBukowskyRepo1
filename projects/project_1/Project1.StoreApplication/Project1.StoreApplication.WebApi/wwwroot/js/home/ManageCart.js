@@ -9,27 +9,6 @@ function GetRemoveFromCartButtonFunc(customerId) {
     return (storeId, product) => `<button onclick="RemoveFromCart(${customerId}, ${storeId}, ${product.productId})">Remove</button>`;
 }
 
-function DisplayOrder(order) {
-    var html = '<h4>Order:</h4>'
-        + `<div><p>Created By ${order.customer.firstName} ${order.customer.lastName}</p>`
-        + `<p>Store Location: ${order.store.name}</p>`
-        + `<ul>`;
-    let cost = 0.0;
-    order.products.forEach(product => {
-        let quantity = (product.quantity) ? product.quantity : 1;
-        let subtotal = product.price * quantity;
-        cost += subtotal;
-        html += '<li>'
-            + `<p>${product.name} - ${product.description}</p>`
-            + `<p>Price: ${product.price}</p>`
-            + `<p>Quantity: ${quantity}</p>`
-            + `<p>Subtotal: ${subtotal}</p>`
-            +`</li>`
-    })
-    html += `</ul><p>Total: ${cost}</p></div>`;
-    return html;
-}
-
 function Checkout(customerId, storeId) {
     fetch(`/api/customers/${customerId}/checkout/${storeId}`, {
         method: "POST"

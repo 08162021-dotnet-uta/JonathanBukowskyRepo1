@@ -84,5 +84,12 @@ namespace Project1.StoreApplication.WebApi.Controllers
         {
             return await _app.AddStore(store);
         }
+
+        [HttpGet("{storeId}/orders")]
+        public async Task<List<Order>> GetOrders(int storeId)
+        {
+            var orders = await _app.GetOrderHistory(new Store() { StoreId = storeId });
+            return orders;
+        }
     }
 }
