@@ -188,9 +188,12 @@ namespace Project1.StoreApplication.Storage
 
         public async Task<List<Product>> GetProducts(Store store)
         {
+            /*
             var prodQuery = _db.Products.FromSqlRaw("SELECT p.* FROM Store.Product p INNER JOIN Store.StoreProduct sp ON sp.ProductID = p.ProductID "
                 + "WHERE sp.StoreID = {0}", store.StoreId);
             var prods = await (from p in prodQuery select p.ConvertToModel()).ToListAsync();
+            */
+            var prods = await GetStoreProducts(store.StoreId);
             return prods;
         }
 
@@ -266,11 +269,32 @@ namespace Project1.StoreApplication.Storage
             return s.ConvertToModel();
         }
 
+        private async Task AttachInventoryQuantities(int storeId, Product product)
+        {
+            var storeProd = await _db.StoreProducts.FromSqlRaw("SELECT * FROM Store.StoreProduct WHERE StoreID = {0} AND ProductID = {1}",
+                storeId,
+                product.ProductId
+            ).FirstAsync();
+            _logger.LogInformation($"Attaching Quantity {storeProd.Quantity} to product {product.ProductId}");
+            // For whatever reason, Entity framework is not getting a fresh instance of StoreProduct entities here.
+            //  This next line will force a reload from the database. This is fixing my issues.
+            //  I found this solution in the discussion here:
+            //    https://stackoverflow.com/questions/30524438/property-not-updated-after-savechanges-ef-database-first
+            await _db.Entry(storeProd).ReloadAsync();
+            _logger.LogInformation($"Attaching updated Quantity {storeProd.Quantity} to product {product.ProductId}");
+            product.Quantity = storeProd.Quantity;
+        }
+
         public async Task<List<Product>> GetStoreProducts(int storeId)
         {
+            _logger.LogInformation($"Getting products for store {storeId}");
             var storeProductsQuery = _db.Products.FromSqlRaw("SELECT p.* FROM Store.Product p INNER JOIN Store.StoreProduct sp ON p.ProductID = sp.ProductID "
                 + "WHERE sp.StoreID = {0}", storeId);
             var storeProducts = await (from p in storeProductsQuery select p.ConvertToModel()).ToListAsync();
+            foreach (var sp in storeProducts)
+            {
+                await AttachInventoryQuantities(storeId, sp);
+            }
             return storeProducts;
         }
 
@@ -289,10 +313,27 @@ namespace Project1.StoreApplication.Storage
             return (dbStore, dbProduct);
         }
 
+        // TODO: this method is currently set to increment product quantity by one. this is very bad, quantity should have its own place
         public async Task<List<Product>> AddStoreProduct(Store store, Product product)
         {
             var (dbStore, dbProduct) = await ValidateStoreAndProduct(store, product);
-            await _db.Database.ExecuteSqlRawAsync("INSERT INTO Store.StoreProduct (StoreID, ProductID, Quantity) VALUES ({0}, {1}, 1)", dbStore.StoreId, dbProduct.ProductId);
+            var storeProd = await _db.StoreProducts.FromSqlRaw("SELECT * FROM Store.StoreProduct WHERE StoreID = {0} AND ProductID = {1}",
+                dbStore.StoreId,
+                dbProduct.ProductId
+            ).FirstOrDefaultAsync();
+            if (storeProd == null)
+            {
+                await _db.Database.ExecuteSqlRawAsync("INSERT INTO Store.StoreProduct (StoreID, ProductID, Quantity) VALUES ({0}, {1}, 1)", dbStore.StoreId, dbProduct.ProductId);
+            }
+            else
+            {
+                await _db.Database.ExecuteSqlRawAsync("UPDATE Store.StoreProduct SET Quantity = {0} WHERE StoreID = {1} AND ProductID = {2}",
+                    storeProd.Quantity + 1,
+                    dbStore.StoreId,
+                    dbProduct.ProductId
+                );
+            }
+            await _db.SaveChangesAsync();
             return await GetStoreProducts(dbStore.StoreId);
         }
 
@@ -300,6 +341,7 @@ namespace Project1.StoreApplication.Storage
         {
             var (dbStore, dbProduct) = await ValidateStoreAndProduct(store, product);
             await _db.Database.ExecuteSqlRawAsync("DELETE FROM Store.StoreProduct WHERE ProductID = {0} AND StoreID = {1}", dbProduct.ProductId, dbStore.StoreId);
+            await _db.SaveChangesAsync();
             return await GetStoreProducts(dbStore.StoreId);
         }
     }
