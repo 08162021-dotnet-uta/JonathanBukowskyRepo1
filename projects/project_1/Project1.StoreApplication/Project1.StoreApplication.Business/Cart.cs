@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 
 namespace Project1.StoreApplication.Business
 {
+
+    // TODO: I don't think this is safe for concurrency
     public class Cart : ICart
     {
         private Dictionary<Product, int> Products;

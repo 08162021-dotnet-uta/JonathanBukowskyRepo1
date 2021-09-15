@@ -13,9 +13,7 @@ function DisplayProductTable(products, storeId, getButton) {
             prodDisplay += `<td>${product.name}</td>`;
             prodDisplay += `<td>${product.price}</td>`;
             prodDisplay += `<td>${product.description}</td>`;
-            if (product.quantity > 0) {
-                prodDisplay += `<td>${product.quantity}</td>`;
-            }
+            prodDisplay += `<td>${product.quantity > 0 ? product.quantity : ""}</td>`;
             prodDisplay += `<td>${getButton(storeId, product)}</td>`;
             prodDisplay += "</tr>";
         });
@@ -69,7 +67,9 @@ function ViewInventory() {
     let homeDiv = document.querySelector(".home-content");
     let store = JSON.parse(sessionStorage.getItem("selectedStore"));
     console.log(`Manage Inventory for ${store.name}`);
-    homeDiv.innerHTML = '<h2>Products:</h2><div class="store-products-content"></div><div class="all-products-content"></div>';
+    homeDiv.innerHTML = '<h2>Manage Inventory:</h2>'
+        + '<div><h3>Inventory:</h3><div class="store-products-content"></div></div>'
+        + '<div><h3>Products:</h3><div class="all-products-content"></div></div>';
     fetch(`/api/stores/${store.storeId}/products`)
         .then(res => {
             return res.json();
