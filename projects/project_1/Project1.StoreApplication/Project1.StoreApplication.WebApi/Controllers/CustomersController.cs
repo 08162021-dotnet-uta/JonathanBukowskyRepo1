@@ -103,7 +103,9 @@ namespace Project1.StoreApplication.WebApi.Controllers
         [HttpPost("{customerId}/checkout/{storeId}")]
         public async Task<Order> Checkout(int customerId, int storeId)
         {
+            _logger.LogInformation($"Checking out customer {customerId} from store {storeId}...");
             var order = await _app.Checkout(new Customer() { CustomerId = customerId }, new Store() { StoreId = storeId });
+            _logger.LogInformation($"Recieved order {order.OrderID} from checkout operation");
             return order;
         }
 

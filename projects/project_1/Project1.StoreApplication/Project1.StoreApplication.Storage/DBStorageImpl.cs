@@ -7,22 +7,24 @@ using Microsoft.EntityFrameworkCore;
 using Project1.StoreApplication.Models;
 using Project1.StoreApplication.Storage.DBModels;
 using Project1.StoreApplication.Storage.DBConverters;
+using Microsoft.Extensions.Logging;
 
 namespace Project1.StoreApplication.Storage
 {
     public class DBStorageImpl : IStorage
     {
         private readonly StoreApplicationDB2Context _db;
-
+        private readonly ILogger<DBStorageImpl> _logger;
         /*
         public DBStorageImpl() : base()
         {
             _db = new StoreApplicationDB2Context();
         }
         */
-        public DBStorageImpl(StoreApplicationDB2Context db) : base()
+        public DBStorageImpl(StoreApplicationDB2Context db, ILogger<DBStorageImpl> logger) : base()
         {
             _db = db;
+            _logger = logger;
         }
 
         public async Task<Order> CreateOrder(Customer customer, Store store, List<(Product, int)> products)
@@ -40,6 +42,9 @@ namespace Project1.StoreApplication.Storage
             {
                 return null;
             }
+            // TODO: just use CURRENT_TIMESTAMP? I originally added this in because we had a constraint to check that orderdate <= GETTIME(),
+            //  and making the order 1 min in the past was fixing that, but I don't think that's a good solution
+            _logger.LogInformation($"Creating order for user {customer.CustomerId} at store {store.StoreId}");
             await _db.Database.ExecuteSqlRawAsync("INSERT INTO Store.[Order] (CustomerID, StoreID, OrderDate)" +
                 " VALUES ({0}, {1}, DATEADD(minute, -1, CURRENT_TIMESTAMP))", customer.CustomerId, store.StoreId);
             await _db.SaveChangesAsync();
@@ -54,16 +59,24 @@ namespace Project1.StoreApplication.Storage
             {
                 throw new DbUpdateException("Error saving order to db");
             }
+            _logger.LogInformation($"Saved order to databse with id {result.OrderId}");
             foreach (var (product, quantity) in products)
             {
+                _logger.LogInformation($"Saving product {product.ProductId} to order {result.OrderId} with quantity {quantity}");
                 _db.Database.ExecuteSqlRaw("INSERT INTO Store.OrderProduct (OrderID, ProductID, Quantity) VALUES ({0}, {1}, {2})",
                     result.OrderId,
                     product.ProductId,
                     quantity
                 );
+                _logger.LogInformation($"Product {product.ProductId} inserted");
             }
+            await _db.SaveChangesAsync();
+            _logger.LogInformation($"Order data saved, attaching products to result");
             await AttachProductsToOrder(result);
-            return result.ConvertToModel();
+            _logger.LogInformation($"Converting order object to model");
+            var orderModel = result.ConvertToModel();
+            _logger.LogInformation($"Done converting, got orderModel for order {orderModel.OrderID}, with {orderModel.Products.Count} products");
+            return orderModel;
         }
 
         public async Task<List<Customer>> GetCustomers()
@@ -97,15 +110,24 @@ namespace Project1.StoreApplication.Storage
         }
 
 
-        private static readonly string _orderSubQuery =
-            "SELECT p.* " +
+        private static readonly string _orderSubQueryOrderProducts =
+            "SELECT op.* " +
             "FROM Store.OrderProduct AS op " +
-            "INNER JOIN Store.Product AS p " +
-                "ON p.ProductID = op.ProductID " +
             "WHERE op.OrderID = {0}";
+        private static readonly string _orderProductSubQuery =
+            "SELECT * FROM Store.Product WHERE ProductID = {0}";
         private async Task AttachProductsToOrder(DBOrder order)
         {
-            order.OrderProducts = await _db.OrderProducts.FromSqlRaw(_orderSubQuery, order.OrderId).ToListAsync();
+            _logger.LogInformation($"Getting orderProducts for order {order.OrderId}");
+            order.OrderProducts = await _db.OrderProducts.FromSqlRaw(_orderSubQueryOrderProducts, order.OrderId).ToListAsync();
+            _logger.LogInformation($"{order.OrderProducts.Count} orderProducts found for order {order.OrderId}");
+            foreach (var op in order.OrderProducts)
+            {
+                _logger.LogInformation($"Getting product for orderproduct {op.OrderProductId}, to replace {op.Product}");
+                op.Product = await _db.Products.FromSqlRaw(_orderProductSubQuery, op.ProductId).FirstAsync();
+                _logger.LogInformation($"Got product information for product {op.Product.ProductId}");
+            }
+            _logger.LogInformation("Done attaching products to order object");
         }
         public async Task<List<Order>> GetOrders()
         {

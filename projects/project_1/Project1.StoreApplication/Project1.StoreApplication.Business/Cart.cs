@@ -84,5 +84,10 @@ namespace Project1.StoreApplication.Business
             }
             Products.Remove(product);
         }
+
+        public void ClearCart()
+        {
+            Products.Clear();
+        }
     }
 }

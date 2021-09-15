@@ -9,12 +9,51 @@ function GetRemoveFromCartButtonFunc(customerId) {
     return (storeId, product) => `<button onclick="RemoveFromCart(${customerId}, ${storeId}, ${product.productId})">Remove</button>`;
 }
 
+function DisplayOrder(order) {
+    var html = '<h4>Order:</h4>'
+        + `<div><p>Created By ${order.customer.firstName} ${order.customer.lastName}</p>`
+        + `<p>Store Location: ${order.store.name}</p>`
+        + `<ul>`;
+    let cost = 0.0;
+    order.products.forEach(product => {
+        let quantity = (product.quantity) ? product.quantity : 1;
+        let subtotal = product.price * quantity;
+        cost += subtotal;
+        html += '<li>'
+            + `<p>${product.name} - ${product.description}</p>`
+            + `<p>Price: ${product.price}</p>`
+            + `<p>Quantity: ${quantity}</p>`
+            + `<p>Subtotal: ${subtotal}</p>`
+            +`</li>`
+    })
+    html += `</ul><p>Total: ${cost}</p></div>`;
+    return html;
+}
+
+function Checkout(customerId, storeId) {
+    fetch(`/api/customers/${customerId}/checkout/${storeId}`, {
+        method: "POST"
+    }).then(res => {
+        return res.json();
+    }).then(data => {
+        console.log("order", data);
+        let container = document.querySelector(".status");
+        container.innerHTML = DisplayOrder(data);
+    });
+}
+
+function GetCheckoutButton(customerId, storeId) {
+    return `<button onclick="Checkout(${customerId},${storeId})">Checkout</button>`;
+}
+
 function EditCart() {
     let homeDiv = document.querySelector(".home-content");
     console.log("Edit cart");
-    homeDiv.innerHTML = '<h2>Cart:</h2><div class="cart-content"></div><div class="product-list"></div>';
     let cust = JSON.parse(sessionStorage.getItem("user"));
     let selectedStore = JSON.parse(sessionStorage.getItem("selectedStore"));
+    let checkoutButtonHTML = GetCheckoutButton(cust.customerId, selectedStore.storeId);
+    console.log("checkoutButton", checkoutButtonHTML);
+    homeDiv.innerHTML = `<h2>Cart:</h2><div><div class="cart-content"></div><div class="product-list"></div>${checkoutButtonHTML}</div>`;
     fetch(`/api/customers/${cust.customerId}/cart/${selectedStore.storeId}`)
         .then(res => {
             return res.json()

@@ -14,5 +14,6 @@ namespace Project1.StoreApplication.Business
         int GetQuantity(Product product);
         void SetQuantity(Product product, int quantity);
         void RemoveProduct(Product product);
+        void ClearCart();
     }
 }

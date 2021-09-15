@@ -156,6 +156,7 @@ namespace Project1.StoreApplication.Business
             var cart = _carts.GetCart(customer, store);
             var prods = cart.GetCart();
             var order = await _db.CreateOrder(customer, store, prods);
+            cart.ClearCart();
             return order;
         }
 
