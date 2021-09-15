@@ -29,7 +29,7 @@ namespace Project1.StoreApplication.WebApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<StoreApplicationDB2Context>();
-            services.AddSingleton<ICarts, CartManager>();
+            services.AddSingleton<ICarts, CartManager<Cart>>();
             services.AddScoped<IStorage, DBStorageImpl>();
             services.AddScoped<StoreApp>();
 

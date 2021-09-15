@@ -5,8 +5,8 @@ function login(e) {
     e.preventDefault();
 
     let form = e.target.parentElement;
-    let username = form[0].value;
-    let password = form[1].value;
+    let username = form.username.value;
+    let password = form.password.value;
     let reqObj =
     {
         username,

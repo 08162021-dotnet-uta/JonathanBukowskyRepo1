@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace Project1.StoreApplication.Business
 {
-    public class CartManager : ICarts
+    public class CartManager<T> : ICarts where T : ICart, new()
     {
         // TODO: Use interface instead of concrete class?
-        private Dictionary<(Customer, Store), Cart> _carts;
+        private Dictionary<(Customer, Store), T> _carts;
         public CartManager()
         {
             _carts = new();
@@ -21,7 +21,7 @@ namespace Project1.StoreApplication.Business
             var key = (customer, store);
             if (!_carts.ContainsKey(key))
             {
-                _carts[key] = new Cart();
+                _carts[key] = new T();
             }
             return _carts[key];
         }
