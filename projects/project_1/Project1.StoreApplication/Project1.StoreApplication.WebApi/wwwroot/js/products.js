@@ -37,7 +37,7 @@ function RemoveProducts(container) {
     });
     */
     console.log("container", container);
-    ModelObject.RemoveGeneratedElements(container, 'generated-product');
+    Models.RemoveGeneratedElements(container, 'generated-product');
 }
 
 /*
@@ -57,7 +57,7 @@ function DisplayProducts(products, container) {
     console.log("template", template);
     console.log("products", products);
     products.forEach(product => {
-        let productElm = (new Product.Product(product)).CreateElementFromTemplate(template);
+        let productElm = (new Models.Product(product)).CreateElementFromTemplate(template);
         container.appendChild(productElm);
     });
 }
