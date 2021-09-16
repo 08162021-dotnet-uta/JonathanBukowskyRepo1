@@ -1,11 +1,17 @@
 ﻿
-/*
-class Order {
-    constructor(data) {
+if (Order === undefined) {
+    if (ModelObject === undefined) {
+        throw new Error("Must include ModelObject");
     }
-}
-*/
+    var Order = (function () {
+        class Order extends ModelObject.ModelObject {
+            constructor(data) {
+            }
+        }
 
-function Order(data) {
-    this.orderId = data.orderId;
+        return {
+            Order
+        }
+    })();
 }
+

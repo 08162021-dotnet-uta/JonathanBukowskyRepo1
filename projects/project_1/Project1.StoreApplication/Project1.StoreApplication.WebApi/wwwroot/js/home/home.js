@@ -116,8 +116,6 @@ function DisplayOrder(order) {
         DisplayOrderProducts(order) +
         '</div>' +
         '</div>' +
-        '<div class="row">' +
-        '</div>' +
         '</div>' +
         '</div>';
     return html;

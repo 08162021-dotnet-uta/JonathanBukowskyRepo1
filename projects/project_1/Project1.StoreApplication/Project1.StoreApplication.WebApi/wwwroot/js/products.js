@@ -28,19 +28,36 @@ function CreateProductFromTemplate(template, product) {
 }
 
 function RemoveProducts(container) {
+    /*
     let products = Array.from(container.getElementsByClassName("generated-product"));
-    console.log("products: ", products);
+    console.log("products to remove: ", products);
     if (!products) return;
     products.forEach(child => {
         container.removeChild(child);
     });
+    */
+    console.log("container", container);
+    ModelObject.RemoveGeneratedElements(container, 'generated-product');
 }
+
+/*
+function DisplayProducts(products, container) {
+    let template = document.querySelector('.template-product');
+    console.log("template", template);
+    console.log("products", products);
+    products.forEach(product => {
+        let productElm = CreateProductFromTemplate(template, product);
+        container.appendChild(productElm);
+    });
+}
+*/
 
 function DisplayProducts(products, container) {
     let template = document.querySelector('.template-product');
     console.log("template", template);
+    console.log("products", products);
     products.forEach(product => {
-        let productElm = CreateProductFromTemplate(template, product);
+        let productElm = (new Product.Product(product)).CreateElementFromTemplate(template);
         container.appendChild(productElm);
     });
 }
