@@ -11,7 +11,7 @@ function LoadOrders(type, container, template) {
         Models.RemoveGeneratedElements(container, 'generated-order');
         elms.forEach(ord => {
             let order = new Models.Order(ord);
-            let elm = order.CreateElementFromTemplate(template, 'template-order', true);
+            let elm = order.CreateElementFromTemplate(template, 'template-order');
             container.appendChild(elm);
         });
     }
