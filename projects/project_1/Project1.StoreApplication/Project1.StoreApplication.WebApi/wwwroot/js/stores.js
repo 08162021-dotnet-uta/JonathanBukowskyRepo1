@@ -48,6 +48,9 @@ function CreateStoreHtmlFromTemplate(template, store) {
 function DisplayStores(stores, container) {
     let templateStore = document.querySelector(".template-store");
     //let container = document.querySelector(".storeList")
+    while (container.firstChild) {
+        container.removeChild(container.firstChild);
+    }
     stores.forEach(store => {
         let newStore = CreateStoreHtmlFromTemplate(templateStore, store);
         console.log(newStore);

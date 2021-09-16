@@ -5,6 +5,7 @@ function DisplayProduct(product) {
     return `<p>Product: ${product.name} Price: ${product.price} Description: ${product.description}</p>`;
 }
 
+
 function DisplayProductTable(products, storeId, getButton) {
     let prodDisplay = "<table><thead><tr><th>Name</th><th>Price</th><th>Description</th><th>Quantity</th><th></th></tr></thead><tbody>";
     if (products !== undefined) {
