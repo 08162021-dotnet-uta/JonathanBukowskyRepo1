@@ -22,6 +22,7 @@ function DisplayProductTable(products, storeId, getButton) {
     return prodDisplay;
 }
 
+/*
 function DisplayOrder(order) {
     var html = '<h4>Order:</h4>'
         + `<div><p>Created By ${order.customer.firstName} ${order.customer.lastName}</p>`
@@ -40,6 +41,84 @@ function DisplayOrder(order) {
             + `</li>`
     })
     html += `</ul><p>Total: ${cost}</p></div>`;
+    return html;
+}
+*/
+
+var OrderProductsHeader =
+    '<div class="row larger-text">' +
+    '<div class="col-md-3">' +
+        '<p>Product</p>' +
+    '</div>' +
+    '<div class="col-md-3">' +
+        '<p>Price</p>' +
+    '</div>' +
+    '<div class="col-md-3">' +
+        '<p>Quantity</p>' +
+    '</div>' +
+    '<div class="col-md-3">' +
+        '<p>Subtotal</p>' +
+    '</div>' +
+    '</div>';
+
+function DisplayOrderProducts(order) {
+    let rowsHtml = "";
+    let total = 0;
+    order.products.forEach(product => {
+        let subtotal = product.quantity * product.price;
+        total += subtotal;
+        rowsHtml +=
+            '<div class="row">' +
+                '<div class="col-md-3">' +
+                    `<p>${product.name}</p>` +
+                '</div>' +
+                '<div class="col-md-3">' +
+                    `<p>${product.price}</p>` +
+                '</div>' +
+                '<div class="col-md-3">' +
+                    `<p>${product.quantity}</p>` +
+                '</div>' +
+                '<div class="col-md-3">' +
+                    `<p>${subtotal}</p>` +
+                '</div>' +
+            '</div>';
+    });
+    let html = 
+        '<div class="container">' +
+            OrderProductsHeader +
+            rowsHtml +
+            '<div class="row">' +
+                '<div class="col-md-10">' +
+                '</div>' +
+                '<div class="col-md-2">' +
+                    `<p>Total: ${total}</p>` +
+                '</div>'
+            '</div>' +
+        '</div>'
+    return html;
+}
+
+function DisplayOrder(order) {
+    let html =
+        '<div class="row order">' +
+        '<div class="container">' +
+        '<div class="row">' +
+        '<div class="col order-header"><h4 class="center-text larger-text">Order</h4></div>' +
+        '</div>' +
+        '<div class="row center-text">' +
+        `<div class="col-md-6"><p>Customer: ${order.customer.firstName} ${order.customer.lastName}</p></div>` +
+        `<div class="col-md-6"><p>Store: ${order.store.name}</p></div>` +
+        '</div>' +
+        '<div class="row">' +
+        '<div class="col-md-2"></div>' +
+        '<div class="col-md-10">' +
+        DisplayOrderProducts(order) +
+        '</div>' +
+        '</div>' +
+        '<div class="row">' +
+        '</div>' +
+        '</div>' +
+        '</div>';
     return html;
 }
 
