@@ -3,17 +3,50 @@
 # Add steps that build, run tests, deploy, and more:
 # https://aka.ms/yaml
 
+variables:
+  pathToP1: projects/project_1/Project1.StoreApplication
+  pathToP1Sln: $(pathToP1)/Project1.StoreApplication.sln
+  buildConfiguration: 'Dev'
+
 trigger:
-- main
+  branches:
+    include:
+      - main
+  paths:
+    include:
+      - $(pathToP1)/*
+  
 
 pool:
   vmImage: ubuntu-latest
 
-steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
-
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+stages:
+  - stage: Build
+    jobs:
+      - job: buildJob
+        steps:
+#          - task: DotNetCoreCLI@2
+#            displayName: 'install .NET 5 sdk'
+#            inputs:
+#              packageType: 'sdk'
+#              version: '5.0.x'
+          - task: NuGetToolInstaller@1
+          - task: NuGetCommand@2
+            inputs:
+              command: restore
+              restoreSolution: '$(pathToSln)'
+#      - job: SonarCloud
+#        steps:
+  - stage: Publish
+    jobs:
+      - job: publish
+        steps:
+          - task: DotNetCoreCLI@2
+            displayName: 'Publish p1'
+            inputs:
+             command: 'publish'
+             publishWebProjects: true
+             projects: $(pathToSln)
+             zipAfterPublish: true
+          
+          #- task:
