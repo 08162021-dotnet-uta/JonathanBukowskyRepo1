@@ -209,6 +209,12 @@ div.page-content {
 
 .order-header {
     border: 2px solid black;
+    /* z-index: 3; */
+}
+
+.order-body {
+    border: 2px dashed black;
+    border-top: none;
 }
 
 .login-nav {
@@ -217,6 +223,14 @@ div.page-content {
 
 .margin-md {
     margin: 7px;
+}
+
+.margin-bottom-lg {
+    margin-bottom: 12px;
+}
+
+.margin-bottom-md {
+    margin-bottom: 7px;
 }
 
 .hidden {
