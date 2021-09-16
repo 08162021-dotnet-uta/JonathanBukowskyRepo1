@@ -194,3 +194,7 @@ div.page-content {
     border: 2px solid black;
 }
 
+.login-nav {
+    display: none;
+}
+
