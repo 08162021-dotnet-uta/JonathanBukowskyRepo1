@@ -9,13 +9,50 @@ function PopulateStores() {
         .then(res => res.json())
         .then(data => {
             console.log(data)
-            let htmlContent = "";
-            data.forEach((store) => {
-                htmlContent += DisplayStore(store);
-            });
-            storeDiv.innerHTML = `${htmlBeginContent}${htmlContent}${htmlEndContent}`;
+            //storeDiv.innerHTML = DisplayStores(data);
+            DisplayStores(data, storeDiv);
         });
 
+}
+
+/*
+function DisplayStores(stores) {
+    let htmlContent = "";
+    stores.forEach((store) => {
+        htmlContent += DisplayStore(store);
+    });
+    return htmlBeginContent + htmlContent + htmlEndContent;
+}
+*/
+
+function CreateStoreHtmlFromTemplate(template, store) {
+    let newElem = template.cloneNode(true);
+    let fakeDoc = new DocumentFragment();
+    let selectedId;
+    if (sessionStorage.selectedStore) {
+        selectedId = JSON.parse(sessionStorage.selectedStore).storeId;
+    }
+    fakeDoc.appendChild(newElem);
+    let name = fakeDoc.querySelector(".template-store-name");
+    name.classList.remove("template-store-name");
+    name.textContent = store.name;
+    let button = fakeDoc.querySelector(".template-store-button");
+    let buttonHTML = getButtonHTML(store, selectedId);
+    button.classList.remove("template-store-button");
+    button.innerHTML = buttonHTML;
+    newElem.classList.remove("template-store");
+
+    return newElem;
+}
+
+function DisplayStores(stores, container) {
+    let templateStore = document.querySelector(".template-store");
+    //let container = document.querySelector(".storeList")
+    stores.forEach(store => {
+        let newStore = CreateStoreHtmlFromTemplate(templateStore, store);
+        console.log(newStore);
+        container.appendChild(newStore);
+    });
 }
 
 function chooseStore(storeId) {
@@ -31,7 +68,7 @@ function chooseStore(storeId) {
                 throw new Exception("Error selecting store");
             }
         }).catch(err => {
-            console.log(err)
+            console.log("chooseStoreError: ", err);
         });
 }
 

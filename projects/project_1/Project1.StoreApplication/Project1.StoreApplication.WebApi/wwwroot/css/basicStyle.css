@@ -10,7 +10,7 @@ body {
 
 header {
     min-height: 50px;
-    background-color: lightcyan;
+    background-color: #8B0000; /* darkred */
     z-index: 10;
 }
 
@@ -122,8 +122,10 @@ div.page-content {
     /* align-items: center; */
 }
 
-.col {
+[class^='col'] {
     flex: auto;
+    display: flex;
+    justify-content: center;
 }
 
 .col-md-3 {
@@ -131,11 +133,15 @@ div.page-content {
 }
 
 .col-md-4 {
-    flex: 1 0 33%;
+    flex: 1 0 33.3333%;
     /*
     display: flex;
     align-content: center;
     */
+}
+
+.col-md-8 {
+    flex: 1 0 66.666%;
 }
 
 .col-md-6 {
@@ -186,6 +192,10 @@ div.page-content {
     font-size: larger;
 }
 
+.strong-text {
+    font-weight: bold;
+}
+
 .order {
     border: 2px solid black;
 }
@@ -195,6 +205,14 @@ div.page-content {
 }
 
 .login-nav {
+    display: none;
+}
+
+.margin-md {
+    margin: 7px;
+}
+
+.hidden {
     display: none;
 }
 

@@ -4,7 +4,7 @@ function login(e) {
     console.log("Logging in...");
     e.preventDefault();
 
-    let form = e.target.parentElement;
+    let form = document.querySelector(".login-form");
     let username = form.username.value;
     let password = form.password.value;
     let reqObj =

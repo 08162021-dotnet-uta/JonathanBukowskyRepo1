@@ -2,7 +2,8 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <title></title>
+    <title>Stores</title>
+    <link href="/css/basicStyle.css" rel="stylesheet" />
 </head>
 <body>
     <div class="hero-content">
@@ -10,16 +11,37 @@
     <header class="sticky-header">
         <nav class="nav">
             <a href="/html/home.html">Home</a>
-            <a class="nav-current-page" href="/html/customers.html">Customers</a>
-            <a href="/html/stores.html">Stores</a>
+            <a href="/html/customers.html">Customers</a>
+            <a class="nav-current-page" href="/html/stores.html">Stores</a>
             <a href="/html/products.html">Products</a>
             <a href="/html/orders.html">Orders</a>
         </nav>
     </header>
     <div class="page-content">
-        <h1>Select a store</h1>
-        <div id="storeList">
-
+        <div class="row">
+            <div class="col">
+                <h1>Select a store</h1>
+            </div>
+        </div>
+        <div id="storeList" class="container">
+        </div>
+        <div class="container hidden">
+            <div class="template-store row">
+                <div class="col-md-4">
+                </div>
+                <div class="col-md-4">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <p class="template-store-name">Name</p>
+                        </div>
+                        <div class="col-md-4">
+                            <p class="template-store-button">Button</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                </div>
+            </div>
         </div>
     </div>
     <footer class="sticky-footer">
