@@ -43,6 +43,7 @@ namespace Project1.StoreApplication.Storage
         Task<Customer> AddCustomer(Customer customer);
 
         Task<Customer> GetLogin(string username, string password);
+        Task AddLogin(Customer customer, string username, string password);
 
         /// <summary>
         /// Get list of all orders

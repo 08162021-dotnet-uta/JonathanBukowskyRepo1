@@ -86,11 +86,23 @@ namespace Project1.StoreApplication.WebApi.Controllers
             return ConvertToJSON(cart);
         }
 
-        [HttpPost("add")]
-        public async Task<Customer> AddCustomer([FromForm] Customer customer)
+        public class CreateCustomerData
         {
+            public string username { get; set; }
+            public string password { get; set; }
+            public string firstName { get; set; }
+            public string lastName { get; set; }
+        }
+
+        [HttpPost("add")]
+        [Consumes("application/json")]
+        public async Task<Customer> AddCustomer([FromBody] CreateCustomerData customer)
+        {
+            var cust = new Customer() { FirstName = customer.firstName, LastName = customer.lastName };
             //TODO: Validation
-            return await _app.AddCustomer(customer);
+            var addedCust = await _app.AddCustomer(cust);
+            await _app.AddCustomerLogin(addedCust, customer.username, customer.password);
+            return addedCust;
         }
 
         [HttpGet("{customerId}/orders")]

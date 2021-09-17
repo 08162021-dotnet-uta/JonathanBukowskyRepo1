@@ -32,6 +32,11 @@ namespace Project1.StoreApplication.Business
             return cust;
         }
 
+        public async Task AddCustomerLogin(Customer customer, string username, string password)
+        {
+            await _db.AddLogin(customer, username, password);
+        }
+
         public async Task<Product> AddProduct(Product product)
         {
             var prod = await _db.AddProduct(product);

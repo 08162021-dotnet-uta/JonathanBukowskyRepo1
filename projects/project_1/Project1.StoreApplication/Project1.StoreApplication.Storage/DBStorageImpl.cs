@@ -96,6 +96,23 @@ namespace Project1.StoreApplication.Storage
         }
 
 
+        public async Task AddLogin(Customer customer, string username, string password)
+        {
+            if (username == "")
+            {
+                throw new ArgumentException("Username must have a value");
+            }
+            if (password == "")
+            {
+                throw new ArgumentException("Password must have a value");
+            }
+            await _db.Database.ExecuteSqlRawAsync("INSERT INTO Customer.CustomerLogin (Username, Password, CustomerID) VALUES ({0}, {1}, {2})",
+                username,
+                password,
+                customer.CustomerId
+            );
+        }
+
         public async Task<Customer> GetLogin(string username, string password)
         {
             var login = await _db.CustomerLogins.FromSqlRaw("SELECT * FROM Customer.CustomerLogin WHERE Username = {0} AND Password = {1}",
