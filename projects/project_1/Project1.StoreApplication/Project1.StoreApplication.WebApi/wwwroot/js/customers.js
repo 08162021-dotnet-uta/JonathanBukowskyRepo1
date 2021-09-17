@@ -36,6 +36,12 @@ window.addEventListener('load', function () {
 
     let filterInput = document.querySelector("#input-filter-name");
     console.log("filter: ", filterInput);
+
+    let addCustBtn = document.querySelector(".add-customer-button");
+    addCustBtn.addEventListener('click', function () {
+        window.location.href = "/html/addCustomer.html";
+    });
+
     filterInput.addEventListener('input', function (e) {
         let filterText = e.target.value;
         FilterCustomers(filterText);
