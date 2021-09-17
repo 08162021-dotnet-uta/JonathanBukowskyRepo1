@@ -1,26 +1,33 @@
 ﻿
 function RedirectToLogin() {
+    alert("Please log in");
     window.location.href = "/index.html";
 }
 
 function ValidateLogin() {
     let userJSON = sessionStorage.user;
+    console.log("validate login", userJSON);
     if (!userJSON) {
-        RedirectToLogin();
+        console.log("1");
+        return RedirectToLogin();
     }
     let user;
     try {
-        user = JSON.parse()
-    } catch {
-        RedirectToLogin();
+        user = JSON.parse(userJSON);
+    } catch (e) {
+        console.log("2", e);
+        return RedirectToLogin();
     }
     if (!user) {
-        RedirectToLogin();
+        console.log("3");
+        return RedirectToLogin();
     }
     if (!user.customerId) {
-        RedirectToLogin();
+        console.log("4");
+        return RedirectToLogin();
     }
 }
 
-// could wait for page load, but that's not necessary
-ValidateLogin();
+window.addEventListener('load', function () {
+    ValidateLogin();
+})
