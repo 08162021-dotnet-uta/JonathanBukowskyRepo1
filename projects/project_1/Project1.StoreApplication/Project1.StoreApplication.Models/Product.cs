@@ -26,6 +26,9 @@ namespace Project1.StoreApplication.Models
         public string Description { get; set; }
         public int? CategoryID { get; set; }
 
+        // TODO: this will let me attach quantities to products, but this might not be a good place to put this.
+        public int Quantity { get; set; }
+
         public override int GetHashCode()
         {
             // Implementing GetHashCode to avoid compiler warnings.

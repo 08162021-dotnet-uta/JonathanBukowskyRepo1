@@ -9,6 +9,6 @@ namespace Project1.StoreApplication.Business
 {
     public interface ICarts
     {
-        ICart GetCart(Customer customer);
+        ICart GetCart(Customer customer, Store store);
     }
 }

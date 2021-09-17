@@ -36,8 +36,11 @@ namespace Project1.StoreApplication.Storage.DBConverters
             cust.CustomerId = customer.CustomerId;
             cust.FirstName = customer.FirstName;
             cust.LastName = customer.LastName;
+            // TODO: find a way to do this without circular logic
+            /*
             cust.Orders = (from o in customer.Orders
                           select o.ConvertToModel()).ToList();
+            */
             return cust;
         }
 
@@ -48,9 +51,17 @@ namespace Project1.StoreApplication.Storage.DBConverters
             Order o = new();
             o.OrderID = order.OrderId;
             o.Products = new();
-            foreach (var op in order.OrderProducts)
+            if (order.OrderProducts != null)
             {
-                o.Products.Add(op.Product.ConvertToModel());
+                foreach (var op in order.OrderProducts)
+                {
+                    if (op.Product != null)
+                    {
+                        var prod = op.Product.ConvertToModel();
+                        prod.Quantity = op.Quantity;
+                        o.Products.Add(prod);
+                    }
+                }
             }
             o.Store = order.Store.ConvertToModel();
             o.Customer = order.Customer.ConvertToModel();
@@ -64,7 +75,10 @@ namespace Project1.StoreApplication.Storage.DBConverters
             Store s = new();
             s.StoreId = store.StoreId;
             s.Name = store.Name;
+            // TODO: find a way to do this without circular logic
+            /*
             s.Orders = (from o in store.Orders select o.ConvertToModel()).ToList();
+            */
             return s;
         }
 

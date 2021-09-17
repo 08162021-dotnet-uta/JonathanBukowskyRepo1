@@ -12,7 +12,6 @@ namespace Project1.StoreApplication.Models
         // TODO: Reconsider which constructors are appropriate
         public Store()
         {
-            Name = "Generic store";
             Orders = new();
         }
         public Store(string name)
