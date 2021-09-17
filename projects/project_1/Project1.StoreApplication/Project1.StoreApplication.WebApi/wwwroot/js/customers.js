@@ -17,6 +17,27 @@ function LoadCustomers() {
         });
 }
 
+function FilterCustomers(filter) {
+    filter = filter.toLowerCase();
+    let customers = document.querySelectorAll('.generated-customer');
+    for (let c of customers) {
+        let fname = c.getElementsByClassName('generated-customer-firstName')[0].textContent.toLowerCase();
+        let lname = c.getElementsByClassName('generated-customer-lastName')[0].textContent.toLowerCase();
+        if (fname.includes(filter) || lname.includes(filter)) {
+            c.classList.remove('hidden');
+        } else {
+            c.classList.add('hidden');
+        }
+    }
+}
+
 window.addEventListener('load', function () {
     LoadCustomers();
+
+    let filterInput = document.querySelector("#input-filter-name");
+    console.log("filter: ", filterInput);
+    filterInput.addEventListener('input', function (e) {
+        let filterText = e.target.value;
+        FilterCustomers(filterText);
+    });
 });

@@ -55,6 +55,7 @@ if (Models === undefined) {
                     if (debug) console.log("setting template data", elm, data);
                     elm.textContent = data;
                     elm.classList.remove(className);
+                    elm.classList.add(className.replace('template', 'generated'));
                 }
             }
 
