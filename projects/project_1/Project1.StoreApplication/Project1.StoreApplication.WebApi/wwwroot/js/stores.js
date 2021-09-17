@@ -89,4 +89,9 @@ function DisplayStore(store) {
 
 document.addEventListener("DOMContentLoaded", function (event) {
     PopulateStores();
+
+    let btn = document.querySelector('.add-store-btn');
+    btn.addEventListener('click', function () {
+        window.location.href = "/html/addStore.html";
+    });
 });

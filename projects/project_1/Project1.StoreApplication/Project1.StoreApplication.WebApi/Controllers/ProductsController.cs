@@ -26,7 +26,8 @@ namespace Project1.StoreApplication.WebApi.Controllers
         }
 
         [HttpPost("add")]
-        public async Task<Product> AddProduct([FromForm] Product product)
+        [Consumes("application/json")]
+        public async Task<Product> AddProduct(Product product)
         {
             // TODO: add categories
             product.CategoryID = null;

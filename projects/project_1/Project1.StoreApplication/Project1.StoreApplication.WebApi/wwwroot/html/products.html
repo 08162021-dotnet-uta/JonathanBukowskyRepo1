@@ -20,10 +20,15 @@
     <div class="page-content">
         <div class="container product-list">
             <div class="row">
-                <div class="col">
+                <div class="col-md-4"></div>
+                <div class="col-md-4">
                     <h1 class="store-header">Products at Store</h1>
                 </div>
+                <div class="col-md-4">
+                    <button class="margin-md add-product-button">Add Product</button>
+                </div>
             </div>
+            <!--
             <div class="row">
                 <div class="col-md-10">
                 </div>
@@ -31,6 +36,7 @@
                     <button onclick="LoadProducts(document.querySelector('.product-list'))">Refresh</button>
                 </div>
             </div>
+            -->
             <div class="row strong-text">
                 <div class="col-md-3">
                     <p>Name</p>
@@ -55,7 +61,7 @@
                     <p class="template-product-description">Description</p>
                 </div>
                 <div class="col-md-3">
-                    <p class="template-product-price">Price</p>
+                    <p class="template-product-formattedPrice">Price</p>
                 </div>
                 <div class="col-md-3">
                     <p class="template-product-quantity">Quantity</p>

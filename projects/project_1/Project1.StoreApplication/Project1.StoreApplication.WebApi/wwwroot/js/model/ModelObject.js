@@ -2,6 +2,8 @@
 if (Models === undefined) {
     var Models = (function () {
 
+        var moneyFormatter = new Intl.NumberFormat("en-US", { style: 'currency', currency: "USD" });
+
         // idea taken from stack overflow
         // https://stackoverflow.com/questions/18884249/checking-whether-something-is-iterable
         function isIterable(obj) {
@@ -109,11 +111,29 @@ if (Models === undefined) {
 
         // ************************ PRODUCT ************************************
         class Product extends ModelObject {
-            _identifiers = ['productId', 'name', 'price', 'description', 'categoryID', 'quantity', 'subtotal'];
+            _identifiers = [
+                'productId',
+                'name',
+                'price',
+                'description',
+                'categoryID',
+                'quantity',
+                'subtotal',
+                'formattedSubtotal',
+                'formattedPrice'
+            ];
 
             constructor(product) {
                 super();
                 this.PopulateFromData(product);
+            }
+
+            get formattedPrice() {
+                return moneyFormatter.format(this.price);
+            }
+
+            set formattedPrice(value) {
+                return;
             }
 
             get subtotal() {
@@ -125,11 +145,19 @@ if (Models === undefined) {
             set subtotal(value) {
                 return;
             }
+
+            get formattedSubtotal() {
+                return moneyFormatter.format(subtotal);
+            }
+
+            set formattedSubtotal(value) {
+                return;
+            }
         }
 
         // ************************ ORDER ************************************
         class Order extends ModelObject {
-            _identifiers = ['customer', 'orderID', 'products', 'store', 'total'];
+            _identifiers = ['customer', 'orderID', 'products', 'store', 'total', 'formattedTotal'];
             constructor(order) {
                 super();
                 this.PopulateFromData(order);
@@ -147,6 +175,14 @@ if (Models === undefined) {
             }
 
             set total(value) {
+                return;
+            }
+
+            get formattedTotal() {
+                return moneyFormatter.format(total);
+            }
+
+            set formattedTotal(value) {
                 return;
             }
         }

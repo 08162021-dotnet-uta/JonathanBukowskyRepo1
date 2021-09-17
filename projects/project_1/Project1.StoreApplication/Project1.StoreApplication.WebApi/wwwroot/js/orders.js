@@ -3,18 +3,42 @@ if (!Models) {
     throw new Error("Must include ModelObjects");
 }
 
+var ErrTimeout;
+
+function DisplayError(err) {
+    if (ErrTimeout) {
+        ClearError();
+    }
+    let container = document.querySelector('.status');
+
+    container.innerHTML = err.message;
+
+    ErrTimeout = setTimeout(ClearError, 3000);
+}
+
+function ClearError() {
+    let container = document.querySelector('.status');
+    container.innerHTML = "";
+
+    if (ErrTimeout) {
+        clearTimeout(ErrTimeout);
+    }
+    ErrTimeout = undefined;
+}
+
 function LoadOrders(type, container, template) {
     function populateContainer(elms) {
+        Models.RemoveGeneratedElements(container, 'generated-order');
         if (!elms || !elms.length) {
             throw new Error("No order data");
         }
-        Models.RemoveGeneratedElements(container, 'generated-order');
         elms.forEach(ord => {
             let order = new Models.Order(ord);
             let elm = order.CreateElementFromTemplate(template, 'template-order');
             container.appendChild(elm);
         });
     }
+    ClearError();
     if (type == "Store") {
         let store = JSON.parse(sessionStorage.selectedStore);
         if (!store) {
@@ -25,6 +49,8 @@ function LoadOrders(type, container, template) {
                 return res.json();
             }).then(data => {
                 populateContainer(data);
+            }).catch(err => {
+                DisplayError(err);
             });
     } else if (type == "Customer") {
         let cust = JSON.parse(sessionStorage.user);
@@ -36,7 +62,9 @@ function LoadOrders(type, container, template) {
                 return res.json();
             }).then(data => {
                 populateContainer(data);
-            })
+            }).catch(err => {
+                DisplayError(err);
+            });
     } else {
         throw new Error("Invalid type in LoadOrders");
     }

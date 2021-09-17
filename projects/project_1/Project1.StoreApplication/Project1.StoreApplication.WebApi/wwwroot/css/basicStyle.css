@@ -126,15 +126,16 @@ div.page-content {
     flex: auto;
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
 }
 
 .col-md-3 {
-    flex: 1 0 auto;
+    flex: 1 1 auto;
     min-width: 25%;
 }
 
 .col-md-4 {
-    flex: 1 0 auto;
+    flex: 1 1 auto;
     min-width: 33.3333%
     /*
     display: flex;
@@ -143,23 +144,23 @@ div.page-content {
 }
 
 .col-md-8 {
-    flex: 1 0 auto;
+    flex: 1 1 auto;
     min-width: 66.666%;
 }
 
 
 .col-md-6 {
-    flex: 1 0 auto;
+    flex: 1 1 auto;
     min-width: 50%;
 }
 
 .col-md-2 {
-    flex: 1 0 auto;
+    flex: 1 1 auto;
     min-width: 16.6666%;
 }
 
 .col-md-10 {
-    flex: 1 0 auto;
+    flex: 1 1 auto;
     min-width: 83.3333%;
 }
 
@@ -189,6 +190,14 @@ div.page-content {
 .product-name {
     font-size: larger;
     text-decoration: underline;
+}
+
+.left-text {
+    text-align: left;
+}
+
+.right-text {
+    text-align: right;
 }
 
 .center-text {

@@ -80,7 +80,8 @@ namespace Project1.StoreApplication.WebApi.Controllers
         }
 
         [HttpPost("add")]
-        public async Task<Store> AddStore([FromForm] Store store)
+        [Consumes("application/json")]
+        public async Task<Store> AddStore(Store store)
         {
             return await _app.AddStore(store);
         }

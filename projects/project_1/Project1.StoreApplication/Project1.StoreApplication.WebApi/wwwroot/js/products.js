@@ -1,5 +1,6 @@
 ﻿
-var moneyFormatter = new Intl.NumberFormat("en-US", { style: 'currency', currency: "USD" });
+//var moneyFormatter = new Intl.NumberFormat("en-US", { style: 'currency', currency: "USD" });
+var moneyFormatter = { format: () => "fakemoney" }
 
 function CreateProductFromTemplate(template, product) {
     let newElm = template.cloneNode(true);
@@ -76,6 +77,11 @@ function LoadProducts(container) {
 window.addEventListener('load', () => {
     let container = document.querySelector('.product-list');
     LoadProducts(container);
+
+    let btn = document.querySelector('.add-product-button');
+    btn.addEventListener('click', function () {
+        window.location.href = "/html/addProduct.html";
+    });
 });
 
 
