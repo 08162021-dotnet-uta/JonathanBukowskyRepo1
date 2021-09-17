@@ -2,14 +2,35 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <title></title>
+    <title>Add Customer</title>
+    <link href="/css/basicStyle.css" rel="stylesheet" />
 </head>
 <body>
-
-    <form action="/api/customers/add" method="POST">
-        <input type="text" name="firstName" id="add_customer_fname" placeholder="Enter first name" />
-        <input type="text" name="lastName" id="add_customer_lname" placeholder="Enter last name" />
-        <input type="submit" />
-    </form>
+    <div class="hero-content">
+    </div>
+    <header class="sticky-header">
+        <nav class="nav">
+            <a href="/html/home.html">Home</a>
+            <a class="nav-current-page" href="/html/customers.html">Customers</a>
+            <a href="/html/stores.html">Stores</a>
+            <a href="/html/products.html">Products</a>
+            <a href="/html/orders.html">Orders</a>
+        </nav>
+    </header>
+    <div class="page-content">
+        <form action="/api/customers/add" method="POST">
+            <input type="text" name="username" id="add_customer_username" placeholder="Enter username" required />
+            <input type="password" name="password" id="add_customer_password" placeholder="Enter password" required />
+            <input type="text" name="firstName" id="add_customer_fname" placeholder="Enter first name" required />
+            <input type="text" name="lastName" id="add_customer_lname" placeholder="Enter last name" required />
+            <input type="submit" />
+        </form>
+    </div>
+    <footer class="sticky-footer">
+        <div class="footer-content">
+        <p class="footer-text footer-left">Created by Jonathan Bukowsky</p>
+        <p class="footer-text footer-right">Jonathan Bukowsky is the best</p>
+        </div>
+    </footer>
 </body>
 </html>
