@@ -71,6 +71,7 @@ namespace Project1.StoreApplication.Business
         {
             return await _db.AddStoreProduct(store, product);
         }
+
         public async Task<List<Product>> RemoveProductFromInventory(Store store, Product product)
         {
             // TODO: remove products from carts
