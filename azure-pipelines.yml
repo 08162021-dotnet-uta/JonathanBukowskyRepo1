@@ -11,7 +11,8 @@ variables:
 trigger:
   branches:
     include:
-      - main
+      #- main
+      - ssh_main
   paths:
     include:
       - $(pathToP1)/*
