@@ -52,7 +52,7 @@ stages:
           - task: AzureRmWebAppDeployment@4
             displayName: 'Deploy to Azure'
             inputs:
-              azureSubscription: 'Azure subscription 1(b074c760-5090-4457-b634-bc50e226ed18)'
+              azureSubscription: 'Project1-StoreApplication - Azure'
               appType: 'webApp'
               WebAppName: 'Project1.StoreApplication'
               #deployToSlotOrASE: true
