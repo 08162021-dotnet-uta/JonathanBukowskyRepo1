@@ -27,10 +27,13 @@ VALUES ('jbravo', '12345', 1),
 
 INSERT INTO Store.Product (Name, Description, Price)
 VALUES ('Large Pepperoni Pizza', 'A large, one-topping pizza with pepperoni', 15.99),
-	('Small Pepperoni Pizza', 'A small, one-topping pizza with pepperoni', 12.99);
+	('Small Pepperoni Pizza', 'A small, one-topping pizza with pepperoni', 12.99),
+	('Small Breadsticks', 'A small order of breadsticks', 5.99),
+	('Large Breadsticks', 'A large order of breadsticks', 7.99);
 
 INSERT INTO Store.Store (Name)
-VALUES ('Jet''s Pizza'),
+VALUES ('Jet''s Pizza (Ann arbor)'),
+	('Jet''s Pizza (Pontiac)'),
 	('Chicago Bros. Pizza');
 
 go

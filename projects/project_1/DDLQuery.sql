@@ -94,7 +94,8 @@ CREATE TABLE Customer.CustomerLogin
 	CustomerLoginID INTEGER NOT NULL IDENTITY(1,1) CONSTRAINT PK_CustomerLogin PRIMARY KEY (CustomerLoginId),
 	Username NVARCHAR(50) NOT NULL,
 	[Password] NVARCHAR(50) NOT NULL,
-	CustomerID INTEGER NOT NULL CONSTRAINT FK_CustomerLogin_Customer FOREIGN KEY (CustomerID) REFERENCES Customer.Customer
+	CustomerID INTEGER NOT NULL CONSTRAINT FK_CustomerLogin_Customer FOREIGN KEY (CustomerID) REFERENCES Customer.Customer,
+	CONSTRAINT UNQ_Username UNIQUE (Username)
 );
 
 create table Store.Store
