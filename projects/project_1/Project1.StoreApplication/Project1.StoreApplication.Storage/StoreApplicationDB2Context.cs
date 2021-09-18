@@ -1,6 +1,8 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using Project1.StoreApplication.Storage.DBModels;
 
 #nullable disable
@@ -13,9 +15,11 @@ namespace Project1.StoreApplication.Storage
         {
         }
 
-        public StoreApplicationDB2Context(DbContextOptions<StoreApplicationDB2Context> options)
+        private readonly string _connStr = "";
+        public StoreApplicationDB2Context(DbContextOptions<StoreApplicationDB2Context> options, IConfiguration config, ILogger<StoreApplicationDB2Context> logger)
             : base(options)
         {
+            _connStr = config.GetConnectionString("StoreApplicationDB2");
         }
 
         public virtual DbSet<DBCustomer> Customers { get; set; }
@@ -31,8 +35,9 @@ namespace Project1.StoreApplication.Storage
         {
             if (!optionsBuilder.IsConfigured)
             {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Trusted_Connection=true;database=StoreApplicationDB2");
+                optionsBuilder.UseSqlServer(_connStr);
+                // TODO: use user secrets
+                //optionsBuilder.UseSqlServer()
             }
         }
 
