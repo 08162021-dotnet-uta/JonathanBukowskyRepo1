@@ -50,13 +50,19 @@ stages:
              projects: $(pathToSln)
              zipAfterPublish: true
           #- task:
+#          - task: AzureRmWebAppDeployment@4
+#            displayName: 'Deploy to Azure'
+#            inputs:
+#              azureSubscription: 'Publish to P1'
+#              appType: 'webApp'
+#              WebAppName: 'Project1.StoreApplication'
+#              #deployToSlotOrASE: true
+#              #ResourceGroupName: ''
+#              #SlotName: 'production'
+#              packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
           - task: AzureRmWebAppDeployment@4
-            displayName: 'Deploy to Azure'
             inputs:
-              azureSubscription: 'Publish to P1'
-              appType: 'webApp'
-              WebAppName: 'Project1.StoreApplication'
-              #deployToSlotOrASE: true
-              #ResourceGroupName: ''
-              #SlotName: 'production'
+              ConnectionType: 'PublishProfile'
+              PublishProfilePath: '$(System.DefaultWorkingDirectory)/**/*.pubxml'
+              PublishProfilePassword: $(PublishPWD)
               packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
