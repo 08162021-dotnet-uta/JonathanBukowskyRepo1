@@ -23,27 +23,27 @@ pool:
   vmImage: windows-latest
 
 stages:
-  - stage: Build
-    jobs:
-      - job: buildJob
-        steps:
-          - task: UseDotNet@2
-            inputs:
-              version: '5.0.x'
+#  - stage: Build
+#    jobs:
+#      - job: buildJob
+#        steps:
+#          - task: UseDotNet@2
+#            inputs:
+#              version: '5.0.x'
 #          - task: DotNetCoreCLI@2
 #            displayName: 'install .NET 5 sdk'
 #            inputs:
 #              packageType: 'sdk'
 #              version: '5.0.x'
-          - task: NuGetToolInstaller@1
-          - task: NuGetCommand@2
-            inputs:
-              command: restore
-              restoreSolution: '$(pathToSln)'
-          - task: VSBuild@1
-            inputs:
-              solution: '$(pathToP1Sln)'
-              msbuildArgs: '/t:Restore /p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation="$(p1Package)"'
+#          - task: NuGetToolInstaller@1
+#          - task: NuGetCommand@2
+#            inputs:
+#              command: restore
+#              restoreSolution: '$(pathToSln)'
+#          - task: VSBuild@1
+#            inputs:
+#              solution: '$(pathToP1Sln)'
+#              msbuildArgs: '/t:Restore /p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation="$(p1Package)"'
             #vsVersion: 'latest' # Optional. Options: latest, 16.0, 15.0, 14.0, 12.0, 11.0
             #msbuildArgs: # Optional
             #platform: # Optional
@@ -75,7 +75,7 @@ stages:
             inputs:
               solution: '$(pathToP1Sln)'
               #msbuildArgs: '/t:Restore /p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation="$(p1Package)"'
-              msbuildArgs: '/t:Restore /p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:PublishProfile="$(PubXML.secureFilePath)" /p:PackageLocation="$(p1Package)"'
+              msbuildArgs: '/t:Restore;Build /p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:PublishProfile="$(PubXML.secureFilePath)" /p:PackageLocation="$(p1Package)"'
           #- task:
 #          - task: AzureRmWebAppDeployment@4
 #            displayName: 'Deploy to Azure'
