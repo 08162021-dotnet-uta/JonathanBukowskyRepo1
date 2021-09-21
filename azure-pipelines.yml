@@ -102,4 +102,4 @@ stages:
               #PublishProfilePath: '$(System.DefaultWorkingDirectory)/**/*.pubxml'
               PublishProfilePath: '$(PubXML.secureFilePath)'
               PublishProfilePassword: $(PublishPWD)
-              packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
+              packageForLinux: '$(p1Package)/**/*.zip'
