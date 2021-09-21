@@ -7,7 +7,7 @@ variables:
   pathToP1: projects/project_1/Project1.StoreApplication
   pathToP1Sln: $(pathToP1)/Project1.StoreApplication.sln
   buildConfiguration: 'Dev'
-  p1Package: $(pathToP1)/PipelineBuild
+  p1Package: $(Build.ArtifactStagingDirectory)/PipelineBuild
 
 trigger:
   branches:
@@ -89,10 +89,8 @@ stages:
 #              packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
           - script: 'ls -R "$(System.DefaultWorkingDirectory)"'
             displayName: 'Show working files'
-#          - task: Bash@3
-#            displayName: 'Show staged files'
-#            inputs:
-#              script: 'ls -R $(build.artifactstagingdirectory)'
+          - script: 'ls -R "$(Build.ArtifactStagingDirectory)"'
+            displayName: 'Show staged files'
           - task: DownloadSecureFile@1
             name: PubXML
             displayName: 'Download .pubxml for Deployment'
