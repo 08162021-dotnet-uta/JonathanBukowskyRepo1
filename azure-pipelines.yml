@@ -7,7 +7,7 @@ variables:
   pathToP1: projects/project_1/Project1.StoreApplication
   pathToP1Sln: $(pathToP1)/Project1.StoreApplication.sln
   buildConfiguration: 'Dev'
-  p1Package: $(Build.ArtifactStagingDirectory)/PipelineBuild
+  p1Package: $(Build.ArtifactStagingDirectory)
 
 trigger:
   branches:
