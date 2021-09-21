@@ -53,8 +53,9 @@ stages:
 #              projects: $(pathToSln)
 #              zipAfterPublish: true
           - task: VSBuild@1
-            solution: '**\*.sln' 
-            msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation="$(build.artifactstagingdirectory)"'
+            inputs:
+              solution: '**\*.sln' 
+              msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation="$(build.artifactstagingdirectory)"'
             #vsVersion: 'latest' # Optional. Options: latest, 16.0, 15.0, 14.0, 12.0, 11.0
             #msbuildArgs: # Optional
             #platform: # Optional
