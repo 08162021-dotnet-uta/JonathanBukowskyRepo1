@@ -64,13 +64,18 @@ stages:
           - task: UseDotNet@2
             inputs:
               version: '5.0.x'
-          - task: DotNetCoreCLI@2
-            displayName: 'Publish p1'
+#          - task: DotNetCoreCLI@2
+#            displayName: 'Publish p1'
+#            inputs:
+#              command: 'publish'
+#              publishWebProjects: true
+#              projects: $(pathToSln)
+#              zipAfterPublish: true
+          - task: VSBuild@1
             inputs:
-              command: 'publish'
-              publishWebProjects: true
-              projects: $(pathToSln)
-              zipAfterPublish: true
+              solution: '$(pathToP1Sln)'
+              #msbuildArgs: '/t:Restore /p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation="$(p1Package)"'
+              msbuildArgs: '/t:Restore /p:WebPublishMethod=Package /p:PublishProfile="$(PubXML.secureFilePath)"'
           #- task:
 #          - task: AzureRmWebAppDeployment@4
 #            displayName: 'Deploy to Azure'
