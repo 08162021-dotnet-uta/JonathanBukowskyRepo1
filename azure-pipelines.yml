@@ -26,6 +26,9 @@ stages:
     jobs:
       - job: buildJob
         steps:
+          - task: UseDotNet@2
+            inputs:
+              version: '5.0.x'
 #          - task: DotNetCoreCLI@2
 #            displayName: 'install .NET 5 sdk'
 #            inputs:
@@ -36,6 +39,21 @@ stages:
             inputs:
               command: restore
               restoreSolution: '$(pathToSln)'
+          - task: VSBuild@1
+            inputs:
+              solution: '$(pathToP1Sln)'
+              msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation="$(build.artifactstagingdirectory)"'
+            #vsVersion: 'latest' # Optional. Options: latest, 16.0, 15.0, 14.0, 12.0, 11.0
+            #msbuildArgs: # Optional
+            #platform: # Optional
+            #configuration: # Optional
+            #clean: false # Optional
+            #maximumCpuCount: false # Optional
+            #restoreNugetPackages: false # Optional
+            #msbuildArchitecture: 'x86' # Optional. Options: x86, x64
+            #logProjectEvents: true # Optional
+            #createLogFile: false # Optional
+            #logFileVerbosity: 'normal' # Optional. Options: quiet, minimal, normal, detailed, diagnostic
 #      - job: SonarCloud
 #        steps:
   - stage: Publish
@@ -52,21 +70,6 @@ stages:
 #              publishWebProjects: true
 #              projects: $(pathToSln)
 #              zipAfterPublish: true
-          - task: VSBuild@1
-            inputs:
-              solution: '$(pathToP1Sln)'
-              msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation="$(build.artifactstagingdirectory)"'
-            #vsVersion: 'latest' # Optional. Options: latest, 16.0, 15.0, 14.0, 12.0, 11.0
-            #msbuildArgs: # Optional
-            #platform: # Optional
-            #configuration: # Optional
-            #clean: false # Optional
-            #maximumCpuCount: false # Optional
-            #restoreNugetPackages: false # Optional
-            #msbuildArchitecture: 'x86' # Optional. Options: x86, x64
-            #logProjectEvents: true # Optional
-            #createLogFile: false # Optional
-            #logFileVerbosity: 'normal' # Optional. Options: quiet, minimal, normal, detailed, diagnostic
           #- task:
 #          - task: AzureRmWebAppDeployment@4
 #            displayName: 'Deploy to Azure'
