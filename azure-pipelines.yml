@@ -82,7 +82,7 @@ stages:
 #              #ResourceGroupName: ''
 #              #SlotName: 'production'
 #              packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
-          - bash: 'ls -R "$(System.DefaultWorkingDirectory)"'
+          - script: 'ls -R "$(System.DefaultWorkingDirectory)"'
             displayName: 'Show working files'
 #          - task: Bash@3
 #            displayName: 'Show staged files'
