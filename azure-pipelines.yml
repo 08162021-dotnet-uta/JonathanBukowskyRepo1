@@ -60,9 +60,15 @@ stages:
 #              #ResourceGroupName: ''
 #              #SlotName: 'production'
 #              packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
+          - task: DownloadSecureFile@1
+            name: PubXML
+            displayName: 'Download .pubxml for Deployment'
+            inputs:
+             secureFile: 'Project1-StoreApplication - Web Deploy.pubxml'
           - task: AzureRmWebAppDeployment@4
             inputs:
               ConnectionType: 'PublishProfile'
-              PublishProfilePath: '$(System.DefaultWorkingDirectory)/**/*.pubxml'
+              #PublishProfilePath: '$(System.DefaultWorkingDirectory)/**/*.pubxml'
+              PublishProfilePath: '$(PubXML.secureFilePath)'
               PublishProfilePassword: $(PublishPWD)
               packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
