@@ -91,6 +91,8 @@ stages:
             displayName: 'Show working files'
           - script: 'ls -R "$(Build.ArtifactStagingDirectory)"'
             displayName: 'Show staged files'
+          - script: 'type $(Build.ArtifactStagingDirectory)/Project1.StoreApplication.WebApi.deploy.cmd'
+            displayName: 'Show deploy cmd'
           - task: DownloadSecureFile@1
             name: PubXML
             displayName: 'Download .pubxml for Deployment'
