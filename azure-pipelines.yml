@@ -42,13 +42,30 @@ stages:
     jobs:
       - job: publish
         steps:
-          - task: DotNetCoreCLI@2
-            displayName: 'Publish p1'
+          - task: UseDotNet@2
             inputs:
-             command: 'publish'
-             publishWebProjects: true
-             projects: $(pathToSln)
-             zipAfterPublish: true
+              version: '5.0.x'
+#          - task: DotNetCoreCLI@2
+#            displayName: 'Publish p1'
+#            inputs:
+#              command: 'publish'
+#              publishWebProjects: true
+#              projects: $(pathToSln)
+#              zipAfterPublish: true
+          - task: VSBuild@1
+            solution: '**\*.sln' 
+            msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation="$(build.artifactstagingdirectory)"'
+            #vsVersion: 'latest' # Optional. Options: latest, 16.0, 15.0, 14.0, 12.0, 11.0
+            #msbuildArgs: # Optional
+            #platform: # Optional
+            #configuration: # Optional
+            #clean: false # Optional
+            #maximumCpuCount: false # Optional
+            #restoreNugetPackages: false # Optional
+            #msbuildArchitecture: 'x86' # Optional. Options: x86, x64
+            #logProjectEvents: true # Optional
+            #createLogFile: false # Optional
+            #logFileVerbosity: 'normal' # Optional. Options: quiet, minimal, normal, detailed, diagnostic
           #- task:
 #          - task: AzureRmWebAppDeployment@4
 #            displayName: 'Deploy to Azure'
