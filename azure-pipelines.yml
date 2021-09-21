@@ -75,7 +75,7 @@ stages:
             inputs:
               solution: '$(pathToP1Sln)'
               #msbuildArgs: '/t:Restore /p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation="$(p1Package)"'
-              msbuildArgs: '/t:Restore;Build /p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:PublishProfile="$(PubXML.secureFilePath)" /p:PackageLocation="$(p1Package)"'
+              msbuildArgs: '/t:Restore;Build /p:DeployIisAppPath="Project1-StoreApplication" /p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:PublishProfile="$(PubXML.secureFilePath)" /p:PackageLocation="$(p1Package)"'
           #- task:
 #          - task: AzureRmWebAppDeployment@4
 #            displayName: 'Deploy to Azure'
@@ -91,6 +91,8 @@ stages:
             displayName: 'Show working files'
           - script: 'ls -R "$(Build.ArtifactStagingDirectory)"'
             displayName: 'Show staged files'
+#          - script: 'type "$(Build.ArtifactStagingDirectory)\Project1.StoreApplication.WebApi.deploy.cmd"'
+#            displayName: 'Show deploy cmd'
           - task: DownloadSecureFile@1
             name: PubXML
             displayName: 'Download .pubxml for Deployment'
@@ -102,4 +104,4 @@ stages:
               #PublishProfilePath: '$(System.DefaultWorkingDirectory)/**/*.pubxml'
               PublishProfilePath: '$(PubXML.secureFilePath)'
               PublishProfilePassword: $(PublishPWD)
-              packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
+              packageForLinux: '$(p1Package)/**/*.zip'
